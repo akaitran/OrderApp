@@ -8,6 +8,7 @@ app.controller("paymentController", function ($scope, $http, $routeParams) {
 	$scope.orderInitial = [];
 
 	$scope.thisCate = null;
+	$scope.thisService = null;
 	$scope.thisDish = {};
 	$scope.thisOrder = {};
 	$scope.thisSize = {
@@ -66,7 +67,7 @@ app.controller("paymentController", function ($scope, $http, $routeParams) {
 				return order;
 			});
 
-			$scope.thisCate = "dine in";
+			$scope.thisService = "dine in";
 			$scope.orderInitial = angular.copy($scope.orderList);
 		});
 	}
@@ -85,7 +86,24 @@ app.controller("paymentController", function ($scope, $http, $routeParams) {
 				data: $scope.sendBill
 			}
 		}).then(function (response) {
-			$scope.loadData();
+			if (response.data === "failed") {
+				$.notify({
+					message: "Network error, Please update again"
+				},{
+						type: 'warning',
+						timer: 2000,
+						delay: 100,
+						z_index: 10001,
+				});
+			} else {
+				$.notify({
+					message: "Order is already updated!"
+				},{
+						timer: 2000,
+						delay: 100,
+						z_index: 10001,
+				});
+			}
 		});
 	}
 
@@ -154,7 +172,10 @@ app.controller("paymentController", function ($scope, $http, $routeParams) {
 
 	$scope.selectCate = function (cate) {
 		$scope.thisCate = cate;
-		$scope.thisOrder = {};
+	}
+
+	$scope.selectService = function (service) {
+		$scope.thisService = service;
 	}
 
 	$scope.selectOrder = function (order) {
@@ -164,14 +185,14 @@ app.controller("paymentController", function ($scope, $http, $routeParams) {
 	$scope.orderFilter = function (item) {
 		if ($scope.thisSetting.orderStatus !== "all") {
 				if (item.status === $scope.thisSetting.orderStatus) {
-					if (item.type === $scope.thisCate) {
+					if (item.type === $scope.thisService) {
 						return true;
 					}
 				} else {
 					return false;
 				}
 		} else {
-			if (item.type === $scope.thisCate) {
+			if (item.type === $scope.thisService) {
 				return true;
 			}
 		}
@@ -186,6 +207,230 @@ app.controller("paymentController", function ($scope, $http, $routeParams) {
 		$scope.thisOrder.dishes = [];
 	}
 
+	$scope.search = function (item) {
+		if ($scope.thisCate === null) {
+			if ($scope.searchText === undefined || $scope.searchText === "") {
+				return false;
+			} else {
+				if (item.name.toLowerCase().indexOf($scope.searchText.toLowerCase()) !== -1) {
+					return true;
+				}
+			}
+		} else {
+			if ($scope.searchText === undefined || $scope.searchText === "") {
+				if (item.cateid == $scope.thisCate.id) {
+					return true;
+				}
+			} else {
+				if (item.name.toLowerCase().indexOf($scope.searchText.toLowerCase()) !== -1) {
+					return true;
+				}
+			}
+		}
+	}
+
+	$scope.extraDish = function () {
+		$('#menuModal').modal("show");
+
+		$http({
+			url: "api/dishAPIs/load-category.php",
+			method: "POST"
+		}).then(function (response) {
+			$scope.cateList = response.data;
+			$scope.thisCate = $scope.cateList[0];
+
+			$http({
+				url: "api/dishAPIs/load-ingredient.php",
+				method: "POST"
+			}).then(function (response) {
+				$scope.ingList = response.data.filter(function (ing) {
+					ing.price = parseFloat(ing.price);
+
+					return ing;
+				});
+
+				$http({
+					url: "api/dishAPIs/load-dish.php",
+					method: "POST"
+				}).then(function (response) {
+					$scope.dishList = response.data.filter(function (dish) {
+						var ingList = [];
+						var optList = [];
+
+						dish.price = JSON.parse(dish.price);
+
+						for (var key in dish.price) {
+							if (key !== 'M')
+								dish.price[key] *= -1;
+						}
+
+						dish.ingredient = dish.ingredient.split(", ");
+
+						dish.ingredient.filter(function (dishIng) {
+							var lowIng = dishIng.toLowerCase();
+
+							var getIng = $scope.ingList.filter(function (ing) {
+								return lowIng === ing.name.toLowerCase();
+							});
+
+							if (getIng[0]) ingList.push({
+								"name": dishIng,
+								"amount": 1,
+								"price": getIng[0].price,
+								"unit": getIng[0].unit
+							});
+						});
+
+						dish.ingredient = ingList;
+
+						dish.options = dish.options.split(", ");
+
+						if (dish.options[0] !== "") {
+							dish.options.filter(function (opt) {
+								optList.push({
+									"name": opt,
+									"selected": -1
+								});
+							});
+						}
+
+						dish.options = optList;
+
+						return dish;
+					});
+
+					$scope.dishInitial = angular.copy($scope.dishList);
+				});
+			});
+		});
+	}
+
+	$scope.selectDish = function (dish, status) {
+		var element = document.getElementById("navigation-custom");
+		element.style.top = "50%";
+
+		element = document.getElementById("top-cover");
+		element.style.visibility = "visible";
+
+		$scope.thisDish = dish;
+		$scope.thisDish.status = status;
+
+		if (status === "new")
+			$scope.thisDish.amount = 1;
+	}
+
+	$scope.closeCustom = function () {
+		var element = document.getElementById("navigation-custom");
+		element.style.top = "100%";
+
+		element = document.getElementById("top-cover");
+		element.style.visibility = "hidden";
+
+		var dishIndex = -1;
+		
+		if ($scope.thisDish.status === "new") {
+			$scope.thisDish.size = {
+				"S": 0,
+				"M": 0,
+				"L": 0
+			};
+
+			console.log($scope.thisOrder);
+
+			$scope.thisOrder.dishes.filter(function (orderDish, index) {
+				if ($scope.thisDish.name === orderDish.name) {
+					$scope.thisDish.ingredient.filter(function (ing) {
+						delete ing.$$hashKey;
+					});
+					orderDish.ingredient.filter(function (ing) {
+						delete ing.$$hashKey;
+					});
+					$scope.thisDish.options.filter(function (opt) {
+						delete opt.$$hashKey;
+					});
+					orderDish.options.filter(function (opt) {
+						delete opt.$$hashKey;
+					});
+
+					if ($scope.thisDish.type === orderDish.type &&
+						JSON.stringify($scope.thisDish.ingredient) === JSON.stringify(orderDish.ingredient) &&
+						JSON.stringify($scope.thisDish.options) === JSON.stringify(orderDish.options)) {
+
+						orderDish.amount += $scope.thisDish.amount;
+						$scope.thisDish.size[$scope.sizeOf($scope.thisDish)] += $scope.thisDish.amount;
+						$scope.thisDish.cost = $scope.thisDish.price[$scope.sizeOf($scope.thisDish)] * $scope.thisDish.amount;
+
+						dishIndex = index;
+
+						$scope.thisDish.ingredient.filter(function (ing) {
+							if (ing.amount > 1)
+								$scope.thisDish.cost += (ing.amount - 1) * ing.price;
+						});
+
+						$scope.thisOrder.total += $scope.thisDish.cost;
+						orderDish.cost += $scope.thisDish.cost;
+
+						orderDish.size["S"] += $scope.thisDish.size["S"];
+						orderDish.size["M"] += $scope.thisDish.size["M"];
+						orderDish.size["L"] += $scope.thisDish.size["L"];
+					}
+				}
+			});
+
+			if (dishIndex == -1) {
+				$scope.thisDish.size[$scope.sizeOf($scope.thisDish)] += $scope.thisDish.amount;
+
+				$scope.thisDish.cost = $scope.thisDish.price[$scope.sizeOf($scope.thisDish)] * $scope.thisDish.amount;
+
+				$scope.thisDish.ingredient.filter(function (ing) {
+					if (ing.amount > 1)
+						$scope.thisDish.cost += (ing.amount - 1) * ing.price;
+				});
+
+				$scope.thisOrder.total += $scope.thisDish.cost;
+
+				var sizes = "";
+
+				if ($scope.thisDish.size["S"] > 0) {
+					if ($scope.thisDish.size["M"] == 0 && $scope.thisDish.size["L"] == 0)
+						sizes = "S";
+					else
+						sizes += $scope.thisDish.size["S"] + "S";
+				}
+	
+				if ($scope.thisDish.size["L"] > 0) {
+					if ($scope.thisDish.size["S"] > 0)
+						sizes += ",";
+	
+					if ($scope.thisDish.size["M"] == 0 && $scope.thisDish.size["S"] == 0)
+						sizes = "L";
+					else
+						sizes += $scope.thisDish.size["L"] + "L";
+				}
+	
+				if ($scope.thisDish.size["S"] == 0 && $scope.thisDish.size["L"] == 0)
+					$scope.thisDish.size = sizes;
+				else
+					$scope.thisDish.size = "(" + sizes + ")";
+
+				$scope.thisOrder.dishes.push($scope.thisDish);
+			}
+		} else {
+			$scope.thisOrder.total -= $scope.thisDish.cost;
+
+			$scope.thisDish.cost = $scope.thisDish.price[$scope.sizeOf($scope.thisDish)] * $scope.thisDish.amount;
+
+			$scope.thisDish.ingredient.filter(function (ing) {
+				if (ing.amount > 1)
+					$scope.thisDish.cost += (ing.amount - 1) * ing.price;
+			});
+
+			$scope.thisOrder.total += $scope.thisDish.cost;
+		}
+
+		$scope.dishList = angular.copy($scope.dishInitial);
+	}
+
 	/*  APIs Functions  */
 	$scope.delete = function () {
 		$http({
@@ -195,7 +440,27 @@ app.controller("paymentController", function ($scope, $http, $routeParams) {
 					data: $scope.thisOrder
 			}
 		}).then(function(response) {
+			if (response.data === "failed") {
+				$.notify({
+					message: "Network error, Please delete again"
+				},{
+						type: 'warning',
+						timer: 2000,
+						delay: 100,
+						z_index: 10001,
+				});
+			} else {
+				$.notify({
+					message: "Order is already deleted!"
+				},{
+						type: 'success',
+						timer: 2000,
+						delay: 100,
+						z_index: 10001,
+				});
+
 				$scope.loadData();
+			}
 		});
 	}
 
@@ -209,7 +474,25 @@ app.controller("paymentController", function ($scope, $http, $routeParams) {
 				data: $scope.sendDish
 			}
 		}).then(function (response) {
-			$scope.loadData();
+			if (response.data === "failed") {
+				$.notify({
+					message: "Network error, Please wait and send again"
+				},{
+						type: 'warning',
+						timer: 2000,
+						delay: 100,
+						z_index: 10001,
+				});
+			} else {
+				$.notify({
+					message: "Order is already sent!"
+				},{
+						type: 'success',
+						timer: 2000,
+						delay: 100,
+						z_index: 10001,
+				});
+			}
 		});
 
 	}
@@ -225,7 +508,25 @@ app.controller("paymentController", function ($scope, $http, $routeParams) {
 				data: $scope.sendBill
 			}
 		}).then(function (response) {
-			$scope.toggleNavbar();
+			if (response.data === "failed") {
+				$.notify({
+					message: "Network error, Please print again"
+				},{
+						type: 'warning',
+						timer: 2000,
+						delay: 100,
+						z_index: 10001,
+				});
+			} else {
+				$.notify({
+					message: "Bill is already printed!"
+				},{
+						type: 'success',
+						timer: 2000,
+						delay: 100,
+						z_index: 10001,
+				});
+			}
 		});
 	}
 });

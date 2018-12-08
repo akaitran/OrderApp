@@ -417,46 +417,46 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 				dish.size = "(" + sizes + ")";
 		});
 
-		$http({
-			url: "api/printAPIs/print-kitchen-network.php",
-			method: "POST",
-			data: {
-				data: $scope.sendBill
-			}
-		}).then(function (response) {
-			if (response.data === "failed") {
-				$.notify({
-					message: "Network error, Please wait and send again"
-				},{
-						type: 'warning',
-						timer: 2000,
-						delay: 100,
-						z_index: 10001,
-				});
-			} else {
-				$http({
-					url: "api/printAPIs/print-drink-usb.php",
-					method: "POST",
-					data: {
-						data: $scope.sendBill
-					}
-				}).then(function (response) {
-					if (response.data === "failed") {
-						$.notify({
-							message: "Network error, Please wait and send again"
-						},{
-								type: 'warning',
-								timer: 2000,
-								delay: 100,
-								z_index: 10001,
-						});
-					} else {
-						$scope.sendBill.dishes.filter(function (dish) {
-								dish.status = "sent";
-						});
-		
-						if (!$scope.isExtraDish) {
-							if ($scope.sendBill.dishes.length > 0) {
+		if ($scope.sendBill.dishes.length > 0) {
+			$http({
+				url: "api/printAPIs/print-kitchen-network.php",
+				method: "POST",
+				data: {
+					data: $scope.sendBill
+				}
+			}).then(function (response) {
+				if (response.data === "failed") {
+					$.notify({
+						message: "Network error, Please wait and send again"
+					},{
+							type: 'warning',
+							timer: 2000,
+							delay: 100,
+							z_index: 10001,
+					});
+				} else {
+					$http({
+						url: "api/printAPIs/print-drink-usb.php",
+						method: "POST",
+						data: {
+							data: $scope.sendBill
+						}
+					}).then(function (response) {
+						if (response.data === "failed") {
+							$.notify({
+								message: "Network error, Please wait and send again"
+							},{
+									type: 'warning',
+									timer: 2000,
+									delay: 100,
+									z_index: 10001,
+							});
+						} else {
+							$scope.sendBill.dishes.filter(function (dish) {
+									dish.status = "sent";
+							});
+			
+							if (!$scope.isExtraDish) {
 								$scope.sendBill.dishes = JSON.stringify($scope.sendBill.dishes);
 				
 								$http({
@@ -479,24 +479,24 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 										$.notify({
 											message: "Order is already sent!"
 										},{
-												type: 'success',
-												timer: 10
+											type: 'success',
+											timer: 2000,
+											delay: 100,
+											z_index: 10001,
 										});
 			
 										$scope.loadData();
 									}
 								});
-							}
-						} else {
-							$scope.sendBill.dishes.filter(function(dish) {
-								$scope.tempOrder.dishes.push(dish);
-							})
-		
-							$scope.tempOrder.total += $scope.sendBill.total;
-				
-							if ($scope.tempOrder.dishes.length > 0) {
+							} else {
+								$scope.sendBill.dishes.filter(function(dish) {
+									$scope.tempOrder.dishes.push(dish);
+								})
+			
+								$scope.tempOrder.total += $scope.sendBill.total;
+					
 								$scope.tempOrder.dishes = JSON.stringify($scope.tempOrder.dishes);
-								
+									
 								$http({
 									url: "api/orderAPIs/update-order.php",
 									method: "POST",
@@ -517,8 +517,10 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 										$.notify({
 											message: "Order is already sent!"
 										},{
-												type: 'success',
-												timer: 10
+											type: 'success',
+											timer: 2000,
+											delay: 100,
+											z_index: 10001,
 										});
 			
 										$scope.loadData();
@@ -526,10 +528,19 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 								});
 							}
 						}
-					}
-				});
-			}
-		});
+					});
+				}
+			});
+	} else {
+			$.notify({
+				message: "Order is empty"
+			},{
+					type: 'danger',
+					timer: 2000,
+					delay: 100,
+					z_index: 10001,
+			});
+		}
 	}
 
 	$scope.printBill = function () {
@@ -566,20 +577,26 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 			data: {
 				data: $scope.sendBill
 			}
-		}).success(function (response) {
-			$.notify({
-				message: "Order is already sent!"
-			},{
-					type: 'success',
-					timer: 10
-			});
-		}).error(function (response) {
-			$.notify({
-				message: response.status,
-			},{
-					type: 'warning',
-					timer: 10
-			});
+		}).then(function (response) {
+			if (response.data === "failed") {
+				$.notify({
+					message: "Network error, Please wait and send again"
+				},{
+						type: 'warning',
+						timer: 2000,
+						delay: 100,
+						z_index: 10001,
+				});
+			} else {
+				$.notify({
+					message: "Order is already sent!"
+				},{
+						type: 'success',
+						timer: 2000,
+						delay: 100,
+						z_index: 10001,
+				});
+			}
 		});
 	}
 });

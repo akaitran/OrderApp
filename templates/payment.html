@@ -59,7 +59,7 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="dish in thisOrder.dishes">
-                        <td class="capitalized">
+                        <td class="capitalized" ng-click="selectDish(dish, 'old')">
                             <span ng-class="{'underline': dish.type === 'entree'}">
                                 {{dish.name}}
                             </span>
@@ -102,7 +102,7 @@
                     </tr>
                 </tbody>
             </table>
-            <a style="margin-bottom: 20px;">+ Add more</a>
+            <a style="margin-bottom: 20px;" ng-click="extraDish()">+ Add more</a>
             <hr>
             <a><h4 class="pull-right" style="margin: 0;">TOTAL: ${{totalCost()}} </h4></a>
         </div>
@@ -110,79 +110,6 @@
         <div class="footer">
             <button type="submit" class="btn btn-warning btn-fill pull-left capitalized" ng-click="changeOrderStatus('finish')">Done</button>
             <button type="submit" class="btn btn-danger btn-fill pull-right capitalized" ng-click="delete()">Delete</button>
-        </div>
-    </div>
-</div>
-
-<div class="top-cover" id="top-cover" ng-click="closeCustom()"></div>
-
-<div class="bottom-sidebar" id="navigation-custom">
-    <div class="sidebar-wrapper">
-        <div class="form-group">
-            <div class="col-md-6 col-xs-6">
-                <input ng-model="thisDish.name" class="form-control capitalized" type="text" use-keyboard="US International" placeholder="Enter {{thisItem.type || 'Item'}} Name">
-            </div>
-
-            <button class="btn capitalized col-md-1 col-xs-1" style="margin: 0 2px;"
-                ng-class="{'btn-info btn-fill': thisDish.price['S'] > 0}"
-                ng-if="thisDish.price['S']"
-                ng-click="changeSize('S')">S
-            </button>
-            <button class="btn capitalized col-md-1 col-xs-1" style="margin: 0 2px;"
-                ng-class="{'btn-info btn-fill': thisDish.price['M'] > 0}"
-                ng-if="thisDish.price['M']"
-                ng-click="changeSize('M')">M
-            </button>
-            <button class="btn capitalized col-md-1 col-xs-1" style="margin: 0 2px;"
-                ng-class="{'btn-info btn-fill': thisDish.price['L'] > 0}"
-                ng-if="thisDish.price['L']"
-                ng-click="changeSize('L')">L
-            </button>
-
-            <button class="btn capitalized col-md-2 col-xs-2" style="margin-left: 10px; text-align: center"
-                ng-class="{'btn-info btn-fill': thisDish.amount > 0}"
-                ng-dblclick="thisDish.amount = 1"
-                ios-dblclick="thisDish.amount = 1"
-                ng-click="thisDish.amount = thisDish.amount + 1">{{thisDish.amount}}
-            </button>
-
-            <div class="col-md-6 col-xs-12">
-                <div class="form-control capitalized" style="height: auto;">
-                    <button class="btn capitalized" style="margin: 2px;" 
-                        ng-repeat="ing in thisDish.ingredient"
-                        ng-class="{'btn-info btn-fill': ing.amount > 0}"
-                        ng-dblclick="ing.amount = 0"
-                        ios-dblclick="ing.amount = 0"
-                        ng-click="ing.amount = ing.amount + 1">
-                        {{ing.name}} ( {{ing.amount}} )
-                    </button>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-xs-12">
-                <div class="form-control capitalized" style="height: auto;">
-                    <button class="btn capitalized" style="margin: 2px;" 
-                        ng-repeat="opt in thisDish.options"
-                        ng-class="{'btn-info btn-fill': opt.selected == 1}"
-                        ng-click="opt.selected = opt.selected * -1">
-                        {{opt.name}}
-                    </button>
-                </div>
-            </div>
-
-            <div class="col-md-12 col-xs-12">
-                <div class="form-control capitalized" style="height: auto;">
-                    <button class="btn capitalized" style="margin: 2px;"
-                        ng-class="{'btn-info btn-fill': thisDish.type === 'TA'}"
-                        ng-click="(thisDish.type !== 'TA' ? thisDish.type = 'TA' : thisDish.type = '')">Take Away
-                    </button>
-
-                    <button class="btn capitalized" style="margin: 2px;"
-                        ng-class="{'btn-info btn-fill': thisDish.type === 'entree'}"
-                        ng-click="(thisDish.type !== 'entree' ? thisDish.type = 'entree' : thisDish.type = '')">Entree
-                    </button>
-                </div>
-            </div>
         </div>
     </div>
 </div>
@@ -259,13 +186,13 @@
         <br/>
         <ul class="nav nav-tabs">
             <li class="active">
-                <a href="" data-toggle="tab" class="capitalized" ng-click="selectCate('dine in')">Table</a>
+                <a href="" data-toggle="tab" class="capitalized" ng-click="selectService('dine in')">Table</a>
             </li>
             <li>
-                <a href="" data-toggle="tab" class="capitalized" ng-click="selectCate('TA')">Take Away</a>
+                <a href="" data-toggle="tab" class="capitalized" ng-click="selectService('TA')">Take Away</a>
             </li>
             <li>
-                <a href="" data-toggle="tab" class="capitalized" ng-click="selectCate('uber')">Uber</a>
+                <a href="" data-toggle="tab" class="capitalized" ng-click="selectService('uber')">Uber</a>
             </li>
         </ul>
 
@@ -323,3 +250,133 @@
     </div>
 </div>
 
+<div class="top-cover" id="top-cover" ng-click="closeCustom()"></div>
+
+<div class="bottom-sidebar" id="navigation-custom">
+    <div class="sidebar-wrapper">
+        <div class="form-group">
+            <div class="col-md-6 col-xs-12">
+                <input ng-model="thisDish.name" class="form-control capitalized" type="text" use-keyboard="US International" placeholder="Enter {{thisItem.type || 'Item'}} Name">
+            </div>
+
+            <div class="col-md-6 col-xs-12">
+                <button class="btn capitalized col-md-2 col-xs-2" style="margin: 0 2px"
+                    ng-class="{'btn-info btn-fill': thisDish.price['S'] > 0}"
+                    ng-if="thisDish.price['S']"
+                    ng-click="changeSize('S')">S
+                </button>
+                <button class="btn capitalized col-md-2 col-xs-2" style="margin: 0 2px"
+                    ng-class="{'btn-info btn-fill': thisDish.price['M'] > 0}"
+                    ng-if="thisDish.price['M']"
+                    ng-click="changeSize('M')">M
+                </button>
+                <button class="btn capitalized col-md-2 col-xs-2" style="margin: 0 2px"
+                    ng-class="{'btn-info btn-fill': thisDish.price['L'] > 0}"
+                    ng-if="thisDish.price['L']"
+                    ng-click="changeSize('L')">L
+                </button>
+                <div class="col-md-5 col-xs-5" style="display: inline-flex">
+                    <button class="form-control round-button" ng-click="thisDish.amount = thisDish.amount - 1">-</button>
+                        <input type="number" use-keyboard="Numbers" min="0" ng-model="thisDish.amount" class="form-control group-label" style="width: 50px; margin: 0 5px;" placeholder="0">
+                    <button class="form-control round-button" ng-click="thisDish.amount = thisDish.amount + 1">+</button>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xs-12">
+                <div class="form-control capitalized" style="height: auto;">
+                    <button class="btn capitalized" style="margin: 2px;" 
+                        ng-repeat="ing in thisDish.ingredient"
+                        ng-class="{'btn-info btn-fill': ing.amount > 0}"
+                        ng-dblclick="ing.amount = 0"
+                        ios-dblclick="ing.amount = 0"
+                        ng-click="ing.amount = ing.amount + 1">
+                        <span ng-if="ing.amount > 1 && ing.unit !== 'cost' && ing.unit !== 'amount'">
+                            +
+                        </span>
+                        <span ng-if="ing.amount > 1 && ing.unit === 'cost'">
+                            + ${{(ing.amount - 1) * ing.price}}
+                        </span>
+                        <span ng-if="ing.amount > 1 && ing.unit === 'amount'">
+                            + {{(ing.amount - 1)}}
+                        </span>
+                        {{ing.name}}
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xs-12">
+                <div class="form-control capitalized" style="height: auto;">
+                    <button class="btn capitalized" style="margin: 2px;" 
+                        ng-repeat="opt in thisDish.options"
+                        ng-class="{'btn-info btn-fill': opt.selected == 1}"
+                        ng-click="opt.selected = opt.selected * -1">
+                        {{opt.name}}
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-xs-12">
+                <div class="form-control capitalized" style="height: auto;">
+                    <button class="btn capitalized" style="margin: 2px;"
+                        ng-class="{'btn-info btn-fill': thisDish.type === 'TA'}"
+                        ng-click="(thisDish.type !== 'TA' ? thisDish.type = 'TA' : thisDish.type = '')">Take Away
+                    </button>
+
+                    <button class="btn capitalized" style="margin: 2px;"
+                        ng-class="{'btn-info btn-fill': thisDish.type === 'entree'}"
+                        ng-click="(thisDish.type !== 'entree' ? thisDish.type = 'entree' : thisDish.type = '')">Entree
+                    </button>
+
+                    <button class="btn capitalized" style="margin: 2px;"
+                        ng-class="{'btn-info btn-fill': thisDish.type === 'later'}"
+                        ng-click="(thisDish.type !== 'later' ? thisDish.type = 'later' : thisDish.type = '')">Later
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="menuModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="btn btn-danger btn-fill"
+                    style="float: right;"
+                    data-dismiss="modal" aria-label="Close" 
+                    ng-click="closeMenu()"
+                    ng-cloak>
+                    Close
+                </button>
+                <h5 class="modal-title" id="menuModalTitle">Select Dish</h5>
+            </div>
+            <div class="modal-body full-list-container" style="display: inline-block;">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="" data-toggle="tab" data-target="#menu" class="capitalized" ng-click="selectCate(cateList[0])" ng-bind="cateList[0].name"></a>
+                    </li>
+                    <li ng-if="$index > 0" ng-repeat="cate in cateList track by $index">
+                        <a href="" data-toggle="tab" data-target="#menu" class="capitalized" ng-click="selectCate(cate)" ng-bind="cate.name"></a>
+                    </li>
+                </ul>
+        
+                <div class="tab-content">
+                    <div id="menu" class="tab-pane fade in active">
+                        <div class="content">
+                            <div class="full-list-container">
+                                <div class="card dish-single-item col-xs-4 col-md-2 mdl-shadow--2dp"
+                                    ng-class="{'active': dish.id == thisDish.id}"
+                                    ng-repeat="dish in dishList | filter: search | orderBy: 'name'"
+                                    ng-click="selectDish(dish, 'new')" ng-cloak>
+                                    <div class="header">
+                                        <h4 class="title capitalized" ng-bind="dish.name"></h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

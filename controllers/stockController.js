@@ -197,10 +197,28 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
                     data: $scope.thisItem
                 }
             }).then(function(response) {
-                $scope.thisItem.price = JSON.parse($scope.thisItem.price);
+                if (response.data === "failed") {
+                    $.notify({
+                        message: "Network error, Please wait create again"
+                    },{
+                            type: 'warning',
+                            timer: 2000,
+                            delay: 100,
+                            z_index: 10001,
+                    });
+                } else {
+                    $.notify({
+                        message: "New dish is created!"
+                    },{
+                        type: 'success',
+                        timer: 2000,
+                        delay: 100,
+                        z_index: 10001,
+                    });
 
-                console.log($scope.thisItem.price);
-                //$scope.loadData();
+                    $scope.thisItem.price = JSON.parse($scope.thisItem.price);
+                    $scope.loadData();
+                }
             });
         }
     }
@@ -216,7 +234,26 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
                     data: $scope.thisItem
                 }
             }).then(function(response) {
-                $scope.loadData();
+                if (response.data === "failed") {
+                    $.notify({
+                        message: "Network error, Please wait update again"
+                    },{
+                            type: 'warning',
+                            timer: 2000,
+                            delay: 100,
+                            z_index: 10001,
+                    });
+                } else {
+                    $.notify({
+                        message: "Category is updated!"
+                    },{
+                        type: 'success',
+                        timer: 2000,
+                        delay: 100,
+                        z_index: 10001,
+                    });
+                    $scope.loadData();
+                }
             });
         } else if ($scope.thisItem.type === "dish") {
             $scope.thisItem.size = $scope.thisSize["S"] + $scope.thisSize["M"] + $scope.thisSize["L"];
@@ -236,7 +273,26 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
                     data: $scope.thisItem
                 }
             }).then(function(response) {
-                $scope.loadData();
+                if (response.data === "failed") {
+                    $.notify({
+                        message: "Network error, Please wait update again"
+                    },{
+                            type: 'warning',
+                            timer: 2000,
+                            delay: 100,
+                            z_index: 10001,
+                    });
+                } else {
+                    $.notify({
+                        message: "Dish is updated!"
+                    },{
+                        type: 'success',
+                        timer: 2000,
+                        delay: 100,
+                        z_index: 10001,
+                    });
+                    $scope.loadData();
+                }
             });
         }
     }
@@ -262,7 +318,26 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
                     data: $scope.thisItem
                 }
             }).then(function(response) {
-                $scope.loadData();
+                if (response.data === "failed") {
+                    $.notify({
+                        message: "Network error, Please wait delete again"
+                    },{
+                            type: 'warning',
+                            timer: 2000,
+                            delay: 100,
+                            z_index: 10001,
+                    });
+                } else {
+                    $.notify({
+                        message: "Dish is already deleted!"
+                    },{
+                        type: 'success',
+                        timer: 2000,
+                        delay: 100,
+                        z_index: 10001,
+                    });
+                    $scope.loadData();
+                }
             });
         }
     }
