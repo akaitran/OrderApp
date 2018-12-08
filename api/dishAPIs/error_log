@@ -1,0 +1,66 @@
+[04-Nov-2018 08:21:41 America/Denver] PHP Warning:  mysqli_connect(): (28000/1045): Access denied for user 'akatsol_acc'@'localhost' (using password: YES) in /home3/akatsolc/public_html/orderapp/dbconfig.php on line 19
+[04-Nov-2018 08:21:41 America/Denver] PHP Warning:  mysqli_connect(): (28000/1045): Access denied for user 'akatsol_acc'@'localhost' (using password: YES) in /home3/akatsolc/public_html/orderapp/dbconfig.php on line 19
+[07-Nov-2018 00:26:51 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 00:26:51 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 00:26:51 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 00:26:52 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 00:26:52 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 00:26:52 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 00:26:52 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 00:26:52 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 00:56:09 America/Denver] PHP Notice:  Undefined property: stdClass::$size in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 00:56:09 America/Denver] PHP Notice:  Undefined property: stdClass::$size in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 00:56:09 America/Denver] PHP Notice:  Undefined property: stdClass::$size in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 00:56:09 America/Denver] PHP Notice:  Undefined property: stdClass::$size in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 00:56:09 America/Denver] PHP Notice:  Undefined property: stdClass::$size in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 00:56:09 America/Denver] PHP Notice:  Undefined property: stdClass::$size in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 00:56:10 America/Denver] PHP Notice:  Undefined property: stdClass::$size in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 00:56:10 America/Denver] PHP Notice:  Undefined property: stdClass::$size in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 01:00:20 America/Denver] PHP Notice:  Undefined property: stdClass::$size in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 01:00:20 America/Denver] PHP Notice:  Undefined property: stdClass::$size in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 01:00:20 America/Denver] PHP Notice:  Undefined property: stdClass::$size in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 01:00:20 America/Denver] PHP Notice:  Undefined property: stdClass::$size in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 01:00:20 America/Denver] PHP Notice:  Undefined property: stdClass::$size in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 01:00:20 America/Denver] PHP Notice:  Undefined property: stdClass::$size in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 01:00:20 America/Denver] PHP Notice:  Undefined property: stdClass::$size in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 01:00:20 America/Denver] PHP Notice:  Undefined property: stdClass::$size in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 01:18:10 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 01:19:35 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 01:21:59 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 01:21:59 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 01:21:59 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 01:21:59 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 01:21:59 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 01:21:59 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 01:21:59 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 01:21:59 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 21:29:17 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 21:29:20 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 21:29:24 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 21:29:27 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 21:38:55 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 21:40:58 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[07-Nov-2018 21:41:16 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[08-Nov-2018 01:10:27 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[08-Nov-2018 07:09:29 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 14
+[21-Nov-2018 06:40:58 America/Denver] PHP Notice:  Trying to get property of non-object in /home3/akatsolc/public_html/orderapp/api/dishAPIs/update-ingredient.php on line 14
+[21-Nov-2018 06:42:28 America/Denver] PHP Notice:  Trying to get property of non-object in /home3/akatsolc/public_html/orderapp/api/dishAPIs/update-ingredient.php on line 14
+[21-Nov-2018 06:43:02 America/Denver] PHP Notice:  Trying to get property of non-object in /home3/akatsolc/public_html/orderapp/api/dishAPIs/update-ingredient.php on line 14
+[21-Nov-2018 06:44:02 America/Denver] PHP Notice:  Trying to get property of non-object in /home3/akatsolc/public_html/orderapp/api/dishAPIs/update-ingredient.php on line 14
+[21-Nov-2018 08:08:38 America/Denver] PHP Notice:  Undefined property: stdClass::$ingredient in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 13
+[21-Nov-2018 08:08:38 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 16
+[21-Nov-2018 08:09:02 America/Denver] PHP Notice:  Undefined property: stdClass::$ingredient in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 13
+[21-Nov-2018 08:09:02 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 16
+[21-Nov-2018 08:11:52 America/Denver] PHP Notice:  Undefined property: stdClass::$ingredient in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 13
+[21-Nov-2018 08:30:15 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 16
+[21-Nov-2018 09:35:02 America/Denver] PHP Notice:  Undefined property: stdClass::$ingredient in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 13
+[21-Nov-2018 09:35:02 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 16
+[21-Nov-2018 09:37:17 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 16
+[21-Nov-2018 09:39:51 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 16
+[21-Nov-2018 10:03:40 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 16
+[21-Nov-2018 10:04:14 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 16
+[21-Nov-2018 10:05:06 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 16
+[21-Nov-2018 10:05:39 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 16
+[21-Nov-2018 10:06:31 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 16
+[21-Nov-2018 10:07:43 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 16
+[21-Nov-2018 10:08:41 America/Denver] PHP Notice:  Undefined property: stdClass::$options in /home3/akatsolc/public_html/orderapp/api/dishAPIs/create-dish.php on line 16

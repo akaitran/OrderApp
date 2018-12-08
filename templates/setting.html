@@ -1,0 +1,70 @@
+<div class="main-panel full-size">
+    <nav class="navbar navbar-default navbar-fixed">
+        <div class="container-fluid">
+            <div class="navbar">
+                <ul class="nav navbar-nav navbar-left" style="margin-top: 2px;">
+                    <li>
+                        <a href="#sale" ng-click="thisUrl = 'sale'" class="dropdown-toggle">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#payment" ng-click="thisUrl = 'payment'" class="dropdown-toggle">
+                            <i class="fa fa-credit-card-alt"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#stock" ng-click="thisUrl = 'stock'" class="dropdown-toggle">
+                            <i class="fa fa-cutlery"></i>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="#setting" ng-click="thisUrl = 'setting'" class="dropdown-toggle">
+                            <i class="fa fa-sliders"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" ng-click="loadData()" class="dropdown-toggle">
+                            <i class="fa fa-refresh"></i>
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <button type="submit" class="btn btn-danger btn-fill" ng-click="exit()">Exit</button>
+                    </li>
+                    <li class="separator hidden-lg"></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="card content-layout" ng-init="loadData()">
+        <div class="header">
+            <p class="title main-title">Setting Management</p>
+        </div>
+        <br/>
+        <br/>
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="" data-toggle="tab" class="capitalized">Network</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="network" class="tab-pane fade in active">
+                <div class="content">
+                    <div class="full-list-container">
+                        <div class="col-md-6" ng-repeat="setting in settingList">
+                            <label>{{setting.title}}
+                                <input ng-model="setting.value" class="form-control capitalized" type="text" use-keyboard="US International" placeholder="Enter Printer IP Address" required>
+                                <button type="submit" class="btn btn-success btn-fill" ng-click="update(setting)">Save IP</button>
+                            </label>
+                        </div>                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

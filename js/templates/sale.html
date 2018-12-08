@@ -1,0 +1,385 @@
+<div class="sidebar" id="navigation-editor" ng-swipe-right="toggleNavbar()">
+    <div class="sidebar-wrapper">
+        <button type="submit" class="btn btn-success btn-fill pull-left" ng-click="sendOrder()">Send</button>
+        <button type="submit" class="btn btn-info btn-fill pull-right" ng-click="printBill()">Print</button>
+        <br/>
+
+        <div class="logo" style="text-align: center;">
+            <a class="simple-text">
+                {{context.title}}
+            </a>
+            Staff: {{thisOrder.staffname}}
+        </div>
+  
+        <div class="col-md-4 col-xs-4">
+            <label>Table</label>
+            <select class="capitalized form-control" 
+                ng-model="thisOrder.orderno" 
+                ng-options="table as table for table in rangeOf(52)" required>
+            </select>
+        </div>
+
+        <div class="col-md-5 col-xs-5">
+            <label>Side</label>
+            <select class="capitalized form-control" ng-model="thisOrder.orderside">
+                <option value=""></option>
+                <option value="B">B</option>
+                <option value="Trong">Trong</option>
+                <option value="Ngoài">Ngoài</option>
+                <option value="Trái">Trái</option>
+                <option value="Phải">Phải</option>
+                <option value="Giữa">Giữa</option>
+            </select>
+        </div>
+
+        <div class="col-md-3 col-xs-3">
+            <label>Extra</label>
+            <button class="form-control capitalized col-md-12 col-xs-12"
+                ng-disabled="thisOrder.orderno == 0"
+                ng-class="{'btn-info btn-fill': thisOrder.addition == 1}"
+                ng-click="extraDish()">+
+            </button>
+        </div>
+
+        <div class="col-md-6 col-xs-6">
+            <button class="btn capitalized col-md-12 col-xs-12"
+                ng-class="{'btn-info btn-fill': thisOrder.type === 'TA'}"
+                ng-click="changeType('TA')">Take Away
+            </button>
+        </div>
+
+        <div class="col-md-6 col-xs-6">
+            <button class="btn capitalized col-md-12 col-xs-12"
+                ng-class="{'btn-info btn-fill': thisOrder.type === 'uber'}"
+                ng-click="changeType('uber')">Uber
+            </button>
+        </div>
+
+        <div class="col-md-12 col-xs-12" style="margin-top: 10px;">
+            <input ng-model="thisOrder.description" class="form-control capitalized" type="text" use-keyboard="US International" placeholder="Enter Description">
+        </div>
+
+        <div class="form-group" style="min-height: 300px;">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Amount</th>
+                        <th>Cost</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="dish in thisOrder.dishes">
+                        <td class="capitalized" ng-click="selectDish(dish, 'old')">
+                            <span ng-class="{'underline': dish.type === 'entree'}">
+                                {{dish.name}}
+                            </span>
+                            <span ng-repeat="(key,size) in dish.size">
+                                <a ng-if="size > 0 && key !== 'M'">{{size}}{{key}} </a>
+                            </span>
+                            <a ng-if="dish.type === 'TA'">(TA)</a>
+                            <a ng-if="dish.type === 'later'">(Later)</a>
+                            <br />
+                            <span ng-repeat="opt in dish.options">
+                                <a ng-if="opt.selected == 1">* {{opt.name}} <br/></a>
+                            </span>
+                            <span ng-repeat="ing in dish.ingredient">
+                                <a ng-if="ing.amount == 0">o̲ {{ing.name}} <br/></a>
+                                <a ng-if="ing.amount > 1 && ing.unit === 'none'">
+                                    * {{ing.name}} <br/>
+                                </a>
+                                <a ng-if="ing.amount > 1 && ing.unit === ''">
+                                    + {{ing.name}} <br/>
+                                </a>
+                                <a ng-if="ing.amount > 1 && ing.unit === 'cost'">
+                                    + ${{(ing.amount - 1) * ing.price}} {{ing.name}} <br/>
+                                </a>
+                                <a ng-if="ing.amount > 1 && ing.unit === 'amount'">
+                                    + {{(ing.amount - 1)}} {{ing.name}} <br/>
+                                </a>
+                            </span>
+                        </td>
+                        <td>
+                            <input ng-model="dish.amount" class="form-control" style="max-width: 55px;" type="number"
+                                min="1" required>
+                        </td>
+                        <td>
+                            <input ng-model="dish.cost" class="form-control" style="max-width: 55px;" type="number"
+                                min="1" required>
+                        </td>
+                        <td>
+                            <button class="form-control close" style="opacity: 0.9;" ng-click="thisOrder.dishes.splice($index, 1)">
+                                <i class="glyphicon glyphicon-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr>
+            <a><h4 class="pull-right" style="margin: 0;">TOTAL: ${{totalCost()}} </h4></a>
+        </div>
+
+        <div class="footer">
+            <button type="submit" ng-if="context.title === 'edit'" class="btn btn-info btn-fill pull-right capitalized" ng-click="update()">{{context.submit}}</button>
+            <button type="submit" ng-if="context.title === 'new'" class="btn btn-info btn-fill pull-right capitalized" ng-click="create()">{{context.submit}}</button>
+            <button type="submit" ng-if="context.title === 'edit'" class="btn btn-danger btn-fill pull-left capitalized" ng-click="delete()">Delete</button>
+        </div>
+    </div>
+</div>
+
+<div class="top-cover" id="top-cover" ng-click="closeCustom()"></div>
+
+<div class="bottom-sidebar" id="navigation-custom">
+    <div class="sidebar-wrapper">
+        <div class="form-group">
+            <div class="col-md-6 col-xs-12">
+                <input ng-model="thisDish.name" class="form-control capitalized" type="text" use-keyboard="US International" placeholder="Enter {{thisItem.type || 'Item'}} Name">
+            </div>
+
+            <div class="col-md-6 col-xs-12">
+                <button class="btn capitalized col-md-2 col-xs-2" style="margin: 0 2px"
+                    ng-class="{'btn-info btn-fill': thisDish.price['S'] > 0}"
+                    ng-if="thisDish.price['S']"
+                    ng-click="changeSize('S')">S
+                </button>
+                <button class="btn capitalized col-md-2 col-xs-2" style="margin: 0 2px"
+                    ng-class="{'btn-info btn-fill': thisDish.price['M'] > 0}"
+                    ng-if="thisDish.price['M']"
+                    ng-click="changeSize('M')">M
+                </button>
+                <button class="btn capitalized col-md-2 col-xs-2" style="margin: 0 2px"
+                    ng-class="{'btn-info btn-fill': thisDish.price['L'] > 0}"
+                    ng-if="thisDish.price['L']"
+                    ng-click="changeSize('L')">L
+                </button>
+                <div class="col-md-5 col-xs-5" style="display: inline-flex">
+                    <button class="form-control round-button" ng-click="thisDish.amount = thisDish.amount - 1">-</button>
+                        <input type="number" use-keyboard="Numbers" min="0" ng-model="thisDish.amount" class="form-control group-label" style="width: 50px; margin: 0 5px;" placeholder="0">
+                    <button class="form-control round-button" ng-click="thisDish.amount = thisDish.amount + 1">+</button>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xs-12">
+                <div class="form-control capitalized" style="height: auto;">
+                    <button class="btn capitalized" style="margin: 2px;" 
+                        ng-repeat="ing in thisDish.ingredient"
+                        ng-class="{'btn-info btn-fill': ing.amount > 0}"
+                        ng-dblclick="ing.amount = 0"
+                        ios-dblclick="ing.amount = 0"
+                        ng-click="ing.amount = ing.amount + 1">
+                        <span ng-if="ing.amount > 1 && ing.unit !== 'cost' && ing.unit !== 'amount'">
+                            +
+                        </span>
+                        <span ng-if="ing.amount > 1 && ing.unit === 'cost'">
+                            + ${{(ing.amount - 1) * ing.price}}
+                        </span>
+                        <span ng-if="ing.amount > 1 && ing.unit === 'amount'">
+                            + {{(ing.amount - 1)}}
+                        </span>
+                        {{ing.name}}
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xs-12">
+                <div class="form-control capitalized" style="height: auto;">
+                    <button class="btn capitalized" style="margin: 2px;" 
+                        ng-repeat="opt in thisDish.options"
+                        ng-class="{'btn-info btn-fill': opt.selected == 1}"
+                        ng-click="opt.selected = opt.selected * -1">
+                        {{opt.name}}
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-xs-12">
+                <div class="form-control capitalized" style="height: auto;">
+                    <button class="btn capitalized" style="margin: 2px;"
+                        ng-class="{'btn-info btn-fill': thisDish.type === 'TA'}"
+                        ng-click="(thisDish.type !== 'TA' ? thisDish.type = 'TA' : thisDish.type = '')">Take Away
+                    </button>
+
+                    <button class="btn capitalized" style="margin: 2px;"
+                        ng-class="{'btn-info btn-fill': thisDish.type === 'entree'}"
+                        ng-click="(thisDish.type !== 'entree' ? thisDish.type = 'entree' : thisDish.type = '')">Entree
+                    </button>
+
+                    <button class="btn capitalized" style="margin: 2px;"
+                        ng-class="{'btn-info btn-fill': thisDish.type === 'later'}"
+                        ng-click="(thisDish.type !== 'later' ? thisDish.type = 'later' : thisDish.type = '')">Later
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-panel" ng-swipe-left="toggleNavbar()">
+    <nav class="navbar navbar-default navbar-fixed">
+        <div class="container-fluid">
+            <div class="navbar">
+                <ul class="nav navbar-nav navbar-left" style="margin-top: 2px;">
+                    <li class="active">
+                        <a href="#sale" ng-click="thisUrl = 'sale'" class="dropdown-toggle">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#payment" ng-click="thisUrl = 'payment'" class="dropdown-toggle">
+                            <i class="fa fa-credit-card-alt"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#stock" ng-click="thisUrl = 'stock'" class="dropdown-toggle">
+                            <i class="fa fa-cutlery"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#setting" ng-click="thisUrl = 'setting'" class="dropdown-toggle">
+                            <i class="fa fa-sliders"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" ng-click="loadData()" class="dropdown-toggle">
+                            <i class="fa fa-refresh"></i>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-editor">
+                        <i class="fa fa-wpforms	hidden-lg hidden-md"></i>
+                        <span class="hidden-lg hidden-md notification" ng-bind="totalAmount()"></span>
+                    </button>
+                </div>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <button type="submit" class="btn btn-success btn-fill" ng-click="sendOrder()">Send Order</button>
+                    </li>
+                    <li>
+                        <button type="submit" class="btn btn-info btn-fill" ng-click="printBill()">Print Bill</button>
+                    </li>
+                    <li>
+                        <button type="submit" class="btn btn-danger btn-fill" ng-click="exit()">Exit</button>
+                    </li>
+                    <li class="separator hidden-lg"></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="card content-layout" ng-init="loadData()">
+        <div class="header">
+            <p class="title main-title">Order Management</p>
+            <div class="inner-addon right-addon search-box">
+                <input class="form-control" use-keyboard="US International" type="text" ng-model="searchText"
+                    placeholder="Search Dish">
+                <i class="glyphicon glyphicon-search"></i>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="" data-toggle="tab" class="capitalized" ng-click="selectCate(cateList[0].id)" ng-bind="cateList[0].name"></a>
+            </li>
+            <li ng-if="$index > 0" ng-repeat="cate in cateList track by $index">
+                <a href="" data-toggle="tab" class="capitalized" ng-click="selectCate(cate.id)" ng-bind="cate.name"></a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="menu" class="tab-pane fade in active">
+                <div class="content">
+                    <div class="full-list-container">
+                        <div class="card dish-single-item col-xs-4 col-md-2 mdl-shadow--2dp"
+                            ng-class="{'active': dish.id == thisDish.id}"
+                            ng-repeat="dish in dishList | filter: search | orderBy: 'name'"
+                            ng-click="selectDish(dish, 'new')"
+                            ng-cloak>
+                            <div class="header">
+                                <h4 class="title capitalized" ng-bind="dish.name"></h4>
+                            </div>
+                            <hr>
+                            <div class="footer capitalized">
+                                <i class="text-info" style="font-weight: bold" ng-if="dish.price['S']">{{dish.price['S'] | abs}}</i>
+                                <a ng-if="dish.price['M'] && dish.price['S']"> - </a>
+                                <i class="text-danger" style="font-weight: bold" ng-if="dish.price['M']">{{dish.price['M'] | abs}}</i>
+                                <a ng-if="dish.price['L'] && (dish.price['M'] || dish.price['S'])"> - </a>
+                                <i class="text-warning" style="font-weight: bold" ng-if="dish.price['L']">{{dish.price['L'] | abs}}</i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fixed-btn"
+                ng-click="newOrder()">
+                <i class="material-icons">note_add</i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="tableModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="btn btn-danger btn-fill"
+                        style="float: right;"
+                        data-dismiss="modal" aria-label="Close" 
+                        ng-click="closeOrder()"
+                        ng-cloak>
+                        Close
+                    </button>
+                    <h5 class="modal-title" id="tableModalTitle">Select Table</h5>
+                </div>
+                <div class="modal-body full-list-container" style="display: inline-block;">
+                    <div class="col-xs-6 col-md-3" style="margin-top: 10px;"
+                        ng-repeat="order in orderList | filter: orderFilter | orderBy: [sortNumber,'-time']">
+                        <div class="card single-order"
+                            ng-class="{'active': order.id == tempOrder.id}"
+                            ng-click="selectOrder(order)" ng-cloak>
+                            <div class="header">
+                                <button class="btn btn-success btn-fill" 
+                                    style="float: right; margin: 0 3px;"
+                                    ng-click="mergeOrder()" ng-cloak>
+                                    Merge
+                                </button>
+                                <h3 class="title capitalized" ng-if="order.type === 'dine in'">{{order.orderno}}{{order.orderside[0]}}</h3>
+                                <h3 class="title capitalized" ng-if="order.type === 'TA'">{{order.type}}</h3>
+                                <h3 class="title capitalized" ng-if="order.type === 'uber'">{{order.description}}</h3>
+                            </div>
+                            <div class="content">
+                                <div style="text-align: left; padding: 0 10px;" ng-repeat="dish in order.dishes">
+                                    <span>{{dish.amount}} x {{dish.name}} {{dish.size}}</span>
+                                </div>
+                                <div style="text-align: left; padding: 0 10px;" ng-if="order.dishes.length < 3">
+                                    <span><br/></span>
+                                </div>
+                                <div style="text-align: left; padding: 0 10px;" ng-if="order.dishes.length < 3">
+                                    <span><br/></span>
+                                </div>
+                                <div style="text-align: left; padding: 0 10px;" ng-if="order.dishes.length < 2">
+                                    <span><br/></span>
+                                </div>
+                                <div style="text-align: left; padding: 0 10px;" ng-if="order.dishes.length == 3">
+                                    <span><br/></span>
+                                </div>
+                                    
+                                <div class="footer capitalized">
+                                    <hr>
+                                    <div class="stats">
+                                        {{order.time | date: "MMM dd, y | HH:mm"}}
+                                    </div>
+                                    <br/>
+                                    <a>TOTAL: ${{order.total}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

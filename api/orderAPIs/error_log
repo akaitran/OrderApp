@@ -1,0 +1,9 @@
+[21-Nov-2018 05:31:52 America/Denver] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /home3/akatsolc/public_html/orderapp/api/orderAPIs/load-order.php on line 18
+[03-Dec-2018 23:01:14 America/Denver] PHP Notice:  Undefined property: stdClass::$staffname in /home3/akatsolc/public_html/orderapp/api/orderAPIs/update-order.php on line 14
+[03-Dec-2018 23:01:14 America/Denver] PHP Notice:  Undefined property: stdClass::$orderno in /home3/akatsolc/public_html/orderapp/api/orderAPIs/update-order.php on line 15
+[03-Dec-2018 23:01:14 America/Denver] PHP Notice:  Undefined property: stdClass::$orderside in /home3/akatsolc/public_html/orderapp/api/orderAPIs/update-order.php on line 16
+[03-Dec-2018 23:01:14 America/Denver] PHP Notice:  Undefined property: stdClass::$description in /home3/akatsolc/public_html/orderapp/api/orderAPIs/update-order.php on line 17
+[03-Dec-2018 23:01:14 America/Denver] PHP Notice:  Undefined property: stdClass::$dishes in /home3/akatsolc/public_html/orderapp/api/orderAPIs/update-order.php on line 18
+[03-Dec-2018 23:01:14 America/Denver] PHP Notice:  Undefined property: stdClass::$type in /home3/akatsolc/public_html/orderapp/api/orderAPIs/update-order.php on line 19
+[03-Dec-2018 23:01:14 America/Denver] PHP Notice:  Undefined property: stdClass::$time in /home3/akatsolc/public_html/orderapp/api/orderAPIs/update-order.php on line 22
+[03-Dec-2018 23:01:14 America/Denver] PHP Notice:  Undefined property: stdClass::$id in /home3/akatsolc/public_html/orderapp/api/orderAPIs/update-order.php on line 23
