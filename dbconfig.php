@@ -8,7 +8,7 @@ class Connection
 
 		$username='root'; // use your own mysql user name
 
-		$password=''; // use your own mysql password
+		$password='secret'; // use your own mysql password
 
 		$db_name='orderapp';
 
