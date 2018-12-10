@@ -435,118 +435,100 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 							z_index: 10001,
 					});
 				} else {
-					$.notify({
-						message: "Order is already sent!"
-					},{
-							type: 'success',
-							timer: 2000,
-							delay: 100,
-							z_index: 10001,
-					});
-				}
-			});
-
-			$http({
-				url: "api/printAPIs/print-drink-usb.php",
-				method: "POST",
-				data: {
-					data: $scope.sendBill
-				}
-			}).then(function (response) {
-				if (response.data === "failed") {
-					$.notify({
-						message: "Network error, Please wait and send again"
-					},{
-							type: 'warning',
-							timer: 2000,
-							delay: 100,
-							z_index: 10001,
-					});
-				} else {
-					$.notify({
-						message: "Order is already sent!"
-					},{
-							type: 'success',
-							timer: 2000,
-							delay: 100,
-							z_index: 10001,
-					});
-				}
-			});
+					$http({
+						url: "api/printAPIs/print-drink-usb.php",
+						method: "POST",
+						data: {
+							data: $scope.sendBill
+						}
+					}).then(function (response) {
+						if (response.data === "failed") {
+							$.notify({
+								message: "Network error, Please wait and send again"
+							},{
+									type: 'warning',
+									timer: 2000,
+									delay: 100,
+									z_index: 10001,
+							});
+						} else {
+							$scope.sendBill.dishes.filter(function (dish) {
+								dish.status = "sent";
+							});
+							
+							if (!$scope.isExtraDish) {
+								$scope.sendBill.dishes = JSON.stringify($scope.sendBill.dishes);
+				
+								$http({
+									url: "api/orderAPIs/create-order.php",
+									method: "POST",
+									data: {
+										data: $scope.sendBill
+									}
+								}).then(function (response) {
+									if (response.data === "failed") {
+										$.notify({
+											message: "Network error, Please wait and send again"
+										},{
+												type: 'warning',
+												timer: 2000,
+												delay: 100,
+												z_index: 10001,
+										});
+									} else {
+										$.notify({
+											message: "Order is already sent!"
+										},{
+											timer: 2000,
+											delay: 100,
+											z_index: 10001,
+										});
+				
+										$scope.loadData();
+									}
+								});
+							} else {
+								$scope.sendBill.dishes.filter(function(dish) {
+									$scope.tempOrder.dishes.push(dish);
+								})
+				
+								$scope.tempOrder.total += $scope.sendBill.total;
 					
-			$scope.sendBill.dishes.filter(function (dish) {
-					dish.status = "sent";
+								$scope.tempOrder.dishes = JSON.stringify($scope.tempOrder.dishes);
+									
+								$http({
+									url: "api/orderAPIs/update-order.php",
+									method: "POST",
+									data: {
+										data: $scope.tempOrder
+									}
+								}).then(function (response) {
+									if (response.data === "failed") {
+										$.notify({
+											message: "Network error, Please wait and send again"
+										},{
+												type: 'warning',
+												timer: 2000,
+												delay: 100,
+												z_index: 10001,
+										});
+									} else {
+										$.notify({
+											message: "Order is already sent!"
+										},{
+											timer: 2000,
+											delay: 100,
+											z_index: 10001,
+										});
+				
+										$scope.loadData();
+									}
+								});
+							}
+						}
+					});
+				}
 			});
-			
-			if (!$scope.isExtraDish) {
-				$scope.sendBill.dishes = JSON.stringify($scope.sendBill.dishes);
-
-				$http({
-					url: "api/orderAPIs/create-order.php",
-					method: "POST",
-					data: {
-						data: $scope.sendBill
-					}
-				}).then(function (response) {
-					if (response.data === "failed") {
-						$.notify({
-							message: "Network error, Please wait and send again"
-						},{
-								type: 'warning',
-								timer: 2000,
-								delay: 100,
-								z_index: 10001,
-						});
-					} else {
-						$.notify({
-							message: "Order is already saved!"
-						},{
-							timer: 2000,
-							delay: 100,
-							z_index: 10001,
-						});
-
-						$scope.loadData();
-					}
-				});
-			} else {
-				$scope.sendBill.dishes.filter(function(dish) {
-					$scope.tempOrder.dishes.push(dish);
-				})
-
-				$scope.tempOrder.total += $scope.sendBill.total;
-	
-				$scope.tempOrder.dishes = JSON.stringify($scope.tempOrder.dishes);
-					
-				$http({
-					url: "api/orderAPIs/update-order.php",
-					method: "POST",
-					data: {
-						data: $scope.tempOrder
-					}
-				}).then(function (response) {
-					if (response.data === "failed") {
-						$.notify({
-							message: "Network error, Please wait and send again"
-						},{
-								type: 'warning',
-								timer: 2000,
-								delay: 100,
-								z_index: 10001,
-						});
-					} else {
-						$.notify({
-							message: "Order is already saved!"
-						},{
-							timer: 2000,
-							delay: 100,
-							z_index: 10001,
-						});
-
-						$scope.loadData();
-					}
-				});
-			}
 		} else {
 			$.notify({
 				message: "Order is empty"
