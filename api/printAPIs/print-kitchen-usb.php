@@ -15,6 +15,13 @@ $conn = $db->connect();
 $request = json_decode( file_get_contents('php://input'));
 $order = $request->data;
 
+$query = "SELECT * FROM orders ORDER BY id DESC LIMIT 1";
+
+$result = mysqli_query($conn, $query );
+
+$row = mysqli_fetch_assoc($result);
+$lastId = $row['id'] % 100;
+
 try {
   $connector = new FilePrintConnector("/dev/usb/lp0");
   $printer = new Printer($connector);
@@ -221,7 +228,7 @@ try {
 
   $printer -> text("\n");
   $printer -> text("\n");
-  $printer -> text("\n");
+  $printer -> text($lastId + 1 ."\n");
 
   $printer -> cut();
 

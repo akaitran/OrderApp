@@ -7,6 +7,7 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 	$scope.dishList = [];
 	$scope.dishInitial = [];
 
+	$scope.isExtraDish = false;
 	$scope.thisCate = null;
 	$scope.thisDish = {};
 	$scope.thisOrder = {};
@@ -245,6 +246,8 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 				$scope.thisOrder.dishes.push($scope.thisDish);
 			}
 		} else {
+			$scope.thisDish.size[$scope.sizeOf($scope.thisDish)] = $scope.thisDish.amount;
+
 			$scope.thisOrder.total -= $scope.thisDish.cost;
 
 			$scope.thisDish.cost = $scope.thisDish.price[$scope.sizeOf($scope.thisDish)] * $scope.thisDish.amount;
@@ -300,7 +303,6 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 
 	$scope.closeOrder = function() {
 		$scope.tempOrder = {};
-		$scope.isExtraDish = false;
 		$scope.orderList = [];
 	}
 
@@ -331,6 +333,7 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 		$scope.sendBill = {};
 		$scope.thisOrder = {};
 		$scope.orderList = [];
+		$scope.isExtraDish = false;
 
 		$scope.thisOrder.staffname = localStorage.getItem("staff");
 		$scope.thisOrder.type = "dine in";
@@ -355,7 +358,6 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 
 	$scope.extraDish = function () {
 		var filter = "1hour";
-		$scope.isExtraDish = false;
 
 		$scope.thisOrder.addition *= -1;
 
@@ -435,118 +437,100 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 							z_index: 10001,
 					});
 				} else {
-					$.notify({
-						message: "Order is already sent!"
-					},{
-							type: 'success',
-							timer: 2000,
-							delay: 100,
-							z_index: 10001,
-					});
-				}
-			});
-
-			$http({
-				url: "api/printAPIs/print-drink-usb.php",
-				method: "POST",
-				data: {
-					data: $scope.sendBill
-				}
-			}).then(function (response) {
-				if (response.data === "failed") {
-					$.notify({
-						message: "Network error, Please wait and send again"
-					},{
-							type: 'warning',
-							timer: 2000,
-							delay: 100,
-							z_index: 10001,
-					});
-				} else {
-					$.notify({
-						message: "Order is already sent!"
-					},{
-							type: 'success',
-							timer: 2000,
-							delay: 100,
-							z_index: 10001,
-					});
-				}
-			});
+					$http({
+						url: "api/printAPIs/print-drink-usb.php",
+						method: "POST",
+						data: {
+							data: $scope.sendBill
+						}
+					}).then(function (response) {
+						if (response.data === "failed") {
+							$.notify({
+								message: "Network error, Please wait and send again"
+							},{
+									type: 'warning',
+									timer: 2000,
+									delay: 100,
+									z_index: 10001,
+							});
+						} else {
+							$scope.sendBill.dishes.filter(function (dish) {
+								dish.status = "sent";
+							});
+							
+							if (!$scope.isExtraDish) {
+								$scope.sendBill.dishes = JSON.stringify($scope.sendBill.dishes);
+				
+								$http({
+									url: "api/orderAPIs/create-order.php",
+									method: "POST",
+									data: {
+										data: $scope.sendBill
+									}
+								}).then(function (response) {
+									if (response.data === "failed") {
+										$.notify({
+											message: "Network error, Please wait and send again"
+										},{
+												type: 'warning',
+												timer: 2000,
+												delay: 100,
+												z_index: 10001,
+										});
+									} else {
+										$.notify({
+											message: "Order is already sent!"
+										},{
+											timer: 2000,
+											delay: 100,
+											z_index: 10001,
+										});
+				
+										$scope.loadData();
+									}
+								});
+							} else {
+								$scope.sendBill.dishes.filter(function(dish) {
+									$scope.tempOrder.dishes.push(dish);
+								})
+				
+								$scope.tempOrder.total += $scope.sendBill.total;
 					
-			$scope.sendBill.dishes.filter(function (dish) {
-					dish.status = "sent";
+								$scope.tempOrder.dishes = JSON.stringify($scope.tempOrder.dishes);
+									
+								$http({
+									url: "api/orderAPIs/update-order.php",
+									method: "POST",
+									data: {
+										data: $scope.tempOrder
+									}
+								}).then(function (response) {
+									if (response.data === "failed") {
+										$.notify({
+											message: "Network error, Please wait and send again"
+										},{
+												type: 'warning',
+												timer: 2000,
+												delay: 100,
+												z_index: 10001,
+										});
+									} else {
+										$.notify({
+											message: "Order is already sent!"
+										},{
+											timer: 2000,
+											delay: 100,
+											z_index: 10001,
+										});
+				
+										$scope.loadData();
+									}
+								});
+							}
+						}
+					});
+				}
 			});
-			
-			if (!$scope.isExtraDish) {
-				$scope.sendBill.dishes = JSON.stringify($scope.sendBill.dishes);
-
-				$http({
-					url: "api/orderAPIs/create-order.php",
-					method: "POST",
-					data: {
-						data: $scope.sendBill
-					}
-				}).then(function (response) {
-					if (response.data === "failed") {
-						$.notify({
-							message: "Network error, Please wait and send again"
-						},{
-								type: 'warning',
-								timer: 2000,
-								delay: 100,
-								z_index: 10001,
-						});
-					} else {
-						$.notify({
-							message: "Order is already saved!"
-						},{
-							timer: 2000,
-							delay: 100,
-							z_index: 10001,
-						});
-
-						$scope.loadData();
-					}
-				});
-			} else {
-				$scope.sendBill.dishes.filter(function(dish) {
-					$scope.tempOrder.dishes.push(dish);
-				})
-
-				$scope.tempOrder.total += $scope.sendBill.total;
-	
-				$scope.tempOrder.dishes = JSON.stringify($scope.tempOrder.dishes);
-					
-				$http({
-					url: "api/orderAPIs/update-order.php",
-					method: "POST",
-					data: {
-						data: $scope.tempOrder
-					}
-				}).then(function (response) {
-					if (response.data === "failed") {
-						$.notify({
-							message: "Network error, Please wait and send again"
-						},{
-								type: 'warning',
-								timer: 2000,
-								delay: 100,
-								z_index: 10001,
-						});
-					} else {
-						$.notify({
-							message: "Order is already saved!"
-						},{
-							timer: 2000,
-							delay: 100,
-							z_index: 10001,
-						});
-
-						$scope.loadData();
-					}
-				});
-			}
 		} else {
 			$.notify({
 				message: "Order is empty"
