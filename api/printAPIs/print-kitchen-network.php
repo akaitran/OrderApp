@@ -234,6 +234,7 @@ try {
 
   $printer -> close();
 
+
   echo "success";
 } catch (Exception $e) {
   echo "failed";
