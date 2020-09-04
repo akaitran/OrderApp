@@ -7,13 +7,20 @@
 
     $conn = $db->connect();
 
-    $request = json_decode( file_get_contents('php://input'));
+    $request = json_decode(file_get_contents('php://input'));
     $cate = $request->data;
 
-    $query = "INSERT INTO category VALUES
-            (DEFAULT, '$cate->name', '$cate->subname', '$cate->description', DEFAULT)";
+    if ($cate)
+    {
+        $query = "INSERT INTO category VALUES
+                (DEFAULT, '$cate->name', '$cate->subname', '$cate->description', DEFAULT)";
 
-    $result = mysqli_query($conn, $query);
+        $result = mysqli_query($conn, $query);
+    }
+    else
+    {
+        header("HTTP/1.0 404 Not Found");
+    }
 
     $conn->close();
 ?>

@@ -10,25 +10,33 @@
     $request = json_decode( file_get_contents('php://input'));
     $dish = $request->data;
 
-    $dish->ingredient = mb_strtolower($dish->ingredient, 'UTF-8');
+    if ($dish)
+    {
+        $dish->ingredient = mb_strtolower($dish->ingredient, 'UTF-8');
 
-    $query = "INSERT INTO dish VALUES
-            (DEFAULT, '$dish->name', '$dish->subname', '$dish->description', '$dish->cateid', '$dish->area', '$dish->size', '$dish->price', '$dish->ingredient', '$dish->options', DEFAULT)";
+        $query = "INSERT INTO dish VALUES
 
-    $result = mysqli_query($conn, $query);
+                (DEFAULT, '$dish->name', '$dish->subname', '$dish->description', '$dish->cateid', '$dish->area', '$dish->size', '$dish->price', '$dish->ingredient', '$dish->options', DEFAULT, '$dish->seperator')";
 
-    $array = explode(", ", $dish->ingredient);
+        $result = mysqli_query($conn, $query);
 
-    foreach($array as $ing) {
-        $select_query = "SELECT * FROM ingredient WHERE name = '$ing'";
-        $selectResult = mysqli_query($conn, $select_query);
+        $array = explode(", ", $dish->ingredient);
 
-        if( !mysqli_num_rows($selectResult) ) {
-            $insert_query = "INSERT INTO ingredient VALUES
-                (DEFAULT, '$ing', 0, DEFAULT)";
+        foreach($array as $ing) {
+            $select_query = "SELECT * FROM ingredient WHERE name = '$ing'";
+            $selectResult = mysqli_query($conn, $select_query);
 
-            $run = mysqli_query($conn, $insert_query);
+            if( !mysqli_num_rows($selectResult) ) {
+                $insert_query = "INSERT INTO ingredient VALUES
+                    (DEFAULT, '$ing', 0, DEFAULT)";
+
+                $run = mysqli_query($conn, $insert_query);
+            }
         }
+    }
+    else
+    {
+        header("HTTP/1.0 404 Not Found");
     }
 
     $conn->close();

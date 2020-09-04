@@ -7,3 +7,5 @@
 [03-Dec-2018 23:01:14 America/Denver] PHP Notice:  Undefined property: stdClass::$type in /home3/akatsolc/public_html/orderapp/api/orderAPIs/update-order.php on line 19
 [03-Dec-2018 23:01:14 America/Denver] PHP Notice:  Undefined property: stdClass::$time in /home3/akatsolc/public_html/orderapp/api/orderAPIs/update-order.php on line 22
 [03-Dec-2018 23:01:14 America/Denver] PHP Notice:  Undefined property: stdClass::$id in /home3/akatsolc/public_html/orderapp/api/orderAPIs/update-order.php on line 23
+[04-Jul-2020 01:05:07 America/Boise] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user ''@'localhost' (using password: NO) in /home4/akatsolc/public_html/beplink/dbconfig.php on line 21
+[04-Jul-2020 01:06:38 America/Boise] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user ''@'localhost' (using password: NO) in /home4/akatsolc/public_html/beplink/dbconfig.php on line 20

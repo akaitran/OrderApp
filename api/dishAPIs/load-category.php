@@ -1,7 +1,7 @@
 <?php
 	//include the connection page
 	include('../../dbconfig.php');
-    header('Content-Type: text/html; charset=utf-8');
+    header("Content-Type: application/json");
     //get an instance
     $db = new Connection();
 
@@ -15,11 +15,10 @@
 
     $data = array();
     
-    while( $row = mysqli_fetch_assoc($result))
+    while ($row = mysqli_fetch_assoc($result))
     {
         array_push($data, $row);
     }
-    
     echo json_encode($data);
 
     $conn->close();

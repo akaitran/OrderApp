@@ -2,6 +2,7 @@
 app.controller("paymentController", function ($scope, $http, $routeParams) {
 	this.name = 'paymentController';
 	this.params = $routeParams;
+	$scope.testMode = localStorage.getItem("testMode");
 
 	$scope.cateList = [];
 	$scope.orderList = [];
@@ -31,7 +32,7 @@ app.controller("paymentController", function ($scope, $http, $routeParams) {
 		return tables;
 	};
 
-	$scope.sortNumber = function(item) {
+	$scope.sortNumber = function (item) {
 		return parseInt(item.orderno);
 	}
 
@@ -73,7 +74,7 @@ app.controller("paymentController", function ($scope, $http, $routeParams) {
 	}
 
 	/*  Essential Functions  */
-	$scope.changeOrderStatus = function(status) {
+	$scope.changeOrderStatus = function (status) {
 		$scope.thisOrder.status = status;
 		$scope.sendBill = angular.copy($scope.thisOrder);
 
@@ -89,20 +90,22 @@ app.controller("paymentController", function ($scope, $http, $routeParams) {
 			if (response.data === "failed") {
 				$.notify({
 					message: "Network error, Please update again"
-				},{
-						type: 'warning',
-						timer: 2000,
-						delay: 100,
-						z_index: 10001,
+				}, {
+					type: 'warning',
+					timer: 2000,
+					delay: 100,
+					z_index: 10001,
 				});
 			} else {
 				$.notify({
 					message: "Order is already updated!"
-				},{
-						timer: 2000,
-						delay: 100,
-						z_index: 10001,
+				}, {
+					timer: 2000,
+					delay: 100,
+					z_index: 10001,
 				});
+
+				$scope.loadData();
 			}
 		});
 	}
@@ -184,13 +187,13 @@ app.controller("paymentController", function ($scope, $http, $routeParams) {
 
 	$scope.orderFilter = function (item) {
 		if ($scope.thisSetting.orderStatus !== "all") {
-				if (item.status === $scope.thisSetting.orderStatus) {
-					if (item.type === $scope.thisService) {
-						return true;
-					}
-				} else {
-					return false;
+			if (item.status === $scope.thisSetting.orderStatus) {
+				if (item.type === $scope.thisService) {
+					return true;
 				}
+			} else {
+				return false;
+			}
 		} else {
 			if (item.type === $scope.thisService) {
 				return true;
@@ -201,7 +204,11 @@ app.controller("paymentController", function ($scope, $http, $routeParams) {
 	$scope.newOrder = function () {
 		$scope.thisOrder = {};
 
-		$scope.thisOrder.staffname = localStorage.getItem("staff");
+		$scope.customerName = localStorage.getItem("customer");
+		$scope.deliveryAddress = localStorage.getItem("address");
+		$scope.phoneNumber = localStorage.getItem("phone");
+
+		$scope.thisOrder.staffname = $scope.customerName + ' - ' + $scope.phoneNumber + ' - ' + $scope.deliveryAddress;
 		$scope.thisOrder.type = "dine in";
 		$scope.thisOrder.total = 0;
 		$scope.thisOrder.dishes = [];
@@ -327,7 +334,7 @@ app.controller("paymentController", function ($scope, $http, $routeParams) {
 		element.style.visibility = "hidden";
 
 		var dishIndex = -1;
-		
+
 		if ($scope.thisDish.status === "new") {
 			$scope.thisDish.size = {
 				"S": 0,
@@ -397,17 +404,17 @@ app.controller("paymentController", function ($scope, $http, $routeParams) {
 					else
 						sizes += $scope.thisDish.size["S"] + "S";
 				}
-	
+
 				if ($scope.thisDish.size["L"] > 0) {
 					if ($scope.thisDish.size["S"] > 0)
 						sizes += ",";
-	
+
 					if ($scope.thisDish.size["M"] == 0 && $scope.thisDish.size["S"] == 0)
 						sizes = "L";
 					else
 						sizes += $scope.thisDish.size["L"] + "L";
 				}
-	
+
 				if ($scope.thisDish.size["S"] == 0 && $scope.thisDish.size["L"] == 0)
 					$scope.thisDish.size = sizes;
 				else
@@ -437,26 +444,26 @@ app.controller("paymentController", function ($scope, $http, $routeParams) {
 			url: "api/orderAPIs/delete-order.php",
 			method: "POST",
 			data: {
-					data: $scope.thisOrder
+				data: $scope.thisOrder
 			}
-		}).then(function(response) {
+		}).then(function (response) {
 			if (response.data === "failed") {
 				$.notify({
 					message: "Network error, Please delete again"
-				},{
-						type: 'warning',
-						timer: 2000,
-						delay: 100,
-						z_index: 10001,
+				}, {
+					type: 'warning',
+					timer: 2000,
+					delay: 100,
+					z_index: 10001,
 				});
 			} else {
 				$.notify({
 					message: "Order is already deleted!"
-				},{
-						type: 'success',
-						timer: 2000,
-						delay: 100,
-						z_index: 10001,
+				}, {
+					type: 'success',
+					timer: 2000,
+					delay: 100,
+					z_index: 10001,
 				});
 
 				$scope.loadData();
@@ -464,11 +471,47 @@ app.controller("paymentController", function ($scope, $http, $routeParams) {
 		});
 	}
 
-	$scope.sendOrder = function () {
+	$scope.sendCounter = function () {
 		$scope.sendDish = angular.copy($scope.thisOrder);
 
+		$scope.sendDish.addition = -1;
+
 		$http({
-			url: "api/printAPIs/print-kitchen-network.php",
+			url: "api/printAPIs/print-drink-usb.php",
+			method: "POST",
+			data: {
+				data: $scope.sendDish
+			}
+		}).then(function (response) {
+			if (response.data !== "success") {
+				$.notify({
+					message: response.data
+				}, {
+					type: 'warning',
+					timer: 2000,
+					delay: 100,
+					z_index: 10001,
+				});
+			} else {
+				$.notify({
+					message: "Order is already sent to counter!"
+				}, {
+					type: 'success',
+					timer: 2000,
+					delay: 100,
+					z_index: 10001,
+				});
+			}
+		});
+	}
+
+	$scope.splitBill = function () {
+		$scope.sendDish = angular.copy($scope.thisOrder);
+
+		$scope.sendDish.addition = -1;
+
+		$http({
+			url: "api/printAPIs/print-split-network.php",
 			method: "POST",
 			data: {
 				data: $scope.sendDish
@@ -477,22 +520,96 @@ app.controller("paymentController", function ($scope, $http, $routeParams) {
 			if (response.data === "failed") {
 				$.notify({
 					message: "Network error, Please wait and send again"
-				},{
+				}, {
+					type: 'warning',
+					timer: 2000,
+					delay: 100,
+					z_index: 10001,
+				});
+			} else {
+				$.notify({
+					message: "Order is already sent to counter!"
+				}, {
+					type: 'success',
+					timer: 2000,
+					delay: 100,
+					z_index: 10001,
+				});
+			}
+		});
+	}
+
+	$scope.splitBillEnglish = function () {
+		$scope.sendDish = angular.copy($scope.thisOrder);
+
+		$scope.sendDish.addition = -1;
+
+		$http({
+			url: "api/printAPIs/print-split-english-network.php",
+			method: "POST",
+			data: {
+				data: $scope.sendDish
+			}
+		}).then(function (response) {
+			if (response.data === "failed") {
+				$.notify({
+					message: "Network error, Please wait and send again"
+				}, {
+					type: 'warning',
+					timer: 2000,
+					delay: 100,
+					z_index: 10001,
+				});
+			} else {
+				$.notify({
+					message: "Order is already sent to counter!"
+				}, {
+					type: 'success',
+					timer: 2000,
+					delay: 100,
+					z_index: 10001,
+				});
+			}
+		});
+	}
+
+	$scope.sendOrder = function () {
+		$scope.sendDish = angular.copy($scope.thisOrder);
+
+		$http({
+			url: "api/printAPIs/print-drink-usb.php",
+			method: "POST",
+			data: {
+				data: $scope.sendDish
+			}
+		}).then(function (response) {
+			$http({
+				url: "api/printAPIs/print-kitchen-network.php",
+				method: "POST",
+				data: {
+					data: $scope.sendDish
+				}
+			}).then(function (response) {
+				if (response.data === "failed") {
+					$.notify({
+						message: "Network error, Please wait and send again"
+					}, {
 						type: 'warning',
 						timer: 2000,
 						delay: 100,
 						z_index: 10001,
-				});
-			} else {
-				$.notify({
-					message: "Order is already sent!"
-				},{
+					});
+				} else {
+					$.notify({
+						message: "Order is already sent!"
+					}, {
 						type: 'success',
 						timer: 2000,
 						delay: 100,
 						z_index: 10001,
-				});
-			}
+					});
+				}
+			});
 		});
 
 	}
@@ -511,20 +628,20 @@ app.controller("paymentController", function ($scope, $http, $routeParams) {
 			if (response.data === "failed") {
 				$.notify({
 					message: "Network error, Please print again"
-				},{
-						type: 'warning',
-						timer: 2000,
-						delay: 100,
-						z_index: 10001,
+				}, {
+					type: 'warning',
+					timer: 2000,
+					delay: 100,
+					z_index: 10001,
 				});
 			} else {
 				$.notify({
 					message: "Bill is already printed!"
-				},{
-						type: 'success',
-						timer: 2000,
-						delay: 100,
-						z_index: 10001,
+				}, {
+					type: 'success',
+					timer: 2000,
+					delay: 100,
+					z_index: 10001,
 				});
 			}
 		});

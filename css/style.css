@@ -20,6 +20,10 @@ body {
 	font-family: productSans;
 }
 
+::-webkit-scrollbar {
+	width: 2px;
+}
+
 hr {
 	margin: 0.25em 0;
 }
@@ -43,6 +47,13 @@ textarea.form-control {
 
 .underline {
 	text-decoration: underline;
+}
+
+.loading-backdrop {
+	position: relative;
+	height: 100%;
+	width: 100%;
+	z-index: 20000!important;
 }
 
 .card {
@@ -116,7 +127,7 @@ textarea.form-control {
 	bottom: 0;
 	width: 100%;
 	height: auto;
-	z-index: 100000 !important;
+	z-index: 20000 !important;
 	color: #fff;
 	font-weight: 200;
 	overflow-y: auto;
@@ -135,6 +146,10 @@ textarea.form-control {
 	width: 100%;
 	outline: none;
 	background-color: rgba(0, 0, 0, 0.1);
+}
+
+.table>tbody>tr>td.seperator {
+	border-top: 1px solid rgba(0, 0, 0, 0.6);
 }
 
 .modal {
@@ -245,13 +260,15 @@ textarea.form-control {
 }
 
 .fixed-btn {
+	background: #1DC7EA;
 	bottom: 10px;
 	height: 50px;
 	min-width: 50px;
 	position: fixed;
 	right: 10px;
 	width: 50px;
-	z-index: 10000 !important;
+	z-index: 30000 !important;
+	font-size: 18px;
 }
 
 .title.title-filled {
@@ -259,8 +276,7 @@ textarea.form-control {
 }
 
 .search-box {
-	float: right;
-	max-width: 150px;
+	width: 100%;
 }
 
 .search-box .form-control {
@@ -284,6 +300,17 @@ textarea.form-control {
 
 .cate-single-item .header {
 	padding: 10px;
+}
+
+#tabContainer {
+	display:inline-flex; 
+	overflow: auto;
+	width: 100%;
+	cursor: pointer;
+}
+
+#tabContainer::-webkit-scrollbar {
+	display: none;
 }
 
 /* enable absolute positioning */
@@ -326,7 +353,7 @@ p.main-title {
 
 /*  Start Screen  */
 .start-screen {
-	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/start-bg.jpg');
+	background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../images/start-bg.jpg');
     background-position: center;
 	background-size: cover;
     height: 100vh;
@@ -356,6 +383,46 @@ p.main-title {
 }
 
 .full-list-container .card .footer {
+	line-height: 25px;
+}
+
+.horizontal-list {
+	display: inline-flex;
+	padding-top: 20px;
+	padding-left: 20px;
+	overflow: auto;
+	text-align: center;
+	margin: 0;
+	width: 100%;
+}
+
+.horizontal-list::-webkit-scrollbar {
+	display: none;
+}
+
+.horizontal-item {
+	display: block;
+	margin-right: 10px;
+	position: relative;
+	min-width: 300px;
+}
+
+.horizontal-item .card {
+	color: white;
+	background: linear-gradient(rgba(0, 0, 0, 0.50), rgba(0, 0, 0, 0.50)), url('../images/start-bg.jpg');
+    background-position: center;
+	background-size: cover;
+    height: 100%;
+    position: relative;
+    text-align: center;
+	width: 100%;
+}
+
+.horizontal-item .card h3, .horizontal-item .card h4 {
+	color: white;
+}
+
+.horizontal-item .card .footer {
 	line-height: 25px;
 }
 
@@ -415,6 +482,8 @@ p.main-title {
 	.navbar-header {
     float: right;
 	}
+
+	
 }
 
 .single-order {

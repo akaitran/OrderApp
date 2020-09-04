@@ -1,70 +1,143 @@
 <div class="main-panel full-size">
-    <nav class="navbar navbar-default navbar-fixed">
-        <div class="container-fluid">
-            <div class="navbar">
-                <ul class="nav navbar-nav navbar-left" style="margin-top: 2px;">
-                    <li>
-                        <a href="#sale" ng-click="thisUrl = 'sale'" class="dropdown-toggle">
-                            <i class="fa fa-edit"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#payment" ng-click="thisUrl = 'payment'" class="dropdown-toggle">
-                            <i class="fa fa-credit-card-alt"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#stock" ng-click="thisUrl = 'stock'" class="dropdown-toggle">
-                            <i class="fa fa-cutlery"></i>
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="#setting" ng-click="thisUrl = 'setting'" class="dropdown-toggle">
-                            <i class="fa fa-sliders"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="" ng-click="loadData()" class="dropdown-toggle">
-                            <i class="fa fa-refresh"></i>
-                        </a>
-                    </li>
-                </ul>
+	<nav class="navbar navbar-default navbar-fixed">
+		<div class="container-fluid">
+			<div class="navbar">
+				<ul class="nav navbar-nav navbar-left" style="margin-top: 2px;">
+					<li ng-if="testMode === 'on'">
+						<a href="#quicksale" ng-click="thisUrl = 'quicksale'" class="dropdown-toggle">
+							<i class="fa fa-edit"></i>
+						</a>
+					</li>
+					<li ng-if="testMode !== 'on'">
+						<a href="#sale" ng-click="thisUrl = 'sale'" class="dropdown-toggle">
+							<i class="fa fa-edit"></i>
+						</a>
+					</li>
+					<li>
+						<a href="#payment" ng-click="thisUrl = 'payment'" class="dropdown-toggle">
+							<i class="fa fa-credit-card-alt"></i>
+						</a>
+					</li>
+					<li>
+						<a href="#stock" ng-click="thisUrl = 'stock'" class="dropdown-toggle">
+							<i class="fa fa-cutlery"></i>
+						</a>
+					</li>
+					<li class="active">
+						<a href="#setting" ng-click="thisUrl = 'setting'" class="dropdown-toggle">
+							<i class="fa fa-sliders"></i>
+						</a>
+					</li>
+					<li>
+						<a href="" ng-click="loadData()" class="dropdown-toggle">
+							<i class="fa fa-refresh"></i>
+						</a>
+					</li>
+				</ul>
 
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <button type="submit" class="btn btn-danger btn-fill" ng-click="exit()">Exit</button>
-                    </li>
-                    <li class="separator hidden-lg"></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<button type="submit" class="btn btn-danger btn-fill" ng-click="exit()">Exit</button>
+					</li>
+					<li class="separator hidden-lg"></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
 
-    <div class="card content-layout" ng-init="loadData()">
-        <div class="header">
-            <p class="title main-title">Setting Management</p>
-        </div>
-        <br/>
-        <br/>
-        <ul class="nav nav-tabs">
-            <li class="active">
-                <a href="" data-toggle="tab" class="capitalized">Network</a>
-            </li>
-        </ul>
+	<div class="card content-layout" ng-init="loadData()">
+		<div class="header">
+			<p class="title main-title">Setting Management</p>
+		</div>
+		<br />
+		<br />
+		<ul class="nav nav-tabs">
+			<li class="active">
+				<a href="" data-toggle="tab" class="capitalized" data-target="#setting"
+					ng-click="selectSetting('business')">Business Detail</a>
+			</li>
+			<li>
+				<a href="" data-toggle="tab" class="capitalized" data-target="#ordertype"
+					ng-click="selectSetting('ordertype')">Order Types</a>
+			</li>
+			<li>
+				<a href="" data-toggle="tab" class="capitalized" data-target="#setting"
+					ng-click="selectSetting('network')">Network Info</a>
+			</li>
+			<li>
+				<a href="" data-toggle="tab" class="capitalized" data-target="#inapp"
+					ng-click="selectSetting('inapp')">In-App Setting</a>
+			</li>
+			<li>
+				<a href="" data-toggle="tab" class="capitalized" data-target="#user" ng-click="selectSetting('user')">User
+					Info</a>
+			</li>
+		</ul>
 
-        <div class="tab-content">
-            <div id="network" class="tab-pane fade in active">
-                <div class="content">
-                    <div class="full-list-container">
-                        <div class="col-md-6" ng-repeat="setting in settingList">
-                            <label>{{setting.title}}
-                                <input ng-model="setting.value" class="form-control capitalized" type="text" use-keyboard="US International" placeholder="Enter Printer IP Address" required>
-                                <button type="submit" class="btn btn-success btn-fill" ng-click="update(setting)">Save IP</button>
-                            </label>
-                        </div>                    
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+		<div class="tab-content">
+			<div id="setting" class="tab-pane fade in active">
+				<div class="content">
+					<div class="full-list-container">
+						<div class="col-md-6" ng-repeat="setting in settingList | filter: {type: thisTab} | orderBy: 'title'">
+							<label>{{setting.title}}
+								<input ng-model="setting.value" class="form-control capitalized" type="text"
+									use-keyboard="US International" required>
+								<button type="submit" class="btn btn-success btn-fill" ng-click="update(setting)">Save</button>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="user" class="tab-pane fade">
+				<div class="content">
+					<div class="full-list-container">
+						<div class="col-md-6">
+							<label>Staff name
+								<input ng-model="staffName" class="form-control capitalized" type="text" use-keyboard="US International"
+									placeholder="Enter Staff Name" required>
+								<button type="submit" class="btn btn-success btn-fill" ng-click="updateName()">Save</button>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="ordertype" class="tab-pane fade">
+				<div class="content">
+					<div class="full-list-container">
+						<div class="col-md-6" ng-repeat="setting in settingList | filter: {type: thisTab} | orderBy: 'title'">
+							<label>{{setting.title}}
+								<md-switch class="md-primary" ng-change="updateSetting(setting)" ng-true-value="'on'"
+									ng-false-value="'off'" ng-model="setting.value">{{setting.value}}
+								</md-switch>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="inapp" class="tab-pane fade">
+				<div class="content">
+					<div class="full-list-container">
+						<div class="col-md-6">
+							<label>Test Mode
+								<md-switch class="md-primary" ng-change="updateMode(testMode)" ng-true-value="'on'"
+									ng-false-value="'off'" ng-model="testMode" aria-label="Test Mode">{{testMode}}
+								</md-switch>
+							</label>
+						</div>
+
+						<div class="col-md-6" ng-repeat="setting in settingList | filter: {type: thisTab} | orderBy: 'title'">
+							<label>{{setting.title}}
+								<md-switch class="md-primary" ng-change="updateSetting(setting)" ng-true-value="'on'"
+									ng-false-value="'off'" ng-model="setting.value">{{setting.value}}
+								</md-switch>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
