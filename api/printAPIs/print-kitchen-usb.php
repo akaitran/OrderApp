@@ -222,7 +222,7 @@ try {
     $printer -> setTextSize(3,3);
     $printer -> setJustification(Printer::JUSTIFY_CENTER);
 
-    $tux = EscposImage::load("../../images/codologo.png", false);
+    $tux = EscposImage::load("../../assets/images/codologo.png", false);
     $printer->bitImage($tux);
 
     if ($order->type !== "dine in") {
