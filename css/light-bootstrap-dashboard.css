@@ -237,8 +237,8 @@ input:focus {
     position: fixed;
     top: 0;
     bottom: 0;
-    right: auto;
-    left: 0;
+    right: 0;
+    left: auto;
     width: 300px;
     display: block;
     z-index: 1;
@@ -505,7 +505,7 @@ input:focus {
 .main-panel {
     position: relative;
     z-index: 2;
-    float: right;
+    float: left;
     width: calc(100% - 300px);
 }
 

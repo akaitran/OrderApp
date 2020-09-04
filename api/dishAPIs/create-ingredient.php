@@ -10,10 +10,17 @@
     $request = json_decode( file_get_contents('php://input'));
     $ing = $request->data;
 
-    $query = "INSERT INTO ingredient VALUES
-            (DEFAULT, '$ing', '0')";
+    if ($ing)
+    {
+        $query = "INSERT INTO ingredient VALUES
+                (DEFAULT, '$ing', '0')";
 
-    $result = mysqli_query($conn, $query);
+        $result = mysqli_query($conn, $query);
+    }
+    else
+    {
+        header("HTTP/1.0 404 Not Found");
+    }
 
     $conn->close();
 ?>

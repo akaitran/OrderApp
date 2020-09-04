@@ -3,6 +3,7 @@ require '../../services/escpos/autoload.php';
 
 use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 use Mike42\Escpos\Printer;
+use Mike42\Escpos\EscposImage;
 
 //include the connection page
 include('../../dbconfig.php');
@@ -54,6 +55,10 @@ try {
 
   $printer->setJustification(Printer::JUSTIFY_CENTER);
 
+  $tux = EscposImage::load("../../images/logo.png", false);
+  $printer->bitImage($tux);
+
+  $printer->text("\n");
   $printer->text(strtoupper($business) . "\n");
   $printer->text(strtoupper($add1) . "\n");
   $printer->text(strtoupper($add2) . "\n");

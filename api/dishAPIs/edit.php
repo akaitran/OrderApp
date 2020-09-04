@@ -10,16 +10,20 @@ $conn = $db->connect();
 
 $request = json_decode( file_get_contents('php://input'));
 
-$select_query = "SELECT id, options FROM dish";
+$select_query = "SELECT id FROM category";
 
 $result = mysqli_query($conn, $select_query);
+$index = 0;
 
 while ($row = mysqli_fetch_assoc($result)) {
-  $opt = str_replace("take away","",$row['options']);
   $id = $row['id'];
-  $update_query = "UPDATE dish SET options = '$opt' WHERE id = '$id'";
+  
+  while ($row = mysqli_fetch_assoc($result)) {
+    $index++;
+    $update_query = "UPDATE category SET indexno = '$index' WHERE id = '$id'";
 
-  $run = mysqli_query($conn, $update_query);
+    $run = mysqli_query($conn, $update_query);
+  }
 }
 
 $conn->close();

@@ -8,7 +8,7 @@
 </script> 
 
 <html>
-	<head>
+<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
@@ -16,6 +16,7 @@
 
 		<!-- Animation library for notifications   -->
 		<link href="css/animate.min.css" rel="stylesheet"/>
+		<link href="css/jquery-ui.css" rel="stylesheet"/>
         <link href="css/bootstrap.min.css"rel="stylesheet"/>
         <link href="css/material.min.css" rel="stylesheet"/>
         <link href="css/angular-material.min.css" rel="stylesheet"/>
@@ -33,6 +34,7 @@
         
         <!--   Core JS Files   -->
         <script src="js/jquery.3.2.1.min.js"></script>
+        <script src="js/jquery-ui.js"></script>
 		<script src="js/bootstrap.min.js"></script>
         <script src="js/angular.min.js"></script>
         <script src="js/angular-aria.min.js"></script>
@@ -42,6 +44,7 @@
         <script src="js/mdKeyboard.js"></script>
         <script src="js/ios-dblclick.js"></script>
         <script src="js/angular-touch.js"></script>
+        <script src='js/jquery.mousewheel.min.js'></script>
 
 		<!--  Charts Plugin -->
 		<script src="js/chartist.min.js"></script>
@@ -52,20 +55,25 @@
 		<!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
 		<script src="js/light-bootstrap-dashboard.js?v=1.4.0"></script>
 
+		<!-- Stripe Plugin -->
+        <script src="https://js.stripe.com/v3/"></script>
+
         <!-- Neccesary AngularJS controllers -->
         <script src="controllers/mainController.js"></script>
         <script src="controllers/stockController.js"></script>
         <script src="controllers/paymentController.js"></script>
         <script src="controllers/saleController.js"></script>
+        <script src="controllers/quickSaleController.js"></script>
         <script src="controllers/settingController.js"></script>
 	</head>
 	
 	<body ng-app="app" ng-controller="mainController">
         <div class="start-screen" ng-if="startApp == false">
             <img class="image-responsive" src="images/logo.png" style="height: 80px; margin-top: 160px;">
-            <h1 style="color: white">Knough Order System</h1>
-            <input class="form-control" style="width: 240px; margin: 20px auto" use-keyboard="US International" type="text"
-                ng-if="staffName === null" id="staffname" placeholder="Enter staff name" ng-cloak>
+            <h1 style="color: white">Beplink</h1>
+            <h2 style="color: white">Order Management System</h2>
+            <input class="form-control" style="width: 240px; margin: 20px auto" type="text"
+                id="staffname" placeholder="Enter staff name" ng-cloak>
             <button type="submit" class="btn btn-danger btn-fill" ng-click="open()">Start App</button>
             <span style="position: fixed; bottom: 20px; right: 20px; color: white;">v1.4.4</span>
         </div>

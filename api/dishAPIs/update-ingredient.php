@@ -10,13 +10,20 @@
     $request = json_decode( file_get_contents('php://input'));
     $ingList = $request->data;
 
-    foreach($ingList as $ing) {
-        $query = "UPDATE ingredient
-                SET price = '$ing->price',
-                    unit = '$ing->unit'
-                WHERE id = '$ing->id'";
+    if ($ingList)
+    {
+        foreach($ingList as $ing) {
+            $query = "UPDATE ingredient
+                    SET price = '$ing->price',
+                        unit = '$ing->unit'
+                    WHERE id = '$ing->id'";
 
-        $result = mysqli_query($conn, $query);
+            $result = mysqli_query($conn, $query);
+        }
+    }
+    else
+    {
+        header("HTTP/1.0 404 Not Found");
     }
     
     $conn->close();

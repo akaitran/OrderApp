@@ -1,344 +1,356 @@
 /*-----Stock Controller-----*/
 app.controller("stockController", function ($scope, $http, $routeParams) {
-    this.name = 'stockController';
-    this.params = $routeParams;
+	this.name = 'stockController';
+	this.params = $routeParams;
+	$scope.testMode = localStorage.getItem("testMode");
 
-    $scope.cateList = [];
-    $scope.dishList = [];
-    $scope.ingList = [];
-    $scope.areaList = ["đồ nước", "đồ chiên", "đồ xào", "quầy bar", "đặc biệt"];
+	$scope.cateList = [];
+	$scope.dishList = [];
+	$scope.ingList = [];
+	$scope.areaList = ["đồ nước", "đồ chiên", "đồ xào", "quầy bar", "đặc biệt"];
 
-    $scope.isCate = true;
-    $scope.thisCate = null;
-    $scope.thisDish = {};
-    $scope.thisItem = {};
-    $scope.thisSize = {"S": -1, "M": -3, "L": -5}
-    
-    $scope.loadData = function () {
-        $scope.thisItem = {};
-        $scope.context = {"submit": "create", "title": "new"};
+	$scope.isCate = true;
+	$scope.thisCate = null;
+	$scope.thisDish = {};
+	$scope.thisItem = {};
+	$scope.thisSize = { "S": -1, "M": -3, "L": -5 }
 
-        $http({
-            url: "api/dishAPIs/load-category.php",
-            method: "POST"
-        }).then(function(response) {
-            $scope.cateList = response.data;
+	$scope.loadData = function () {
+		$scope.thisItem = {};
+		$scope.context = { "submit": "create", "title": "new" };
 
-            if ($scope.thisCate === null)
-                $scope.thisCate = $scope.cateList[0].id;
+		$http({
+			url: "api/dishAPIs/load-category.php",
+			method: "POST"
+		}).then(function (response) {
+			$scope.cateList = response.data;
 
-            $http({
-                url: "api/dishAPIs/load-dish.php",
-                method: "POST"
-            }).then(function(response) {
-                $scope.dishList = response.data.filter(function(dish) {
-                    dish.price = JSON.parse(dish.price);
+			if ($scope.thisCate === null)
+				$scope.thisCate = $scope.cateList[0].id;
 
-                    return dish;
-                });
+			$http({
+				url: "api/dishAPIs/load-dish.php",
+				method: "POST"
+			}).then(function (response) {
+				$scope.dishList = response.data.filter(function (dish) {
+					dish.price = JSON.parse(dish.price);
 
-                $http({
-                    url: "api/dishAPIs/load-ingredient.php",
-                    method: "POST"
-                }).then(function(response) {
-                    $scope.ingList = response.data.filter(function(ing) {
-                        ing.price = parseFloat(ing.price);
-    
-                        return ing;
-                    });
-                });
-            });
-        });
+					return dish;
+				});
 
-        $scope.thisItem.type = "category";
-    }
+				$http({
+					url: "api/dishAPIs/load-ingredient.php",
+					method: "POST",
+					data: {
+						apikey: $scope.webapikey,
+					}
+				}).then(function (response) {
+					$scope.ingList = response.data.filter(function (ing) {
+						ing.price = parseFloat(ing.price);
 
-    /*  Essential Functions  */
-    $scope.splitContent = function (content) {
-        var splitContent = content.split(",");
-        return splitContent;
-    };
+						return ing;
+					});
+				});
+			});
+		});
 
-    $scope.changeSize = function(size) {
-        $scope.thisSize[size] = $scope.thisSize[size] * -1;
-    }
+		$scope.thisItem.type = "category";
+	}
 
-    $scope.selectCate = function(cateId) {
-        if (!isNaN(cateId)) {
-            $scope.isCate = true;
+	/*  Essential Functions  */
+	$scope.splitContent = function (content) {
+		var splitContent = content.split(",");
+		return splitContent;
+	};
 
-            $scope.context.submit = "update";
-            $scope.context.title = "edit";
+	$scope.changeSize = function (size) {
+		$scope.thisSize[size] = $scope.thisSize[size] * -1;
+	}
 
-            $scope.thisCate = cateId;
-            $scope.thisDish = {};
+	$scope.dragSelect = function (index) {
+		console.log("select: " + index);
 
-            $scope.cateList.filter(function(cate) {
-                if (cate.id == cateId) {
-                    $scope.thisItem = cate;
-                }
-            });
-        } else {
-            $scope.isCate = false;
-        }
-    }
+		var dragItem = document.querySelector("#tabItem" + index);
+		dragItem.style.border = "1px solid #1DC7EA";
+	}
 
-    $scope.selectDish = function(dishId) {
-        $scope.context.submit = "update";
-        $scope.context.title = "edit";
+	$scope.selectCate = function (cateId) {
+		console.log("select");
+		if (!isNaN(cateId)) {
+			$scope.isCate = true;
 
-        $scope.dishList.filter(function(dish) {
-            if (dish.id == dishId) {
-                $scope.thisSize = {"S": -1, "M": -3, "L": -5}
+			$scope.context.submit = "update";
+			$scope.context.title = "edit";
 
-                if (dish.size == -7) {
-                    $scope.thisSize["S"] = 1;
-                } else if (dish.size == -3) {
-                    $scope.thisSize["M"] = 3;
-                } else if (dish.size == -1) {
-                    $scope.thisSize["S"] = 1;
-                    $scope.thisSize["M"] = 3;
-                } else if (dish.size == 1) {
-                    $scope.thisSize["L"] = 5;
-                } else if (dish.size == 3) {
-                    $scope.thisSize["S"] = 1;
-                    $scope.thisSize["L"] = 5;
-                } else if (dish.size == 7) {
-                    $scope.thisSize["M"] = 3;
-                    $scope.thisSize["L"] = 5;
-                } else if (dish.size == 9) {
-                    $scope.thisSize["S"] = 1;
-                    $scope.thisSize["M"] = 3;
-                    $scope.thisSize["L"] = 5;
-                }
+			$scope.thisCate = cateId;
+			$scope.thisDish = {};
 
-                $scope.thisDish = dish;
-                $scope.thisItem = dish;
-            }
-        });
-    }
+			$scope.cateList.filter(function (cate) {
+				if (cate.id == cateId) {
+					$scope.thisItem = cate;
+				}
+			});
+		} else {
+			$scope.isCate = false;
+		}
+	}
 
-    $scope.newItem = function() {
-        $scope.context.submit = "create";
-        $scope.context.title = "new";
+	$scope.selectDish = function (dishId) {
+		$scope.context.submit = "update";
+		$scope.context.title = "edit";
 
-        $scope.thisItem = {};
-        $scope.thisItem.cateid = $scope.thisCate;
-        $scope.thisItem.area = "đồ nước";
-        $scope.thisSize = {"S": -1, "M": -3, "L": -5}
-    }
+		$scope.dishList.filter(function (dish) {
+			if (dish.id == dishId) {
+				$scope.thisSize = { "S": -1, "M": -3, "L": -5 }
 
-    $scope.copyItem = function() {
-        $scope.context.submit = "create";
-        $scope.context.title = "new";
-    }
-    
-    $scope.saveExtra = function() {
-        $http({
-            url: "api/dishAPIs/update-ingredient.php",
-            method: "POST",
-            data: {
-                data: $scope.ingList
-            }
-        }).then(function(response) {
-            //$scope.loadData();
-        });
-    }
+				if (dish.size == -7) {
+					$scope.thisSize["S"] = 1;
+				} else if (dish.size == -3) {
+					$scope.thisSize["M"] = 3;
+				} else if (dish.size == -1) {
+					$scope.thisSize["S"] = 1;
+					$scope.thisSize["M"] = 3;
+				} else if (dish.size == 1) {
+					$scope.thisSize["L"] = 5;
+				} else if (dish.size == 3) {
+					$scope.thisSize["S"] = 1;
+					$scope.thisSize["L"] = 5;
+				} else if (dish.size == 7) {
+					$scope.thisSize["M"] = 3;
+					$scope.thisSize["L"] = 5;
+				} else if (dish.size == 9) {
+					$scope.thisSize["S"] = 1;
+					$scope.thisSize["M"] = 3;
+					$scope.thisSize["L"] = 5;
+				}
 
-    $scope.search = function (item) {
-        if ($scope.thisCate === null) {
-            if ($scope.searchText === undefined || $scope.searchText === "") {
-                return false;
-            } else {
-                if (item.name.toLowerCase().indexOf($scope.searchText.toLowerCase()) !== -1) {
-                    return true;
-                }
-            }
-        } else {
-            if ($scope.searchText === undefined || $scope.searchText === "") {
-                if (item.cateid == $scope.thisCate) {
-                    return true;
-                }
-            } else {
-                if (item.name.toLowerCase().indexOf($scope.searchText.toLowerCase()) !== -1) {
-                    return true;
-                }
-            }
-        }
-    }
+				$scope.thisDish = dish;
+				$scope.thisItem = dish;
+			}
+		});
+	}
 
-    /*  APIs Functions  */
-    $scope.create = function() {
-        if ($scope.thisItem.type === "category") {
-            $http({
-                url: "api/dishAPIs/create-category.php",
-                method: "POST",
-                data: {
-                    data: $scope.thisItem
-                }
-            }).then(function(response) {
-                //$scope.loadData();
-            });
-        } else if ($scope.thisItem.type === "dish") {
-            $scope.thisItem.size = $scope.thisSize["S"] + $scope.thisSize["M"] + $scope.thisSize["L"];
+	$scope.newItem = function () {
+		$scope.context.submit = "create";
+		$scope.context.title = "new";
 
-            for (var key in $scope.thisSize) {
-                if ($scope.thisSize[key] < 0) {
-                    $scope.thisItem.price[key] = 0;
-                }
-            }
+		$scope.thisItem = {};
+		$scope.thisItem.cateid = $scope.thisCate;
+		$scope.thisItem.area = "đồ nước";
+		$scope.thisSize = { "S": -1, "M": -3, "L": -5 }
+	}
 
-            $scope.thisItem.price = JSON.stringify($scope.thisItem.price);
+	$scope.copyItem = function () {
+		$scope.context.submit = "create";
+		$scope.context.title = "new";
+	}
 
-            $http({
-                url: "api/dishAPIs/create-dish.php",
-                method: "POST",
-                data: {
-                    data: $scope.thisItem
-                }
-            }).then(function(response) {
-                if (response.data === "failed") {
-                    $.notify({
-                        message: "Network error, Please wait create again"
-                    },{
-                            type: 'warning',
-                            timer: 2000,
-                            delay: 100,
-                            z_index: 10001,
-                    });
-                } else {
-                    $.notify({
-                        message: "New dish is created!"
-                    },{
-                        type: 'success',
-                        timer: 2000,
-                        delay: 100,
-                        z_index: 10001,
-                    });
+	$scope.saveExtra = function () {
+		$http({
+			url: "api/dishAPIs/update-ingredient.php",
+			method: "POST",
+			data: {
+				data: $scope.ingList
+			}
+		}).then(function (response) {
+			//$scope.loadData();
+		});
+	}
 
-                    $scope.thisItem.price = JSON.parse($scope.thisItem.price);
-                    $scope.loadData();
-                }
-            });
-        }
-    }
+	$scope.search = function (item) {
+		if ($scope.thisCate === null) {
+			if ($scope.searchText === undefined || $scope.searchText === "") {
+				return false;
+			} else {
+				if (item.name.toLowerCase().indexOf($scope.searchText.toLowerCase()) !== -1) {
+					return true;
+				}
+			}
+		} else {
+			if ($scope.searchText === undefined || $scope.searchText === "") {
+				if (item.cateid == $scope.thisCate) {
+					return true;
+				}
+			} else {
+				if (item.name.toLowerCase().indexOf($scope.searchText.toLowerCase()) !== -1) {
+					return true;
+				}
+			}
+		}
+	}
 
-    $scope.update = function() {
-        console.log(JSON.stringify($scope.thisItem));
-        
-        if ($scope.thisItem.type === "category") {
-            $http({
-                url: "api/dishAPIs/update-category.php",
-                method: "POST",
-                data: {
-                    data: $scope.thisItem
-                }
-            }).then(function(response) {
-                if (response.data === "failed") {
-                    $.notify({
-                        message: "Network error, Please wait update again"
-                    },{
-                            type: 'warning',
-                            timer: 2000,
-                            delay: 100,
-                            z_index: 10001,
-                    });
-                } else {
-                    $.notify({
-                        message: "Category is updated!"
-                    },{
-                        type: 'success',
-                        timer: 2000,
-                        delay: 100,
-                        z_index: 10001,
-                    });
-                    $scope.loadData();
-                }
-            });
-        } else if ($scope.thisItem.type === "dish") {
-            $scope.thisItem.size = $scope.thisSize["S"] + $scope.thisSize["M"] + $scope.thisSize["L"];
+	/*  APIs Functions  */
+	$scope.create = function () {
+		if ($scope.thisItem.type === "category") {
+			$http({
+				url: "api/dishAPIs/create-category.php",
+				method: "POST",
+				data: {
+					data: $scope.thisItem
+				}
+			}).then(function (response) {
+				//$scope.loadData();
+			});
+		} else if ($scope.thisItem.type === "dish") {
+			$scope.thisItem.size = $scope.thisSize["S"] + $scope.thisSize["M"] + $scope.thisSize["L"];
 
-            for (var key in $scope.thisSize) {
-                if ($scope.thisSize[key] < 0) {
-                    delete $scope.thisItem.price[key];
-                }
-            }
-            
-            $scope.thisItem.price = JSON.stringify($scope.thisItem.price);
+			for (var key in $scope.thisSize) {
+				if ($scope.thisSize[key] < 0) {
+					$scope.thisItem.price[key] = 0;
+				}
+			}
 
-            $http({
-                url: "api/dishAPIs/update-dish.php",
-                method: "POST",
-                data: {
-                    data: $scope.thisItem
-                }
-            }).then(function(response) {
-                if (response.data === "failed") {
-                    $.notify({
-                        message: "Network error, Please wait update again"
-                    },{
-                            type: 'warning',
-                            timer: 2000,
-                            delay: 100,
-                            z_index: 10001,
-                    });
-                } else {
-                    $.notify({
-                        message: "Dish is updated!"
-                    },{
-                        type: 'success',
-                        timer: 2000,
-                        delay: 100,
-                        z_index: 10001,
-                    });
-                    $scope.loadData();
-                }
-            });
-        }
-    }
+			$scope.thisItem.price = JSON.stringify($scope.thisItem.price);
 
-    $scope.delete = function() {
-        console.log(JSON.stringify($scope.thisItem));
+			$http({
+				url: "api/dishAPIs/create-dish.php",
+				method: "POST",
+				data: {
+					data: $scope.thisItem
+				}
+			}).then(function (response) {
+				if (response.data === "failed") {
+					$.notify({
+						message: "Network error, Please wait create again"
+					}, {
+						type: 'warning',
+						timer: 2000,
+						delay: 100,
+						z_index: 10001,
+					});
+				} else {
+					$.notify({
+						message: "New dish is created!"
+					}, {
+						type: 'success',
+						timer: 2000,
+						delay: 100,
+						z_index: 10001,
+					});
 
-        if ($scope.thisItem.type === "category") {
-            $http({
-                url: "api/dishAPIs/delete-category.php",
-                method: "POST",
-                data: {
-                    data: $scope.thisItem
-                }
-            }).then(function(response) {
-                $scope.loadData();
-            });
-        } else if ($scope.thisItem.type === "dish") {
-            $http({
-                url: "api/dishAPIs/delete-dish.php",
-                method: "POST",
-                data: {
-                    data: $scope.thisItem
-                }
-            }).then(function(response) {
-                if (response.data === "failed") {
-                    $.notify({
-                        message: "Network error, Please wait delete again"
-                    },{
-                            type: 'warning',
-                            timer: 2000,
-                            delay: 100,
-                            z_index: 10001,
-                    });
-                } else {
-                    $.notify({
-                        message: "Dish is already deleted!"
-                    },{
-                        type: 'success',
-                        timer: 2000,
-                        delay: 100,
-                        z_index: 10001,
-                    });
-                    $scope.loadData();
-                }
-            });
-        }
-    }
+					$scope.thisItem.price = JSON.parse($scope.thisItem.price);
+					$scope.loadData();
+				}
+			});
+		}
+	}
+
+	$scope.update = function () {
+		console.log(JSON.stringify($scope.thisItem));
+
+		if ($scope.thisItem.type === "category") {
+			$http({
+				url: "api/dishAPIs/update-category.php",
+				method: "POST",
+				data: {
+					data: $scope.thisItem
+				}
+			}).then(function (response) {
+				if (response.data === "failed") {
+					$.notify({
+						message: "Network error, Please wait update again"
+					}, {
+						type: 'warning',
+						timer: 2000,
+						delay: 100,
+						z_index: 10001,
+					});
+				} else {
+					$.notify({
+						message: "Category is updated!"
+					}, {
+						type: 'success',
+						timer: 2000,
+						delay: 100,
+						z_index: 10001,
+					});
+					$scope.loadData();
+				}
+			});
+		} else if ($scope.thisItem.type === "dish") {
+			$scope.thisItem.size = $scope.thisSize["S"] + $scope.thisSize["M"] + $scope.thisSize["L"];
+
+			for (var key in $scope.thisSize) {
+				if ($scope.thisSize[key] < 0) {
+					delete $scope.thisItem.price[key];
+				}
+			}
+
+			$scope.thisItem.price = JSON.stringify($scope.thisItem.price);
+
+			$http({
+				url: "api/dishAPIs/update-dish.php",
+				method: "POST",
+				data: {
+					data: $scope.thisItem
+				}
+			}).then(function (response) {
+				if (response.data === "failed") {
+					$.notify({
+						message: "Network error, Please wait update again"
+					}, {
+						type: 'warning',
+						timer: 2000,
+						delay: 100,
+						z_index: 10001,
+					});
+				} else {
+					$.notify({
+						message: "Dish is updated!"
+					}, {
+						type: 'success',
+						timer: 2000,
+						delay: 100,
+						z_index: 10001,
+					});
+					$scope.loadData();
+				}
+			});
+		}
+	}
+
+	$scope.delete = function () {
+		console.log(JSON.stringify($scope.thisItem));
+
+		if ($scope.thisItem.type === "category") {
+			$http({
+				url: "api/dishAPIs/delete-category.php",
+				method: "POST",
+				data: {
+					data: $scope.thisItem
+				}
+			}).then(function (response) {
+				$scope.loadData();
+			});
+		} else if ($scope.thisItem.type === "dish") {
+			$http({
+				url: "api/dishAPIs/delete-dish.php",
+				method: "POST",
+				data: {
+					data: $scope.thisItem
+				}
+			}).then(function (response) {
+				if (response.data === "failed") {
+					$.notify({
+						message: "Network error, Please wait delete again"
+					}, {
+						type: 'warning',
+						timer: 2000,
+						delay: 100,
+						z_index: 10001,
+					});
+				} else {
+					$.notify({
+						message: "Dish is already deleted!"
+					}, {
+						type: 'success',
+						timer: 2000,
+						delay: 100,
+						z_index: 10001,
+					});
+					$scope.loadData();
+				}
+			});
+		}
+	}
 });

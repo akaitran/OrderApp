@@ -37,3 +37,6 @@ Stack trace:
 #0 /home3/akatsolc/public_html/orderapp/api/printAPIs/print-counter-usb.php(40): Mike42\Escpos\PrintConnectors\FilePrintConnector->__construct('/dev/usb/lp0')
 #1 {main}
   thrown in /home3/akatsolc/public_html/orderapp/services/escpos/src/Mike42/Escpos/PrintConnectors/FilePrintConnector.php on line 37
+[25-Mar-2020 01:19:42 America/Boise] PHP Warning:  fopen(/dev/usb/lp0): failed to open stream: No such file or directory in /home4/akatsolc/public_html/orderapp/services/escpos/src/Mike42/Escpos/PrintConnectors/FilePrintConnector.php on line 35
+[26-Mar-2020 02:21:44 America/Boise] PHP Warning:  fopen(/dev/usb/lp0): failed to open stream: No such file or directory in /home4/akatsolc/public_html/orderapp/services/escpos/src/Mike42/Escpos/PrintConnectors/FilePrintConnector.php on line 35
+[26-Mar-2020 02:24:03 America/Boise] PHP Warning:  fopen(/dev/usb/lp0): failed to open stream: No such file or directory in /home4/akatsolc/public_html/orderapp/services/escpos/src/Mike42/Escpos/PrintConnectors/FilePrintConnector.php on line 35
