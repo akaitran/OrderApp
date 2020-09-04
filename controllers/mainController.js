@@ -4,27 +4,27 @@ var app = angular.module('app', ['ngRoute', 'ngAnimate', 'ngAria', 'ngMaterial',
 	.config(['$routeProvider', '$locationProvider', '$mdKeyboardProvider', function ($routeProvider, $locationProvider, $mdKeyboardProvider) {
 		$routeProvider
 			.when('/', {
-				templateUrl: 'templates/sale.html',
+				templateUrl: 'views/sale.html',
 				controller: 'saleController'
 			})
 			.when('/stock', {
-				templateUrl: 'templates/stock.html',
+				templateUrl: 'views/stock.html',
 				controller: 'stockController'
 			})
 			.when('/order', {
-				templateUrl: 'templates/payment.html',
+				templateUrl: 'views/payment.html',
 				controller: 'paymentController'
 			})
 			.when('/food', {
-				templateUrl: 'templates/sale.html',
+				templateUrl: 'views/sale.html',
 				controller: 'saleController'
 			})
 			.when('/quicksale', {
-				templateUrl: 'templates/quicksale.html',
+				templateUrl: 'views/quicksale.html',
 				controller: 'quickSaleController'
 			})
 			.when('/setting', {
-				templateUrl: 'templates/setting.html',
+				templateUrl: 'views/setting.html',
 				controller: 'settingController'
 			})
 			.otherwise({
