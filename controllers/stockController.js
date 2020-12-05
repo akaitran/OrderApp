@@ -153,7 +153,7 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 				data: $scope.ingList
 			}
 		}).then(function (response) {
-			//$scope.loadData();
+			$scope.loadData();
 		});
 	}
 
@@ -189,7 +189,7 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 					data: $scope.thisItem
 				}
 			}).then(function (response) {
-				//$scope.loadData();
+				$scope.loadData();
 			});
 		} else if ($scope.thisItem.type === "dish") {
 			$scope.thisItem.size = $scope.thisSize["S"] + $scope.thisSize["M"] + $scope.thisSize["L"];
