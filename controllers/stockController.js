@@ -160,6 +160,10 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 		$scope.thisItem.sizes.push(size);
 	}
 
+	$scope.removeSize = function(index) {
+		$scope.thisItem.sizes = $scope.thisItem.sizes.splice(index, 1);
+	}
+
 	$scope.addIngredient = function() {
 		let ing = {
 			name: "",
@@ -169,12 +173,20 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 		$scope.thisItem.ingredients.push(ing);
 	}
 
+	$scope.removeIngredient = function(index) {
+		$scope.thisItem.ingredients = $scope.thisItem.ingredients.splice(index, 1);
+	}
+
 	$scope.addOption = function() {
 		let opt = {
 			name: "",
 		}
 
 		$scope.thisItem.options.push(opt);
+	}
+
+	$scope.removeOption = function(index) {
+		$scope.thisItem.options = $scope.thisItem.options.splice(index, 1);
 	}
 
 	$scope.search = function (item) {
