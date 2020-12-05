@@ -216,8 +216,10 @@ textarea.form-control {
 	margin: 0;
 }
 
-.navbar .navbar-nav > li.active > a
-.navbar .navbar-nav > li:hover > a {
+.navbar .navbar-nav > li.active > a,
+.navbar .navbar-nav > li.active > a [class^="glyph-icon"],
+.navbar .navbar-nav > li.active > a [class^="fa"],
+.navbar .navbar-nav > li:hover > a [class^="fa"] {
 	color: rgb(33,150,243);
 }
 
