@@ -71,11 +71,11 @@
         <div class="start-screen" ng-if="startApp == false">
             <img class="image-responsive" src="assets/images/logo.png" style="height: 80px; margin-top: 160px;">
             <h1 style="color: white">Beplink</h1>
-            <h2 style="color: white">Order Management System</h2>
+            <h2 style="color: white">Order System</h2>
             <input class="form-control" style="width: 240px; margin: 20px auto" type="text"
                 id="staffname" placeholder="Enter staff name" ng-cloak>
-            <button type="submit" class="btn btn-danger btn-fill" ng-click="open()">Start</button>
-            <span style="position: fixed; bottom: 20px; right: 20px; color: white;">v1.4.4</span>
+            <button type="submit" class="btn btn-danger btn-fill" ng-click="open()">Start App</button>
+            <span style="position: fixed; bottom: 20px; right: 20px; color: white;">v1.6.4</span>
         </div>
 
 		<div class="wrapper" ng-if="startApp == true" ng-view>
