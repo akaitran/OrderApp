@@ -161,9 +161,8 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 	}
 
 	$scope.removeSize = function(index) {
-		console.log(index);
 
-		$scope.thisItem.sizes = $scope.thisItem.sizes.splice(index, 1);
+		$scope.thisItem.sizes.splice(index, 1);
 	}
 
 	$scope.addIngredient = function() {
@@ -176,7 +175,7 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 	}
 
 	$scope.removeIngredient = function(index) {
-		$scope.thisItem.ingredients = $scope.thisItem.ingredients.splice(index, 1);
+		$scope.thisItem.ingredients.splice(index, 1);
 	}
 
 	$scope.addOption = function() {
@@ -188,8 +187,7 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 	}
 
 	$scope.removeOption = function(index) {
-		console.log(index);
-		$scope.thisItem.options = $scope.thisItem.options.splice(index, 1);
+		$scope.thisItem.options.splice(index, 1);
 	}
 
 	$scope.search = function (item) {
