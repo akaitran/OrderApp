@@ -161,6 +161,8 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 	}
 
 	$scope.removeSize = function(index) {
+		console.log(index);
+
 		$scope.thisItem.sizes = $scope.thisItem.sizes.splice(index, 1);
 	}
 
@@ -186,6 +188,7 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 	}
 
 	$scope.removeOption = function(index) {
+		console.log(index);
 		$scope.thisItem.options = $scope.thisItem.options.splice(index, 1);
 	}
 
