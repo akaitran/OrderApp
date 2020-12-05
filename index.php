@@ -74,7 +74,7 @@
             <h2 style="color: white">Order Management System</h2>
             <input class="form-control" style="width: 240px; margin: 20px auto" type="text"
                 id="staffname" placeholder="Enter staff name" ng-cloak>
-            <button type="submit" class="btn btn-danger btn-fill" ng-click="open()">Start App</button>
+            <button type="submit" class="btn btn-danger btn-fill" ng-click="open()">Start</button>
             <span style="position: fixed; bottom: 20px; right: 20px; color: white;">v1.4.4</span>
         </div>
 
