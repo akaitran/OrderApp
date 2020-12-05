@@ -106,20 +106,14 @@
 		<div class="container-fluid">
 			<div class="navbar">
 				<ul class="nav navbar-nav navbar-left" style="margin-top: 2px;">
-					<li ng-if="testMode === 'on'">
-						<a href="#quicksale" ng-click="thisUrl = 'quicksale'" class="dropdown-toggle">
-							<i class="fa fa-edit"></i>
-						</a>
-					</li>
-					<li ng-if="testMode !== 'on'">
-						<a href="#sale" ng-click="thisUrl = 'sale'" class="dropdown-toggle">
-							<i class="fa fa-edit"></i>
+					<li>
+						<a href="#food" ng-click="thisUrl = 'food'" class="dropdown-toggle">
+							<i class="fa fa-shopping-basket"></i>
 						</a>
 					</li>
 					<li>
-						<a href="#payment" ng-click="thisUrl = 'payment'" class="dropdown-toggle">
+						<a href="#order" ng-click="thisUrl = 'order'" class="dropdown-toggle">
 							<i class="fa fa-credit-card-alt"></i>
-							<span ng-if="orderAmount > 0" class="notification" ng-bind="orderAmount"></span>
 						</a>
 					</li>
 					<li class="active">
