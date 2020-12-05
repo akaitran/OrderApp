@@ -46,9 +46,9 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 				method: "POST"
 			}).then(function (response) {
 				$scope.dishList = response.data.filter(function (dish) {
-					dish.sizes = JSON.parse(dish.sizes);
-					dish.options = JSON.parse(dish.options);
-					dish.ingredients = JSON.parse(dish.ingredients);
+					dish.sizes = eval('('+ dish.sizes + ')');
+					dish.options = eval('('+ dish.options + ')');
+					dish.ingredients = eval('('+ dish.ingredients + ')');
 
 					return dish;
 				});
