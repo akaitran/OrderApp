@@ -6,13 +6,17 @@ app.controller("settingController", function ($scope, $http, $routeParams) {
 
 	$scope.settingList = [];
 
+	$scope.initial = function() {
+		$scope.loadData();
+		$scope.selectSetting('business');
+	}
+
 	$scope.loadData = function () {
 		$http({
 			url: "api/settingAPIs/load-setting.php",
 			method: "POST"
 		}).then(function (response) {
 			$scope.settingList = response.data;
-			$scope.selectSetting('business');
 		});
 	}
 

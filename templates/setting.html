@@ -45,7 +45,7 @@
 		</div>
 	</nav>
 
-	<div class="card content-layout" ng-init="loadData()">
+	<div class="card content-layout" ng-init="initial()">
 		<div class="header">
 			<p class="title main-title">Setting Management</p>
 		</div>
@@ -82,7 +82,7 @@
 							<label>{{setting.title}}
 								<input ng-model="setting.value" class="form-control capitalized" type="text"
 									use-keyboard="US International" required>
-								<button type="submit" class="btn btn-success btn-fill" ng-click="update(setting)">Save</button>
+								<button type="submit" class="btn btn-success btn-fill" ng-click="updateSetting(setting)">Save</button>
 							</label>
 						</div>
 					</div>

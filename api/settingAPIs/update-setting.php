@@ -11,8 +11,8 @@
     $setting = $request->data;
 
     $query = "UPDATE setting
-            SET value = '$setting->value'
-            WHERE title = '$setting->title'";
+            SET value = $setting->value
+            WHERE title = $setting->title";
 
     $result = mysqli_query($conn, $query);
     
