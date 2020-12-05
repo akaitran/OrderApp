@@ -13,7 +13,7 @@
     if ($cate)
     {
         $query = "INSERT INTO category VALUES
-                (DEFAULT, '$cate->name', '$cate->subname', '$cate->description', DEFAULT)";
+                (DEFAULT, DEFAULT, $cate->name', '$cate->subname', '$cate->description', DEFAULT)";
 
         $result = mysqli_query($conn, $query);
     }
