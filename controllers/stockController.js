@@ -237,6 +237,8 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 			$scope.thisItem.options = JSON.stringify($scope.thisItem.options);
 			$scope.thisItem.ingredients = JSON.stringify($scope.thisItem.ingredients);
 
+			console.log($scope.thisItem);
+
 			$http({
 				url: "api/dishAPIs/create-dish.php",
 				method: "POST",
