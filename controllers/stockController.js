@@ -7,7 +7,7 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 	$scope.cateList = [];
 	$scope.dishList = [];
 	$scope.ingList = [];
-	$scope.areaList = ["đồ nước", "đồ chiên", "đồ xào", "quầy bar", "đặc biệt"];
+	$scope.areaList = ["kitchen", "bar"];
 
 	$scope.isCate = true;
 	$scope.thisCate = null;
