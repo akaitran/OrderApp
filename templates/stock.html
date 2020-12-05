@@ -59,7 +59,7 @@
 						class="form-control group-label" placeholder="Name">
 					</div>
 					<div class="col-md-1 col-xs-1 no-padding">
-						<i ng-click="removeSize($index)" class="fa fa-trash"></i>
+						<i ng-click="removeSize($index)" class="fa fa-times-circle" style="font-size: 20px; margin-top: 8px"></i>
 					</div>
 				</div>
 			</div>
@@ -77,7 +77,7 @@
 					<input type="text" ng-model="opt.name" class="form-control group-label" placeholder="Name">
 				</div>
 				<div class="col-md-1 col-xs-1 no-padding">
-					<i ng-click="removeOption($index)" class="fa fa-trash" style="font-size: 20px"></i>
+					<i ng-click="removeOption($index)" class="fa fa-times-circle" style="font-size: 20px; margin-top: 8px"></i>
 				</div>
 
 				<div class="col-md-6 col-xs-6" ng-repeat="size in thisItem.sizes" ng-if="thisItem.type === 'dish'">
@@ -100,7 +100,7 @@
 				<label>Extra Price</label>
 				<input type="number" use-keyboard="Numbers" min="0" ng-repeat="ing in thisItem.ingredients track by $index" ng-model="ing.price"
 					class="form-control group-label" placeholder="0">
-				<i ng-click="removeIngredient($index)" class="fa fa-trash" style="font-size: 20px"></i>
+				<i ng-click="removeIngredient($index)" class="fa fa-times-circle" style="font-size: 20px; margin-top: 8px"></i>
 			</div>
 
 			<div class="col-md-12 col-xs-12" ng-if="thisItem.type === 'dish'">
