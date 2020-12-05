@@ -190,6 +190,15 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 		$scope.thisItem.ingredients.push(ing);
 	}
 
+	$scope.addOption = function() {
+		let opt = {
+			name: "",
+			price: 0
+		}
+
+		$scope.thisItem.options.push(opt);
+	}
+
 	$scope.search = function (item) {
 		if ($scope.thisCate === null) {
 			if ($scope.searchText === undefined || $scope.searchText === "") {

@@ -67,9 +67,20 @@
 				<button class="btn btn-info form-control capitalized col-md-12 col-xs-12" ng-click="addSize()">+Add Size</button>
 			</div>
 
+			<div class="col-md-6 col-xs-6" ng-if="thisItem.type === 'dish'">
+				<label>Option</label>
+				<input type="text" ng-repeat="opt in thisItem.options" ng-model="opt.name" 
+					class="form-control group-label" placeholder="Name">
+			</div>
+
+			<div class="col-md-6 col-xs-6" ng-if="thisItem.type === 'dish'">
+				<label>Price</label>
+				<input type="number" use-keyboard="Numbers" min="0" ng-repeat="opt in thisItem.options" ng-model="opt.price"
+					class="form-control group-label" placeholder="0">
+			</div>
+
 			<div class="col-md-12 col-xs-12" ng-if="thisItem.type === 'dish'">
-				<label>Options</label>
-				<textarea class="form-control capitalized" rows="5" ng-model="thisItem.options"></textarea>
+				<button class="btn btn-info form-control capitalized col-md-12 col-xs-12" ng-click="addOption()">+Add Option</button>
 			</div>
 
 			<div class="col-md-6 col-xs-6" ng-if="thisItem.type === 'dish'">
