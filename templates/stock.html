@@ -53,22 +53,18 @@
 
 			<div class="col-md-6 col-xs-6" ng-if="thisItem.type === 'dish'">
 				<label>Size</label>
-				<button class="form-control group-label" ng-class="{'btn-info btn-fill': thisSize['S'] == 1}"
-					ng-click="changeSize('S')">Small</button>
-				<button class="form-control group-label" ng-class="{'btn-info btn-fill': thisSize['M'] == 3}"
-					ng-click="changeSize('M')">Medium</button>
-				<button class="form-control group-label" ng-class="{'btn-info btn-fill': thisSize['L'] == 5}"
-					ng-click="changeSize('L')">Large</button>
+				<input type="text" ng-repeat="size in thisSize" ng-model="size.text" 
+					class="form-control group-label" placeholder="Label">
 			</div>
 
 			<div class="col-md-6 col-xs-6" ng-if="thisItem.type === 'dish'">
 				<label>Price</label>
-				<input type="number" use-keyboard="Numbers" min="0" ng-model="thisItem.price['S']"
-					ng-disabled="thisSize['S'] == -1" class="form-control group-label" placeholder="0">
-				<input type="number" use-keyboard="Numbers" min="0" ng-model="thisItem.price['M']"
-					ng-disabled="thisSize['M'] == -3" class="form-control group-label" placeholder="0">
-				<input type="number" use-keyboard="Numbers" min="0" ng-model="thisItem.price['L']"
-					ng-disabled="thisSize['L'] == -5" class="form-control group-label" placeholder="0">
+				<input type="number" use-keyboard="Numbers" min="0" ng-repeat="size in thisSize" ng-model="size.value"
+					class="form-control group-label" placeholder="0">
+			</div>
+
+			<div class="col-md-12 col-xs-12">
+				<button class="btn capitalized" ng-click="addSize()">Add More Size</button>
 			</div>
 
 			<div class="col-md-12 col-xs-12" ng-if="thisItem.type === 'dish'">

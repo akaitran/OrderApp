@@ -13,7 +13,7 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 	$scope.thisCate = null;
 	$scope.thisDish = {};
 	$scope.thisItem = {};
-	$scope.thisSize = { "S": -1, "M": -3, "L": -5 }
+	$scope.thisSize = [];
 
 	$scope.loadData = function () {
 		$scope.thisItem = {};
@@ -136,8 +136,8 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 
 		$scope.thisItem = {};
 		$scope.thisItem.cateid = $scope.thisCate;
-		$scope.thisItem.area = "đồ nước";
-		$scope.thisSize = { "S": -1, "M": -3, "L": -5 }
+		$scope.thisItem.area = "kitchen";
+		$scope.thisSize = [];
 	}
 
 	$scope.copyItem = function () {
@@ -155,6 +155,15 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 		}).then(function (response) {
 			$scope.loadData();
 		});
+	}
+
+	$scope.addSize = function() {
+		let size = {
+			text: "",
+			value: 0
+		}
+
+		$scope.thisSize.push(size);
 	}
 
 	$scope.search = function (item) {
