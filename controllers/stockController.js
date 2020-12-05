@@ -19,11 +19,17 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 		ingredients: [],
 		options: []
 	};
-	
+
 	$scope.thisSize = [];
 
 	$scope.loadData = function () {
-		$scope.thisItem = {};
+		$scope.thisItem = {
+			cateid: $scope.thisCate,
+			area: "kitchen",
+			sizes: [],
+			ingredients: [],
+			options: []
+		};
 		$scope.context = { "submit": "create", "title": "new" };
 
 		$http({
