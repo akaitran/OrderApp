@@ -21,6 +21,8 @@ app.controller("settingController", function ($scope, $http, $routeParams) {
 	}
 
 	$scope.updateSetting = function (setting) {
+		console.log(setting);
+
 		$http({
 			url: "api/settingAPIs/update-setting.php",
 			method: "POST",
