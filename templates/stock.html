@@ -205,7 +205,7 @@
 					<div class="full-list-container">
 						<div class="card dish-single-item col-xs-4 col-md-2 mdl-shadow--2dp navbar-toggle"
 							ng-class="{'active': dish.id == thisDish.id}"
-							ng-repeat="dish in dishList | filter: search | orderBy: 'name'" ng-click="selectDish(dish.id)"
+							ng-repeat="dish in dishList | filter: search | orderBy: name" ng-click="selectDish(dish.id)"
 							data-toggle="collapse" data-target="#navigation-editor" ng-cloak>
 							<div class="header">
 								<h4 class="title capitalized" ng-bind="dish.name"></h4>
