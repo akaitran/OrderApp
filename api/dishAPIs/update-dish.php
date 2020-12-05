@@ -18,9 +18,8 @@
                     description = '$dish->description',
                     cateid = '$dish->cateid',
                     area = '$dish->area',
-                    size = '$dish->size',
-                    price = '$dish->price',
-                    ingredient = '$dish->ingredient',
+                    sizes = '$dish->sizes',
+                    ingredients = '$dish->ingredients',
                     options = '$dish->options',
                     seperator = '$dish->seperator'
                 WHERE id = '$dish->id'";

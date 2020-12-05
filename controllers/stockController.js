@@ -216,8 +216,6 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 			$scope.thisItem.options = JSON.stringify($scope.thisItem.options);
 			$scope.thisItem.ingredients = JSON.stringify($scope.thisItem.ingredients);
 
-			console.log($scope.thisItem);
-
 			$http({
 				url: "api/dishAPIs/create-dish.php",
 				method: "POST",
@@ -236,8 +234,6 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 	}
 
 	$scope.update = function () {
-		console.log(JSON.stringify($scope.thisItem));
-
 		if ($scope.thisItem.type === "category") {
 			$http({
 				url: "api/dishAPIs/update-category.php",
@@ -247,36 +243,16 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 				}
 			}).then(function (response) {
 				if (response.data === "failed") {
-					$.notify({
-						message: "Network error, Please wait update again"
-					}, {
-						type: 'warning',
-						timer: 2000,
-						delay: 100,
-						z_index: 10001,
-					});
+					$scope.notify("Network error, Please wait update again","warning");
 				} else {
-					$.notify({
-						message: "Category is updated!"
-					}, {
-						type: 'success',
-						timer: 2000,
-						delay: 100,
-						z_index: 10001,
-					});
+					$scope.notify("Category is updated!","success");
 					$scope.loadData();
 				}
 			});
 		} else if ($scope.thisItem.type === "dish") {
-			$scope.thisItem.size = $scope.thisSize["S"] + $scope.thisSize["M"] + $scope.thisSize["L"];
-
-			for (var key in $scope.thisSize) {
-				if ($scope.thisSize[key] < 0) {
-					delete $scope.thisItem.price[key];
-				}
-			}
-
-			$scope.thisItem.price = JSON.stringify($scope.thisItem.price);
+			$scope.thisItem.sizes = JSON.stringify($scope.thisItem.sizes);
+			$scope.thisItem.options = JSON.stringify($scope.thisItem.options);
+			$scope.thisItem.ingredients = JSON.stringify($scope.thisItem.ingredients);
 
 			$http({
 				url: "api/dishAPIs/update-dish.php",
@@ -286,23 +262,9 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 				}
 			}).then(function (response) {
 				if (response.data === "failed") {
-					$.notify({
-						message: "Network error, Please wait update again"
-					}, {
-						type: 'warning',
-						timer: 2000,
-						delay: 100,
-						z_index: 10001,
-					});
+					$scope.notify("Network error, Please wait update again","warning");
 				} else {
-					$.notify({
-						message: "Dish is updated!"
-					}, {
-						type: 'success',
-						timer: 2000,
-						delay: 100,
-						z_index: 10001,
-					});
+					$scope.notify("Dish is updated!","success");
 					$scope.loadData();
 				}
 			});
