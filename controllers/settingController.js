@@ -30,6 +30,7 @@ app.controller("settingController", function ($scope, $http, $routeParams) {
 				data: setting
 			}
 		}).then(function (response) {
+			$scope.notify("Value of " + setting.title + " has been changed!", "info");
 			$scope.loadData();
 		});
 	}
@@ -43,13 +44,7 @@ app.controller("settingController", function ($scope, $http, $routeParams) {
 		localStorage.setItem("deliveryAddress", $scope.deliveryAddress);
 		localStorage.setItem("phoneNumber", $scope.phoneNumber);
 		
-		$.notify({
-			message: "Your user information is changed!"
-		}, {
-			timer: 2000,
-			delay: 100,
-			z_index: 10001,
-		});
+		$scope.notify("Your user information is changed!", "info");
 	}
 
 	$scope.updateMode = function (value) {
