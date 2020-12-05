@@ -11,7 +11,7 @@
 		</div>
 
 		<div class="col-md-6 col-xs-6">
-			<label>Table</label>
+			<label>Dine In</label>
 			<select class="capitalized form-control" ng-model="thisOrder.orderno">
 				<option value="{{table}}" ng-repeat="table in rangeOf(52)">{{table}}</option>
 			</select>
@@ -183,7 +183,6 @@
 
 	<div class="card content-layout" ng-init="loadData()">
 		<div class="header">
-			<p class="title main-title">Bill Management</p>
 			<div class="inner-addon right-addon search-box">
 				<input class="form-control" use-keyboard="US International" type="text" ng-model="searchText"
 					placeholder="Search Dish">
