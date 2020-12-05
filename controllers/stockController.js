@@ -234,15 +234,9 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 				$scope.loadData();
 			});
 		} else if ($scope.thisItem.type === "dish") {
-			$scope.thisItem.size = $scope.thisSize["S"] + $scope.thisSize["M"] + $scope.thisSize["L"];
-
-			for (var key in $scope.thisSize) {
-				if ($scope.thisSize[key] < 0) {
-					$scope.thisItem.price[key] = 0;
-				}
-			}
-
-			$scope.thisItem.price = JSON.stringify($scope.thisItem.price);
+			$scope.thisItem.sizes = JSON.stringify($scope.thisItem.sizes);
+			$scope.thisItem.options = JSON.stringify($scope.thisItem.options);
+			$scope.thisItem.ingredients = JSON.stringify($scope.thisItem.ingredients);
 
 			$http({
 				url: "api/dishAPIs/create-dish.php",
@@ -252,25 +246,9 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 				}
 			}).then(function (response) {
 				if (response.data === "failed") {
-					$.notify({
-						message: "Network error, Please wait create again"
-					}, {
-						type: 'warning',
-						timer: 2000,
-						delay: 100,
-						z_index: 10001,
-					});
+					$scope.notify("Network error, Please wait create again", "warning");
 				} else {
-					$.notify({
-						message: "New dish is created!"
-					}, {
-						type: 'success',
-						timer: 2000,
-						delay: 100,
-						z_index: 10001,
-					});
-
-					$scope.thisItem.price = JSON.parse($scope.thisItem.price);
+					$scope.notify("New dish is created!", "success");
 					$scope.loadData();
 				}
 			});

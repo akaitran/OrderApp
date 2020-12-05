@@ -16,19 +16,21 @@
 
         $query = "INSERT INTO dish VALUES
 
-                (DEFAULT, '$dish->name', '$dish->subname', '$dish->description', '$dish->cateid', '$dish->area', '$dish->size', '$dish->price', '$dish->ingredient', '$dish->options', DEFAULT, '$dish->seperator')";
+                (DEFAULT, '$dish->name', '$dish->subname', '$dish->description', '$dish->cateid', '$dish->area', '$dish->size', '$dish->ingredient', '$dish->options', DEFAULT, '$dish->seperator')";
 
         $result = mysqli_query($conn, $query);
 
-        $array = explode(", ", $dish->ingredient);
+        $dish_id = $conn->insert_id;
+
+        $array = json_encode($dish->ingredients);
 
         foreach($array as $ing) {
-            $select_query = "SELECT * FROM ingredient WHERE name = '$ing'";
+            $select_query = "SELECT * FROM ingredient WHERE name = '$ing->name' AND dish_id = '$dish_id'";
             $selectResult = mysqli_query($conn, $select_query);
 
             if( !mysqli_num_rows($selectResult) ) {
                 $insert_query = "INSERT INTO ingredient VALUES
-                    (DEFAULT, '$ing', 0, DEFAULT)";
+                    (DEFAULT, '$dish_id', '$ing->name', '$ing->price', DEFAULT)";
 
                 $run = mysqli_query($conn, $insert_query);
             }
