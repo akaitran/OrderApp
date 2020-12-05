@@ -98,9 +98,15 @@
 
 			<div class="col-md-6 col-xs-6" ng-if="thisItem.type === 'dish'">
 				<label>Extra Price</label>
-				<input type="number" use-keyboard="Numbers" min="0" ng-repeat="ing in thisItem.ingredients track by $index" ng-model="ing.price"
-					class="form-control group-label" placeholder="0">
-				<i ng-click="removeIngredient($index)" class="fa fa-times-circle" style="font-size: 20px; margin-top: 8px"></i>
+				<div ng-repeat="ing in thisItem.ingredients track by $index">
+					<div class="col-md-11 col-xs-11 no-padding">
+						<input type="number" use-keyboard="Numbers" min="0" ng-model="ing.price"
+						class="form-control group-label" placeholder="0">
+					</div>
+					<div class="col-md-1 col-xs-1 no-padding">
+						<i ng-click="removeIngredient($index)" class="fa fa-times-circle" style="font-size: 20px; margin-top: 8px"></i>
+					</div>
+				</div>
 			</div>
 
 			<div class="col-md-12 col-xs-12" ng-if="thisItem.type === 'dish'">
