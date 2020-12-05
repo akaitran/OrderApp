@@ -213,17 +213,17 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 				"L": 0
 			};
 
-			$scope.thisDish.ingredient.filter(function (ing) {
+			$scope.thisDish.ingredients.filter(function (ing) {
 				if (ing.amount == -1)
 					ing.amount = 0;
 			});
 
 			$scope.thisOrder.dishes.filter(function (orderDish, index) {
 				if ($scope.thisDish.name === orderDish.name) {
-					$scope.thisDish.ingredient.filter(function (ing) {
+					$scope.thisDish.ingredients.filter(function (ing) {
 						delete ing.$$hashKey;
 					});
-					orderDish.ingredient.filter(function (ing) {
+					orderDish.ingredients.filter(function (ing) {
 						delete ing.$$hashKey;
 					});
 					$scope.thisDish.options.filter(function (opt) {
@@ -234,7 +234,7 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 					});
 
 					if ($scope.thisDish.type === orderDish.type &&
-						JSON.stringify($scope.thisDish.ingredient) === JSON.stringify(orderDish.ingredient) &&
+						JSON.stringify($scope.thisDish.ingredients) === JSON.stringify(orderDish.ingredients) &&
 						JSON.stringify($scope.thisDish.options) === JSON.stringify(orderDish.options)) {
 
 						orderDish.amount += $scope.thisDish.amount;
@@ -243,7 +243,7 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 
 						dishIndex = index;
 
-						$scope.thisDish.ingredient.filter(function (ing) {
+						$scope.thisDish.ingredients.filter(function (ing) {
 							if (ing.amount > 1)
 								$scope.thisDish.cost += (ing.amount - 1) * ing.price;
 						});
@@ -269,7 +269,7 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 
 				$scope.thisDish.cost = $scope.thisDish.price[$scope.sizeOf($scope.thisDish)] * $scope.thisDish.amount;
 
-				$scope.thisDish.ingredient.filter(function (ing) {
+				$scope.thisDish.ingredients.filter(function (ing) {
 					if (ing.amount > 1)
 						$scope.thisDish.cost += (ing.amount - 1) * ing.price;
 				});
@@ -290,7 +290,7 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 
 			$scope.thisDish.cost = $scope.thisDish.price[$scope.sizeOf($scope.thisDish)] * $scope.thisDish.amount;
 
-			$scope.thisDish.ingredient.filter(function (ing) {
+			$scope.thisDish.ingredients.filter(function (ing) {
 				if (ing.amount > 1)
 					$scope.thisDish.cost += (ing.amount - 1) * ing.price;
 			});
@@ -451,7 +451,7 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 	}
 
 	$scope.onLongPressEnd = function (index) {
-		$scope.thisDish.ingredient.filter(function (ing, ind) {
+		$scope.thisDish.ingredients.filter(function (ing, ind) {
 			if (ind == index) {
 				if ($scope.longPress) {
 					ing.amount = 0;
