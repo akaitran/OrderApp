@@ -137,7 +137,9 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 		$scope.thisItem = {};
 		$scope.thisItem.cateid = $scope.thisCate;
 		$scope.thisItem.area = "kitchen";
-		$scope.thisSize = [];
+		$scope.thisItem.sizes = [];
+		$scope.thisItem.ingredients = [];
+		$scope.thisItem.options = [];
 	}
 
 	$scope.copyItem = function () {
@@ -159,11 +161,20 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 
 	$scope.addSize = function() {
 		let size = {
-			text: "",
-			value: 0
+			name: "",
+			price: 0
 		}
 
-		$scope.thisSize.push(size);
+		$scope.thisItem.sizes.push(size);
+	}
+
+	$scope.addIngredient = function() {
+		let ing = {
+			name: "",
+			price: 0
+		}
+
+		$scope.thisItem.ingredients.push(ing);
 	}
 
 	$scope.search = function (item) {

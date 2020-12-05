@@ -53,22 +53,18 @@
 
 			<div class="col-md-6 col-xs-6" ng-if="thisItem.type === 'dish'">
 				<label>Size</label>
-				<input type="text" ng-repeat="size in thisSize" ng-model="size.text" 
-					class="form-control group-label" placeholder="Label">
+				<input type="text" ng-repeat="size in thisItem.sizes" ng-model="size.name" 
+					class="form-control group-label" placeholder="Name">
 			</div>
 
 			<div class="col-md-6 col-xs-6" ng-if="thisItem.type === 'dish'">
 				<label>Price</label>
-				<input type="number" use-keyboard="Numbers" min="0" ng-repeat="size in thisSize" ng-model="size.value"
+				<input type="number" use-keyboard="Numbers" min="0" ng-repeat="size in thisItem.size" ng-model="size.price"
 					class="form-control group-label" placeholder="0">
 			</div>
 
-			<button class="btn capitalized col-md-12 col-xs-12" ng-if="thisItem.type === 'dish'" ng-click="addSize()">+Add More Size</button>
-
 			<div class="col-md-12 col-xs-12" ng-if="thisItem.type === 'dish'">
-				<label>Ingredient</label>
-				<textarea class="form-control capitalized" rows="5" ng-model="thisItem.ingredient">
-                </textarea>
+				<button class="btn btn-warning capitalized col-md-12 col-xs-12" ng-click="addSize()">+Add Size</button>
 			</div>
 
 			<div class="col-md-12 col-xs-12" ng-if="thisItem.type === 'dish'">
@@ -76,12 +72,24 @@
 				<textarea class="form-control capitalized" rows="5" ng-model="thisItem.options"></textarea>
 			</div>
 
-			<div class="col-md-12 col-xs-12 form-check">
-				<label class="form-check-label">
-					<input class="form-check-input" type="checkbox" ng-model="thisItem.seperator" ng-true-value="1"
-						ng-false-value="0">
-					<span class="form-check-sign">Add seperator?</span>
-				</label>
+			<div class="col-md-12 col-xs-12" ng-if="thisItem.type === 'dish'">
+				<label>Ingredient</label>
+			</div>
+
+			<div class="col-md-6 col-xs-6" ng-if="thisItem.type === 'dish'">
+				<label>Name</label>
+				<input type="text" ng-repeat="ing in thisItem.ingredients" ng-model="ing.name" 
+					class="form-control group-label" placeholder="Name">
+			</div>
+
+			<div class="col-md-6 col-xs-6" ng-if="thisItem.type === 'dish'">
+				<label>Extra Price</label>
+				<input type="number" use-keyboard="Numbers" min="0" ng-repeat="ing in thisItem.ingredients" ng-model="ing.price"
+					class="form-control group-label" placeholder="0">
+			</div>
+
+			<div class="col-md-12 col-xs-12" ng-if="thisItem.type === 'dish'">
+				<button class="btn btn-warning capitalized col-md-12 col-xs-12" ng-click="addIngredient()">+Add Ingredient</button>
 			</div>
 
 		</div>
