@@ -116,29 +116,6 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 
 		$scope.dishList.filter(function (dish) {
 			if (dish.id == dishId) {
-				$scope.thisSize = { "S": -1, "M": -3, "L": -5 }
-
-				if (dish.size == -7) {
-					$scope.thisSize["S"] = 1;
-				} else if (dish.size == -3) {
-					$scope.thisSize["M"] = 3;
-				} else if (dish.size == -1) {
-					$scope.thisSize["S"] = 1;
-					$scope.thisSize["M"] = 3;
-				} else if (dish.size == 1) {
-					$scope.thisSize["L"] = 5;
-				} else if (dish.size == 3) {
-					$scope.thisSize["S"] = 1;
-					$scope.thisSize["L"] = 5;
-				} else if (dish.size == 7) {
-					$scope.thisSize["M"] = 3;
-					$scope.thisSize["L"] = 5;
-				} else if (dish.size == 9) {
-					$scope.thisSize["S"] = 1;
-					$scope.thisSize["M"] = 3;
-					$scope.thisSize["L"] = 5;
-				}
-
 				$scope.thisDish = dish;
 				$scope.thisItem = dish;
 			}

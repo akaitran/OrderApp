@@ -108,47 +108,10 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 					method: "POST"
 				}).then(function (response) {
 					$scope.dishList = response.data.filter(function (dish) {
-						var ingList = [];
-						var optList = [];
 
-						dish.price = JSON.parse(dish.price);
-
-						for (var key in dish.price) {
-							if (key !== 'M')
-								dish.price[key] *= -1;
-						}
-
-						dish.ingredient = dish.ingredient.split(", ");
-
-						dish.ingredient.filter(function (dishIng) {
-							var lowIng = dishIng.toLowerCase();
-
-							var getIng = $scope.ingList.filter(function (ing) {
-								return lowIng === ing.name.toLowerCase();
-							});
-
-							if (getIng[0]) ingList.push({
-								"name": dishIng,
-								"amount": 1,
-								"price": getIng[0].price,
-								"unit": getIng[0].unit
-							});
-						});
-
-						dish.ingredient = ingList;
-
-						dish.options = dish.options.split(", ");
-
-						if (dish.options[0] !== "") {
-							dish.options.filter(function (opt) {
-								optList.push({
-									"name": opt,
-									"selected": -1
-								});
-							});
-						}
-
-						dish.options = optList;
+						dish.sizes = eval(dish.sizes);
+						dish.options = eval(dish.options);
+						dish.ingredients = eval(dish.ingredients);
 
 						return dish;
 					});
