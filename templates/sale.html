@@ -20,17 +20,27 @@
 			</select>
 		</div>
 
-		<div class="col-md-4 col-xs-4" ng-if="orderType.takeaway == 'on'" style="margin-bottom: 5px;">
-			<label></label>
-			<button class="btn capitalized col-md-12 col-xs-12" ng-class="{'btn-info btn-fill': thisOrder.type === 'TA'}"
-				ng-click="changeType('TA')">T.A
-			</button>
+		<div class="col-md-5 col-xs-5">
+			<label>Position</label>
+			<select class="capitalized form-control" ng-model="thisOrder.orderside">
+				<option value=""></option>
+				<option value="A">A</option>
+				<option value="B">B</option>
+				<option value="C">C</option>
+				<option value="D">D</option>
+			</select>
 		</div>
 
 		<div class="col-md-3 col-xs-3">
 			<label>Extra</label>
 			<button class="form-control capitalized col-md-12 col-xs-12" ng-disabled="thisOrder.orderno == 0"
 				ng-class="{'btn-info btn-fill': thisOrder.addition == 1}" ng-click="extraDish()">+
+			</button>
+		</div>
+
+		<div class="col-md-4 col-xs-4" ng-if="orderType.takeaway == 'on'" style="margin-bottom: 5px;">
+			<button class="btn capitalized col-md-12 col-xs-12" ng-class="{'btn-info btn-fill': thisOrder.type === 'TA'}"
+				ng-click="changeType('TA')">T.A
 			</button>
 		</div>
 
