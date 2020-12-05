@@ -25,7 +25,7 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 		}).then(function (response) {
 			$scope.cateList = response.data;
 
-			if ($scope.thisCate === null)
+			if ($scope.thisCate === null && $scope.cateList[0])
 				$scope.thisCate = $scope.cateList[0].id;
 
 			$http({
