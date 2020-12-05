@@ -213,7 +213,7 @@
 							<hr>
 							<div class="footer capitalized">
 								<div ng-repeat="size in dish.sizes track by $index">
-									<i class="text-info" style="font-weight: bold" ng-repeat="opt in dish.options" ng-if="dish.sizes.length > 1 && opt[size.name] != opt[sizes[$index-1]['name']]">{{opt[size.name]}}</i>
+									<i class="text-info" style="font-weight: bold" ng-repeat="opt in dish.options" ng-if="opt[size.name] != opt[sizes[$index-1]['name']]">{{opt[size.name]}}</i>
 									<i class="text-danger" style="font-weight: bold" ng-repeat="opt in dish.options" ng-if="dish.sizes.length > 1 && opt[size.name] != opt[sizes[$index-1]['name']]">{{opt[size.name]}}</i>
 									<i class="text-warning" style="font-weight: bold" ng-repeat="opt in dish.options" ng-if="dish.sizes.length > 2 && opt[size.name] != opt[sizes[$index-1]['name']]">{{opt[size.name]}}</i>
 								</div>
