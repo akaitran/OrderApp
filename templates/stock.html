@@ -212,11 +212,11 @@
 							</div>
 							<hr>
 							<div class="footer capitalized">
-								<i class="text-info" style="font-weight: bold" ng-if="dish.price['S']">{{dish.price['S']}}</i>
-								<a ng-if="dish.price['M'] && dish.price['S']"> - </a>
-								<i class="text-danger" style="font-weight: bold" ng-if="dish.price['M']">{{dish.price['M']}}</i>
-								<a ng-if="dish.price['L'] && (dish.price['M'] || dish.price['S'])"> - </a>
-								<i class="text-warning" style="font-weight: bold" ng-if="dish.price['L']">{{dish.price['L']}}</i>
+								<div ng-repeat="size in thisItem.sizes">
+									<i class="text-info" style="font-weight: bold" ng-repeat="opt in thisItem.options">{{opt[size.name]}}</i>
+									<i class="text-danger" style="font-weight: bold" ng-repeat="opt in thisItem.options" ng-if="thisItem.sizes.length > 1">{{opt[size.name]}}</i>
+									<i class="text-warning" style="font-weight: bold" ng-repeat="opt in thisItem.options" ng-if="thisItem.sizes.length > 2">{{opt[size.name]}}</i>
+								</div>
 							</div>
 						</div>
 					</div>
