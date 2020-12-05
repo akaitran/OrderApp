@@ -262,25 +262,6 @@
 	</nav>
 
 	<div ng-init="loadData()">
-		<div class="horizontal-list" id="horizontal-list">
-			<div class="horizontal-item"
-				ng-repeat="restaurant in restaurants | filter: orderFilter | filter: searchText">
-				<div class="card single-order navbar-toggle capitalized" style="height: 150px;"
-					ng-click="selectOrder(order)" ng-cloak>
-					<div class="header">
-						<h3 class="title capitalized">{{restaurant.name}}</h3>
-					</div>
-					<div class="content">
-						<h4 class="title capitalized">{{restaurant.address}}</h4>
-						<div class="footer capitalized">
-							<hr>
-							<h4 class="title capitalized">{{restaurant.phone}}</h4>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
 		<div class="card content-layout">
 			<div class="header">
 				<div class="inner-addon right-addon search-box">
