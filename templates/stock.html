@@ -67,7 +67,7 @@
 			</div>
 
 			<div class="col-md-12 col-xs-12" ng-if="thisItem.type === 'dish'" ng-repeat="opt in thisItem.options track by $index">
-				<div class="inner-addon right-addon">
+				<div class="inner-addon right-addon search-box">
 					<input type="text" ng-model="opt.name" class="form-control group-label" placeholder="Name">
 					<i ng-click="removeOption($index)" class="fa fa-trash"></i>
 				</div>
