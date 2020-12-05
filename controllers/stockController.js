@@ -12,7 +12,14 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 	$scope.isCate = true;
 	$scope.thisCate = null;
 	$scope.thisDish = {};
-	$scope.thisItem = {};
+	$scope.thisItem = {
+		cateid: $scope.thisCate,
+		area: "kitchen",
+		sizes: [],
+		ingredients: [],
+		options: []
+	};
+	
 	$scope.thisSize = [];
 
 	$scope.loadData = function () {
