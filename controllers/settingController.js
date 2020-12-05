@@ -12,6 +12,7 @@ app.controller("settingController", function ($scope, $http, $routeParams) {
 			method: "POST"
 		}).then(function (response) {
 			$scope.settingList = response.data;
+			$scope.selectSetting('business');
 		});
 	}
 
