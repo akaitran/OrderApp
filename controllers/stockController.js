@@ -193,7 +193,6 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 	$scope.addOption = function() {
 		let opt = {
 			name: "",
-			price: 0
 		}
 
 		$scope.thisItem.options.push(opt);

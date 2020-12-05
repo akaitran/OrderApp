@@ -51,32 +51,25 @@
 					use-keyboard="US International" placeholder="Enter {{thisItem.type || 'Item'}} Description">
 			</div>
 
-			<div class="col-md-6 col-xs-6" ng-if="thisItem.type === 'dish'">
+			<div class="col-md-12 col-xs-12" ng-if="thisItem.type === 'dish'">
 				<label>Size</label>
 				<input type="text" ng-repeat="size in thisItem.sizes" ng-model="size.name" 
 					class="form-control group-label" placeholder="Name">
-			</div>
-
-			<div class="col-md-6 col-xs-6" ng-if="thisItem.type === 'dish'">
-				<label>Price</label>
-				<input type="number" use-keyboard="Numbers" min="0" ng-repeat="size in thisItem.sizes" ng-model="size.price"
-					class="form-control group-label" placeholder="0">
 			</div>
 
 			<div class="col-md-12 col-xs-12" ng-if="thisItem.type === 'dish'">
 				<button class="btn btn-info form-control capitalized col-md-12 col-xs-12" ng-click="addSize()">+Add Size</button>
 			</div>
 
-			<div class="col-md-6 col-xs-6" ng-if="thisItem.type === 'dish'">
+			<div class="col-md-12 col-xs-12" ng-if="thisItem.type === 'dish'">
 				<label>Option</label>
 				<input type="text" ng-repeat="opt in thisItem.options" ng-model="opt.name" 
 					class="form-control group-label" placeholder="Name">
 			</div>
 
-			<div class="col-md-6 col-xs-6" ng-if="thisItem.type === 'dish'">
-				<label>Price</label>
-				<input type="number" use-keyboard="Numbers" min="0" ng-repeat="opt in thisItem.options" ng-model="opt.price"
-					class="form-control group-label" placeholder="0">
+			<div class="col-md-6 col-xs-6" ng-repeat="size in thisItem.sizes" ng-if="thisItem.type === 'dish'">
+				<input type="number" use-keyboard="Numbers" min="0" ng-repeat="opt in thisItem.options" ng-model="opt[size.name]"
+					class="form-control group-label" placeholder="{{size.name}}">
 			</div>
 
 			<div class="col-md-12 col-xs-12" ng-if="thisItem.type === 'dish'">
