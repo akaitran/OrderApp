@@ -63,9 +63,7 @@
 					class="form-control group-label" placeholder="0">
 			</div>
 
-			<div class="col-md-12 col-xs-12" ng-if="thisItem.type === 'dish'">
-				<button class="btn capitalized" ng-click="addSize()">Add More Size</button>
-			</div>
+			<button class="btn capitalized col-md-12 col-xs-12" ng-if="thisItem.type === 'dish'" ng-click="addSize()">+Add More Size</button>
 
 			<div class="col-md-12 col-xs-12" ng-if="thisItem.type === 'dish'">
 				<label>Ingredient</label>
