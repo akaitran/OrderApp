@@ -62,12 +62,12 @@
 			</div>
 
 			<div class="col-md-12 col-xs-12" ng-if="thisItem.type === 'dish'">
-				<label>Option</label>
+				<label>Options</label>
 			</div>
 
 			<div class="col-md-12 col-xs-12" ng-if="thisItem.type === 'dish'" ng-repeat="opt in thisItem.options">
 				<input type="text" ng-model="opt.name" class="form-control group-label" placeholder="Name">
-				<div class="col-md-6 col-xs-6 no-padding" ng-repeat="size in thisItem.sizes" ng-if="thisItem.type === 'dish'">
+				<div class="col-md-6 col-xs-6" ng-repeat="size in thisItem.sizes" ng-if="thisItem.type === 'dish'">
 					<input type="number" use-keyboard="Numbers" min="0" ng-model="opt[size.name]"
 						class="form-control group-label" placeholder="{{size.name}}">
 				</div>
