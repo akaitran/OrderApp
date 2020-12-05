@@ -53,8 +53,9 @@
 
 			<div class="col-md-12 col-xs-12" ng-if="thisItem.type === 'dish'">
 				<label>Size</label>
-				<input type="text" ng-repeat="size in thisItem.sizes" ng-model="size.name" 
+				<input type="text" ng-repeat="size in thisItem.sizes track by $index" ng-model="size.name" 
 					class="form-control group-label" placeholder="Name">
+				<i ng-click="removeSize($index)" class="fa fa-trash"></i>
 			</div>
 
 			<div class="col-md-12 col-xs-12" ng-if="thisItem.type === 'dish'">
@@ -65,8 +66,9 @@
 				<label>Options</label>
 			</div>
 
-			<div class="col-md-12 col-xs-12" ng-if="thisItem.type === 'dish'" ng-repeat="opt in thisItem.options">
+			<div class="col-md-12 col-xs-12" ng-if="thisItem.type === 'dish'" ng-repeat="opt in thisItem.options track by $index">
 				<input type="text" ng-model="opt.name" class="form-control group-label" placeholder="Name">
+				<i ng-click="removeOption($index)" class="fa fa-trash"></i>
 				<div class="col-md-6 col-xs-6" ng-repeat="size in thisItem.sizes" ng-if="thisItem.type === 'dish'">
 					<input type="number" use-keyboard="Numbers" min="0" ng-model="opt[size.name]"
 						class="form-control group-label" placeholder="{{size.name}}">
@@ -85,8 +87,9 @@
 
 			<div class="col-md-6 col-xs-6" ng-if="thisItem.type === 'dish'">
 				<label>Extra Price</label>
-				<input type="number" use-keyboard="Numbers" min="0" ng-repeat="ing in thisItem.ingredients" ng-model="ing.price"
+				<input type="number" use-keyboard="Numbers" min="0" ng-repeat="ing in thisItem.ingredients track by $index" ng-model="ing.price"
 					class="form-control group-label" placeholder="0">
+				<i ng-click="removeIngredient($index)" class="fa fa-trash"></i>
 			</div>
 
 			<div class="col-md-12 col-xs-12" ng-if="thisItem.type === 'dish'">
