@@ -112,7 +112,8 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 						dish.sizes.filter(function(size) {
 							size.prices = [];
 							dish.options.filter(function(opt) {
-								size.prices.push(parseFloat(opt[size.name]));
+								if (size.prices.indexOf(opt[size.name]) == -1)
+									size.prices.push(opt[size.name]);
 							});
 						})
 
