@@ -172,7 +172,7 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 	}
 
 	$scope.changeSize = function (size) {
-		$scope.thisDish.sizes(function(temp) {
+		$scope.thisDish.sizes.filter(function(temp) {
 			if (temp.name === size.name)
 				temp.selected = 1;
 			else
