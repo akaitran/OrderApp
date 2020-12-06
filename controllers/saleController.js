@@ -249,7 +249,14 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 
 						orderDish.amount += $scope.thisDish.amount;
 						
-						$scope.thisDish.sizes[$scope.sizeOf($scope.thisDish)]['amount'] += $scope.thisDish.amount;
+						$scope.thisDish.sizes.filter(function(size) {
+							if (size.selected == 1) {
+								size.amount += $scope.thisDish.amount;
+							} else {
+								size.amount = 0;
+							}
+						})
+						
 						$scope.thisDish.cost = $scope.thisDish.price[$scope.sizeOf($scope.thisDish)] * $scope.thisDish.amount;
 
 						dishIndex = index;
