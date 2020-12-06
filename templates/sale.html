@@ -88,8 +88,8 @@
 							<span ng-class="{'underline': dish.type === 'entree'}">
 								{{dish.subname}}
 							</span>
-							<span ng-repeat="(key,size) in dish.size">
-								<a ng-if="size > 0 && key !== 'M'">{{size}}{{key}} </a>
+							<span ng-repeat="size in dish.sizes">
+								<a ng-if="size.amount > 0">({{size.amount}}{{size.name}})</a>
 							</span>
 							<a ng-if="dish.type === 'TA'">(TA)</a>
 							<a ng-if="dish.type === 'later'">(Later)</a>

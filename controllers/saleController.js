@@ -308,7 +308,13 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 				$scope.thisOrder.dishes.push($scope.thisDish);
 			}
 		} else {
-			$scope.thisDish.size[$scope.sizeOf($scope.thisDish)] = $scope.thisDish.amount;
+			$scope.thisDish.sizes.filter(function(size) {
+				if (size.selected == 1) {
+					size.amount += $scope.thisDish.amount;
+				} else {
+					size.amount = 0;
+				}
+			});
 
 			$scope.thisOrder.total -= $scope.thisDish.cost;
 
