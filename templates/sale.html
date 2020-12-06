@@ -157,17 +157,8 @@
 			</div>
 
 			<div class="col-md-6 col-xs-12">
-				<button class="btn capitalized col-md-2 col-xs-2" style="margin: 0 2px"
-					ng-class="{'btn-info btn-fill': thisDish.price['S'] > 0}" ng-if="thisDish.price['S']"
-					ng-click="changeSize('S')">S
-				</button>
-				<button class="btn capitalized col-md-2 col-xs-2" style="margin: 0 2px"
-					ng-class="{'btn-info btn-fill': thisDish.price['M'] > 0}" ng-if="thisDish.price['M']"
-					ng-click="changeSize('M')">M
-				</button>
-				<button class="btn capitalized col-md-2 col-xs-2" style="margin: 0 2px"
-					ng-class="{'btn-info btn-fill': thisDish.price['L'] > 0}" ng-if="thisDish.price['L']"
-					ng-click="changeSize('L')">L
+				<button class="btn btn-info btn-fill capitalized col-md-2 col-xs-2" style="margin: 0 2px" ng-repeat="size in thisItem.sizes"
+					ng-click="changeSize(size)">{{size.name}}
 				</button>
 				<div class="col-md-5 col-xs-5" style="display: inline-flex">
 					<button class="form-control round-button"
@@ -183,7 +174,7 @@
 				<div class="form-control capitalized" style="height: auto;">
 					<button class="btn capitalized" style="margin: 2px;" ng-repeat="opt in thisDish.options"
 						ng-class="{'btn-info btn-fill': opt.selected == 1}" ng-click="opt.selected = opt.selected * -1">
-						{{opt.name}} | ${{opt.price}}
+						{{opt.name}} | ${{opt[thisSize.name]}}
 					</button>
 				</div>
 			</div>

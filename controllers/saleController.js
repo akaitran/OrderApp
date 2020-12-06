@@ -13,11 +13,7 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 	$scope.thisCate = null;
 	$scope.thisDish = {};
 	$scope.thisOrder = {};
-	$scope.thisSize = {
-		"S": -1,
-		"M": -3,
-		"L": -5
-	}
+	$scope.thisSize = {};
 
 	$scope.orderType = {
 		"table": "off",
@@ -176,15 +172,7 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 	}
 
 	$scope.changeSize = function (size) {
-		for (var key in $scope.thisDish.price) {
-			if (key !== size) {
-				if ($scope.thisDish.price[key] > 0)
-					$scope.thisDish.price[key] *= -1;
-			} else {
-				if ($scope.thisDish.price[key] < 0)
-					$scope.thisDish.price[key] *= -1;
-			}
-		}
+		$scope.thisSize = size;
 	}
 
 	$scope.updateSize = function (size, qty) {
