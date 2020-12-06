@@ -271,13 +271,15 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 							$scope.thisDish.cost += parseInt($scope.thisDish.name[extraCost + 1]);
 						}
 
-
 						$scope.thisOrder.total += $scope.thisDish.cost;
 						orderDish.cost += $scope.thisDish.cost;
 
-						orderDish.size["S"] += $scope.thisDish.size["S"];
-						orderDish.size["M"] += $scope.thisDish.size["M"];
-						orderDish.size["L"] += $scope.thisDish.size["L"];
+						$scope.thisDish.sizes.filter(function(size) {
+							$scope.orderDish.sizes.filter(function(dishSize) {
+								if (size.name === dishSize.name)
+									dishSize.amount += size.amount;
+							});
+						});
 					}
 				}
 			});
