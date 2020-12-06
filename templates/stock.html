@@ -213,9 +213,15 @@
 							<hr>
 							<div class="footer capitalized">
 								<div ng-repeat="size in dish.sizes track by $index">
-									<i class="text-info" style="font-weight: bold" ng-repeat="price in size.prices" ng-if="$parent.$index == 0">{{price}}-</i>
-									<i class="text-danger" style="font-weight: bold" ng-repeat="price in size.prices" ng-if="$parent.$index == 1">{{price}}-</i>
-									<i class="text-warning" style="font-weight: bold" ng-repeat="price in size.prices" ng-if="$parent.$index == 2">{{price}}-</i>
+									<i class="text-info" style="font-weight: bold" ng-repeat="price in size.prices" ng-if="$parent.$index == 0">{{price}}
+										<span ng-if="$index+1 < size.prices.length">-</span>
+									</i>
+									<i class="text-danger" style="font-weight: bold" ng-repeat="price in size.prices" ng-if="$parent.$index == 1">{{price}}
+										<span ng-if="$index+1 < size.prices.length">-</span>
+									</i>
+									<i class="text-warning" style="font-weight: bold" ng-repeat="price in size.prices" ng-if="$parent.$index == 2">{{price}}
+										<span ng-if="$index+1 < size.prices.length">-</span>
+									</i>
 								</div>
 							</div>
 						</div>
