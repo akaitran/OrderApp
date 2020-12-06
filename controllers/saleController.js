@@ -109,6 +109,13 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 						dish.options = eval(dish.options);
 						dish.ingredients = eval(dish.ingredients);
 
+						dish.sizes.filter(function(size) {
+							size.prices = [];
+							dish.options.filter(function(opt) {
+								size.prices.push(opt[size.name]);
+							});
+						})
+
 						return dish;
 					});
 
