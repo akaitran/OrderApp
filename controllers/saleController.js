@@ -325,6 +325,8 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 
 		$scope.thisDish.status = status;
 
+		$scope.thisSize = $scope.thisDish.sizes[0];
+
 		$scope.thisDish.options.filter(function(opt) {
 			opt.selected = -1;
 		});
