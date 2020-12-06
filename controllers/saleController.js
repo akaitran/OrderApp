@@ -182,6 +182,15 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 		$scope.thisSize = size;
 	}
 
+	$scope.changeOption = function (opt) {
+		$scope.thisDish.options.filter(function(temp) {
+			if (temp.name === opt.name)
+				temp.selected = 1;
+			else
+				temp.selected = -1;
+		});
+	}
+
 	$scope.updateSize = function (size, qty) {
 		if (qty == 0) {
 			$scope.thisDish.amount -= $scope.thisDish.size[size];

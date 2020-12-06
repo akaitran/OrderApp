@@ -174,7 +174,7 @@
 			<div class="col-md-6 col-xs-12">
 				<div class="form-control capitalized" style="height: auto;">
 					<button class="btn capitalized" style="margin: 2px;" ng-repeat="opt in thisDish.options"
-						ng-class="{'btn-info btn-fill': opt.selected == 1}" ng-click="opt.selected = opt.selected * -1">
+						ng-class="{'btn-info btn-fill': opt.selected == 1}" ng-click="changeOption(opt)">
 						{{opt.name}} | ${{opt[thisSize.name]}}
 					</button>
 				</div>
