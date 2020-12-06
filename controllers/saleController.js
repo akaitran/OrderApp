@@ -337,6 +337,10 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 
 		$scope.thisDish.status = status;
 
+		$scope.thisDish.options.filter(function(opt) {
+			opt.selected = -1;
+		});
+
 		if (status === "new")
 			$scope.thisDish.amount = 1;
 	}
