@@ -195,11 +195,9 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 		var dishIndex = -1;
 
 		if ($scope.thisDish.status === "new") {
-			$scope.thisDish.size = {
-				"S": 0,
-				"M": 0,
-				"L": 0
-			};
+			$scope.thisDish.sizes.filter(function(size) {
+				size.amount = 0;
+			});
 
 			$scope.thisDish.ingredients.filter(function (ing) {
 				if (ing.amount == -1)
@@ -226,7 +224,8 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 						JSON.stringify($scope.thisDish.options) === JSON.stringify(orderDish.options)) {
 
 						orderDish.amount += $scope.thisDish.amount;
-						$scope.thisDish.size[$scope.sizeOf($scope.thisDish)] += $scope.thisDish.amount;
+						
+						$scope.thisDish.sizes[$scope.sizeOf($scope.thisDish)]['amount'] += $scope.thisDish.amount;
 						$scope.thisDish.cost = $scope.thisDish.price[$scope.sizeOf($scope.thisDish)] * $scope.thisDish.amount;
 
 						dishIndex = index;
@@ -324,6 +323,12 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 		$scope.thisDish = dish;
 
 		$scope.thisDish.status = status;
+
+		$scope.thisDish.sizes.filter(function(size) {
+			size.selected = -1;
+		});
+
+		$scope.thisDish.sizes[0]['selected'] = 1;
 
 		$scope.thisSize = $scope.thisDish.sizes[0];
 

@@ -158,7 +158,7 @@
 
 			<div class="col-md-6 col-xs-12">
 				<button class="btn capitalized col-md-2 col-xs-2" style="margin: 0 2px"
-					ng-class="{'btn-info btn-fill': thisSize.name === size.name}" ng-repeat="size in thisDish.sizes"
+					ng-class="{'btn-info btn-fill': size.selected == 1}" ng-repeat="size in thisDish.sizes"
 					ng-click="changeSize(size)">{{size.name}}
 				</button>
 				<div class="col-md-5 col-xs-5" style="display: inline-flex">
