@@ -214,6 +214,8 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 			return opt.selected == 1;
 		});
 
+		console.log(selectedOpts);
+
 		if (selectedOpts.length > 0) {
 			var element = document.getElementById("navigation-custom");
 			element.style.top = "100%";
