@@ -533,28 +533,6 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 				$scope.sendBill.dishes.filter(function (dish) {
 					var sizes = "";
 					dish.status = "new";
-
-					if (dish.size["S"] > 0) {
-						if (dish.size["M"] == 0 && dish.size["L"] == 0)
-							sizes = "S";
-						else
-							sizes += dish.size["S"] + "S";
-					}
-
-					if (dish.size["L"] > 0) {
-						if (dish.size["S"] > 0)
-							sizes += ",";
-
-						if (dish.size["M"] == 0 && dish.size["S"] == 0)
-							sizes = "L";
-						else
-							sizes += dish.size["L"] + "L";
-					}
-
-					if (dish.size["S"] == 0 && dish.size["L"] == 0)
-						dish.size = sizes;
-					else
-						dish.size = "(" + sizes + ")";
 				});
 
 				if ($scope.sendBill.dishes.length > 0 || $scope.thisOrder.type === "booking") {
