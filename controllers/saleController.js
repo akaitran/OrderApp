@@ -248,22 +248,16 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 						JSON.stringify($scope.thisDish.options) === JSON.stringify(orderDish.options)) {
 
 						orderDish.amount += $scope.thisDish.amount;
-
-						console.log($scope.thisDish);
 						
 						$scope.thisDish.sizes.filter(function(size) {
 							if (size.selected == 1) {
 								size.amount += $scope.thisDish.amount;
-								$scope.thisDish.options.filter(function (opt) {
-									if (opt.selected == 1) {
-										$scope.thisDish.cost = opt[size.name] * size.amount;
-									}
-								});
 							} else {
 								size.amount = 0;
 							}
 						})
-
+						
+						//$scope.thisDish.cost = $scope.thisDish.price[$scope.sizeOf($scope.thisDish)] * $scope.thisDish.amount;
 
 						dishIndex = index;
 
@@ -294,12 +288,14 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 				$scope.thisDish.sizes.filter(function(size) {
 					if (size.selected == 1) {
 						size.amount += $scope.thisDish.amount;
+						$scope.thisDish.options.filter(function(opt) {
+							if (opt.selected == 1)
+								$scope.thisDish.cost = opt[size.name] * size.amount;
+						});
 					} else {
 						size.amount = 0;
 					}
 				});
-
-				//$scope.thisDish.cost = $scope.thisDish.price[$scope.sizeOf($scope.thisDish)] * $scope.thisDish.amount;
 
 				$scope.thisDish.ingredients.filter(function (ing) {
 					if (ing.amount > 1)
