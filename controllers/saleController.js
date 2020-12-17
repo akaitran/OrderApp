@@ -545,7 +545,12 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 			if ($scope.thisOrder.type !== "dine in" || $scope.thisOrder.orderno != 0) {
 				$scope.sendBill = angular.copy($scope.thisOrder);
 				$scope.sendBill.dishes.filter(function (dish) {
-					var sizes = "";
+					dish.size = "";
+					if (dish.sizes.length > 1)
+						dish.sizes.filter(function(size) {
+							if (size.selected == 1)
+								dish.size += "(" + size.amount + size.name + ")";
+						});
 					dish.status = "new";
 				});
 
@@ -656,29 +661,12 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 	$scope.printBill = function () {
 		$scope.sendBill = angular.copy($scope.thisOrder);
 		$scope.sendBill.dishes.filter(function (dish) {
-			var sizes = "";
-
-			if (dish.size["S"] > 0) {
-				if (dish.size["M"] == 0 && dish.size["L"] == 0)
-					sizes = "S";
-				else
-					sizes += dish.size["S"] + "S";
-			}
-
-			if (dish.size["L"] > 0) {
-				if (dish.size["S"] > 0)
-					sizes += ",";
-
-				if (dish.size["M"] == 0 && dish.size["S"] == 0)
-					sizes = "L";
-				else
-					sizes += dish.size["L"] + "L";
-			}
-
-			if (dish.size["S"] == 0 && dish.size["L"] == 0)
-				dish.size = sizes;
-			else
-				dish.size = "(" + sizes + ")";
+			dish.size = "";
+			if (dish.sizes.length > 1)
+				dish.sizes.filter(function(size) {
+					if (size.selected == 1)
+						dish.size += "(" + size.amount + size.name + ")";
+				});
 		});
 
 		$http({

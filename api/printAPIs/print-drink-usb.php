@@ -54,13 +54,13 @@ function cmp($a, $b)
         $printer -> setUnderline(Printer::UNDERLINE_DOUBLE);
 
       if ($dish->type === "TA") {
-        $printer -> text($dish->amount . " " . $dish->name . $dish->size);
+        $printer -> text($dish->amount . " " . $dish->subname . $dish->size);
         $printer -> text(" (TA)" . "\n");
       } else if ($dish->type === "later") {
-        $printer -> text($dish->amount . " " . $dish->name . $dish->size);
+        $printer -> text($dish->amount . " " . $dish->subname . $dish->size);
         $printer -> text(" (Later)" . "\n");
       } else {
-        $printer -> text($dish->amount . " " . $dish->name . $dish->size . "\n");
+        $printer -> text($dish->amount . " " . $dish->subname . $dish->size . "\n");
       }
 
       $printer -> setJustification(Printer::JUSTIFY_RIGHT);

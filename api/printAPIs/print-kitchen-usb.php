@@ -116,13 +116,13 @@ try {
           $printer -> setUnderline(Printer::UNDERLINE_DOUBLE);
         
         if ($dish->type === "TA") {
-          $printer -> text($dish->amount . " " . $dish->name . $dish->size);
+          $printer -> text($dish->amount . " " . $dish->subname . $dish->size);
           $printer -> text(" (TA)" . "\n");
         } else if ($dish->type === "later") {
-          $printer -> text($dish->amount . " " . $dish->name . $dish->size);
+          $printer -> text($dish->amount . " " . $dish->subname . $dish->size);
           $printer -> text(" (Lên sau)" . "\n");
         } else {
-          $printer -> text($dish->amount . " " . $dish->name . $dish->size . "\n");
+          $printer -> text($dish->amount . " " . $dish->subname . $dish->size . "\n");
         }
 
         $printer -> setUnderline(Printer::UNDERLINE_NONE);
@@ -215,7 +215,7 @@ try {
 
     $printer -> cut();
 
-    $printer -> text("\n");
+    /*$printer -> text("\n");
     $printer -> text("\n");
     $printer -> text("\n");
 
@@ -270,13 +270,13 @@ try {
         $printer -> setUnderline(Printer::UNDERLINE_DOUBLE);
 
       if ($dish->type === "TA") {
-        $printer -> text($dish->amount . " " . $dish->name . $dish->size);
+        $printer -> text($dish->amount . " " . $dish->subname . $dish->size);
         $printer -> text(" (TA)" . "\n");
       } else if ($dish->type === "later") {
-        $printer -> text($dish->amount . " " . $dish->name . $dish->size);
+        $printer -> text($dish->amount . " " . $dish->subname . $dish->size);
         $printer -> text(" (Later)" . "\n");
       } else {
-        $printer -> text($dish->amount . " " . $dish->name . $dish->size . "\n");
+        $printer -> text($dish->amount . " " . $dish->subname . $dish->size . "\n");
       }
 
       $printer -> setUnderline(Printer::UNDERLINE_NONE);
@@ -321,7 +321,7 @@ try {
     $printer -> text("\n");
     $printer -> text("\n");
 
-    $printer -> cut();
+    $printer -> cut();*/
   }
   
   $printer -> close();
