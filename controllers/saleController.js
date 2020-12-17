@@ -252,6 +252,10 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 						$scope.thisDish.sizes.filter(function(size) {
 							if (size.selected == 1) {
 								size.amount += $scope.thisDish.amount;
+								$scope.thisDish.options.filter(function(opt) {
+									if (opt.selected == 1)
+										$scope.thisDish.cost = opt[size.name] * size.amount;
+								});
 							} else {
 								size.amount = 0;
 							}
@@ -275,7 +279,7 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 						orderDish.cost += $scope.thisDish.cost;
 
 						$scope.thisDish.sizes.filter(function(size) {
-							$scope.orderDish.sizes.filter(function(dishSize) {
+							orderDish.sizes.filter(function(dishSize) {
 								if (size.name === dishSize.name)
 									dishSize.amount += size.amount;
 							});
