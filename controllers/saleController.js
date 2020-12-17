@@ -248,6 +248,8 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 						JSON.stringify($scope.thisDish.options) === JSON.stringify(orderDish.options)) {
 
 						orderDish.amount += $scope.thisDish.amount;
+
+						console.log($scope.thisDish);
 						
 						$scope.thisDish.sizes.filter(function(size) {
 							if (size.selected == 1) {
