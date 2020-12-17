@@ -252,14 +252,16 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 						$scope.thisDish.sizes.filter(function(size) {
 							if (size.selected == 1) {
 								size.amount += $scope.thisDish.amount;
+								$scope.thisDish.options.filter(function (opt) {
+									if (opt.selected == 1) {
+										$scope.thisDish.cost = opt[size.name] * size.amount;
+									}
+								});
 							} else {
 								size.amount = 0;
 							}
 						})
 
-						$scope.thisDish.options.filter(function (opt) {
-							$scope.thisDish.cost = opt[$scope.thisSize.name] * $scope.thisDish.amount;
-						});
 
 						dishIndex = index;
 
