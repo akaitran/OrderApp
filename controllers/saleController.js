@@ -256,8 +256,10 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 								size.amount = 0;
 							}
 						})
-						
-						//$scope.thisDish.cost = $scope.thisDish.price[$scope.sizeOf($scope.thisDish)] * $scope.thisDish.amount;
+
+						$scope.thisDish.options.filter(function (opt) {
+							$scope.thisDish.cost = opt[$scope.thisSize.name] * $scope.thisDish.amount;
+						});
 
 						dishIndex = index;
 

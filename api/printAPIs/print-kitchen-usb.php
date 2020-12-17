@@ -274,7 +274,7 @@ try {
         $printer -> text(" (TA)" . "\n");
       } else if ($dish->type === "later") {
         $printer -> text($dish->amount . " " . $dish->name . $dish->size);
-        $printer -> text(" (Lên sau)" . "\n");
+        $printer -> text(" (Later)" . "\n");
       } else {
         $printer -> text($dish->amount . " " . $dish->name . $dish->size . "\n");
       }
