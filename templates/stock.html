@@ -13,7 +13,7 @@
 		<div class="form-group">
 			<div class="col-md-12">
 				<label>Name</label>
-				<input ng-model="thisItem.name" class="form-control capitalized" type="text" use-keyboard="US International"
+				<input ng-model="thisItem.name" class="form-control capitalized" type="text"
 					placeholder="Enter {{thisItem.type || 'Item'}} Name" required>
 			</div>
 
@@ -27,7 +27,7 @@
 
 			<div class="col-md-12">
 				<label>Other Name</label>
-				<input ng-model="thisItem.subname" class="form-control capitalized" type="text" use-keyboard="US International"
+				<input ng-model="thisItem.subname" class="form-control capitalized" type="text"
 					placeholder="Enter Other Name">
 			</div>
 
@@ -48,7 +48,7 @@
 			<div class="col-md-12">
 				<label>Description</label>
 				<input ng-model="thisItem.description" class="form-control capitalized" type="text"
-					use-keyboard="US International" placeholder="Enter {{thisItem.type || 'Item'}} Description">
+					placeholder="Enter {{thisItem.type || 'Item'}} Description">
 			</div>
 
 			<div class="col-md-12 col-xs-12" ng-if="thisItem.type === 'dish'">
@@ -81,7 +81,7 @@
 				</div>
 
 				<div class="col-md-6 col-xs-6" ng-repeat="size in thisItem.sizes" ng-if="thisItem.type === 'dish'">
-					<input type="number" use-keyboard="Numbers" min="0" ng-model="opt[size.name]"
+					<input type="number" min="0" ng-model="opt[size.name]"
 						class="form-control group-label" placeholder="{{size.name}}">
 				</div>
 			</div>
@@ -100,7 +100,7 @@
 				<label>Extra Price</label>
 				<div ng-repeat="ing in thisItem.ingredients track by $index">
 					<div class="col-md-11 col-xs-11 no-padding">
-						<input type="number" use-keyboard="Numbers" min="0" ng-model="ing.price"
+						<input type="number" min="0" ng-model="ing.price"
 						class="form-control group-label" placeholder="0">
 					</div>
 					<div class="col-md-1 col-xs-1 no-padding">
@@ -179,7 +179,7 @@
 		<div class="header">
 			<p class="title main-title">Menu Management</p>
 			<div class="inner-addon right-addon search-box">
-				<input class="form-control" use-keyboard="US International" type="text" ng-model="searchText"
+				<input class="form-control" type="text" ng-model="searchText"
 					placeholder="Search Dish">
 				<i class="glyphicon glyphicon-search"></i>
 			</div>
