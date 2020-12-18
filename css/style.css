@@ -273,13 +273,13 @@ textarea.form-control {
 }
 
 .fixed-add-btn {
-	bottom: 50%;
-	height: 50px;
-	min-width: 50px;
+	top: 40%;
+	height: 60px;
+	min-width: 60px;
 	position: absolute;
-	right: 45%;
+	left: calc(50vw - 30px);
 	width: 50px;
-	font-size: 18px;
+	font-size: 20px;
 }
 
 .title.title-filled {
