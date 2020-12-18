@@ -128,6 +128,12 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 		});
 	}
 
+	$scope.filterDishList = function() {
+		return $scope.dishList.filter(function(dish) {
+			return (dish.seperator == 1 && $scope.thisOrder.type === "dine in") || (dish.seperator == 0 && $scope.thisOrder.type === "TA")
+		})
+	}
+
 	/*  Essential Functions  */
 	$scope.totalAmount = function () {
 		var total = 0;
