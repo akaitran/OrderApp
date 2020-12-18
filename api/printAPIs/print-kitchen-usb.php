@@ -215,7 +215,7 @@ try {
 
     $printer -> cut();
 
-    /*$printer -> text("\n");
+    $printer -> text("\n");
     $printer -> text("\n");
     $printer -> text("\n");
 
@@ -321,7 +321,7 @@ try {
     $printer -> text("\n");
     $printer -> text("\n");
 
-    $printer -> cut();*/
+    $printer -> cut();
   }
   
   $printer -> close();
