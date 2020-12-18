@@ -215,6 +215,9 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 	$scope.closeTopCover = function() {
 		var element = document.getElementById("top-cover");
 		element.style.visibility = "hidden";
+
+		var element = document.getElementById("navigation-custom");
+		element.style.top = "100%";
 	}
 
 	$scope.closeCustom = function () {
@@ -225,11 +228,7 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 		console.log(selectedOpts);
 
 		if (selectedOpts.length > 0) {
-			var element = document.getElementById("navigation-custom");
-			element.style.top = "100%";
-
-			element = document.getElementById("top-cover");
-			element.style.visibility = "hidden";
+			$scope.closeTopCover();
 
 			var dishIndex = -1;
 
