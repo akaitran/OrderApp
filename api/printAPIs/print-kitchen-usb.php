@@ -110,7 +110,7 @@ try {
     $listSize = sizeof($order->dishes);
 
     foreach ($order->dishes as $key => $dish) {
-      if ($order->type !== "dine in" || $dish->area !== "quầy bar") {
+      if ($order->type !== "dine in" || $dish->area !== "bar") {
 
         if ($dish->type === "entree") 
           $printer -> setUnderline(Printer::UNDERLINE_DOUBLE);
@@ -222,9 +222,6 @@ try {
     $printer -> setTextSize(3,3);
     $printer -> setJustification(Printer::JUSTIFY_CENTER);
 
-    $tux = EscposImage::load("../../images/mwthailogo.jpg", false);
-    $printer->bitImage($tux);
-
     if ($order->type !== "dine in") {
       $printer -> setTextSize(2,2);
       $printer -> text($order->orderside . "\n");
@@ -281,6 +278,10 @@ try {
 
       $printer -> setUnderline(Printer::UNDERLINE_NONE);
 
+      $printer -> setTextSize(1,1);
+      $printer -> text('$'.$dish->cost . "\n");
+      $printer -> setTextSize(2,2);
+
       foreach ($dish->options as $opt) {
         if ($opt->selected == 1)
           $printer -> text("  *" . $opt->name . "\n");
@@ -313,7 +314,6 @@ try {
       
     $printer -> setTextSize(1,1);
     $printer->text(strtoupper(date("d/m/Y D")) . " " . date("H:i") . "\n");
-    $printer -> text("Bill setup\n");
     $printer -> text($order->staffname . "\n");
     $printer -> setTextSize(2,2);
 

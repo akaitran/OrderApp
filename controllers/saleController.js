@@ -209,6 +209,11 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 		$scope.thisDish.amount += qty;
 	}
 
+	$scope.closeTopCover = function() {
+		var element = document.getElementById("top-cover");
+		element.style.visibility = "hidden";
+	}
+
 	$scope.closeCustom = function () {
 		let selectedOpts = $scope.thisDish.options.filter(function(opt) {
 			return opt.selected == 1;

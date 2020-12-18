@@ -45,7 +45,7 @@ function cmp($a, $b)
 
   foreach ($order->dishes as $key => $dish) {
     if (true) {
-      if ($dish->area === "quầy bar" && $newline == true) {
+      if ($dish->area === "bar" && $newline == true) {
         $newline = false;
         $printer -> text("\n");
       }
@@ -66,7 +66,7 @@ function cmp($a, $b)
       $printer -> setJustification(Printer::JUSTIFY_RIGHT);
       $printer -> setUnderline(Printer::UNDERLINE_NONE);
 
-$printer -> setTextSize(1,1);
+      $printer -> setTextSize(1,1);
       $printer -> text('$'.$dish->cost . "\n");
       $printer -> setTextSize(2,2);
 
@@ -79,7 +79,7 @@ $printer -> setJustification(Printer::JUSTIFY_LEFT);
 
       foreach ($dish->ingredient as $ing) {
         if ($ing->amount <= 0)
-          $printer -> text("  ko " . $ing->name . "\n");
+          $printer -> text("  no " . $ing->name . "\n");
         if ($ing->amount > 1) {
           if ($ing->unit === "cost") {
                 if ($dish->amount >1)
