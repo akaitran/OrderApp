@@ -401,8 +401,11 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 
 		$scope.thisSize = $scope.thisDish.sizes[0];
 
-		$scope.thisDish.options.filter(function(opt) {
-			opt.selected = -1;
+		$scope.thisDish.options.filter(function(opt, index) {
+			if (index == 0)
+				opt.selected = 1;
+			else
+				opt.selected = -1;
 		});
 
 		if (status === "new")
