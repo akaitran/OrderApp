@@ -38,13 +38,13 @@
 			</button>
 		</div>
 
-		<div class="col-md-4 col-xs-4" style="margin-bottom: 5px;">
+		<div class="col-md-6 col-xs-6" style="margin-bottom: 5px;">
 			<button class="btn capitalized col-md-12 col-xs-12" ng-class="{'btn-info btn-fill': thisOrder.type === 'dine in'}"
 				ng-click="changeType('dine in')">Dine-in
 			</button>
 		</div>
 
-		<div class="col-md-4 col-xs-4" ng-if="orderType.takeaway == 'on'" style="margin-bottom: 5px;">
+		<div class="col-md-6 col-xs-6" ng-if="orderType.takeaway == 'on'" style="margin-bottom: 5px;">
 			<button class="btn capitalized col-md-12 col-xs-12" ng-class="{'btn-info btn-fill': thisOrder.type === 'TA'}"
 				ng-click="changeType('TA')">T.A
 			</button>
