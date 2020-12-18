@@ -551,10 +551,9 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 				z_index: 10001,
 			});
 		} else {
-			$scope.isSending = true;
-			$scope.sendTitle = "Sending...";
-
 			if ($scope.thisOrder.type !== "dine in" || $scope.thisOrder.orderno != 0) {
+				$scope.isSending = true;
+				$scope.sendTitle = "Sending...";
 				$scope.sendBill = angular.copy($scope.thisOrder);
 				$scope.sendBill.dishes.filter(function (dish) {
 					dish.size = "";
