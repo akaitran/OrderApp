@@ -179,10 +179,7 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 	}
 
 	$scope.changeType = function (type) {
-		if (type === $scope.thisOrder.type)
-			$scope.thisOrder.type = "dine in";
-		else
-			$scope.thisOrder.type = type;
+		$scope.thisOrder.type = type;
 	}
 
 	$scope.changeSize = function (size) {
