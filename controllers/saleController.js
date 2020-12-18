@@ -128,14 +128,10 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 		});
 	}
 
-	$scope.filterDishList = function() {
-		var dishList = $scope.dishList.filter(function(dish) {
-			return (dish.seperator == 1 && $scope.thisOrder.type === "dine in") || (dish.seperator == 0 && $scope.thisOrder.type === "TA");
+	$scope.filterDishList = function(type) {
+		return $scope.dishList.filter(function(dish) {
+			return (dish.seperator == 1 && type === "dine in") || (dish.seperator == 0 && type === "TA");
 		});
-
-		console.log(dishList);
-
-		return dishList;
 	}
 
 	/*  Essential Functions  */

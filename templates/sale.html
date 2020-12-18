@@ -307,7 +307,7 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr ng-repeat="dish in filterDishList | filter: search | orderBy: name"
+										<tr ng-repeat="dish in filterDishList(thisOrder.type) | filter: search | orderBy: name"
 											ng-click="selectDish(dish, 'new')">
 											<td class="capitalized">
 												<span style="font-size: 18px;">{{dish.name}}</span>
