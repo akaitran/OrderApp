@@ -15,14 +15,14 @@
 
 		<div class="col-md-4 col-xs-4">
 			<label>Table</label>
-			<select class="capitalized form-control" ng-model="thisOrder.orderno"
+			<select class="capitalized form-control" ng-model="thisOrder.orderno" ng-disabled="thisOrder.type !== 'dine in'"
 				ng-options="table as table for table in rangeOf(52)" required>
 			</select>
 		</div>
 
 		<div class="col-md-5 col-xs-5">
 			<label>Position</label>
-			<select class="capitalized form-control" ng-model="thisOrder.orderside">
+			<select class="capitalized form-control" ng-model="thisOrder.orderside" ng-disabled="thisOrder.type !== 'dine in'">
 				<option value=""></option>
 				<option value="A">A</option>
 				<option value="B">B</option>
