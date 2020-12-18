@@ -76,7 +76,8 @@
 
 		<div class="row col-md-12 col-xs-12" style="margin: auto; margin-top: 5px;">
 			<input ng-model="thisOrder.description" class="form-control capitalized" type="text"
-				use-keyboard="US International" placeholder="Add A Note">
+				placeholder="Add A Note">
+				<!-use-keyboard="US International"-->
 		</div>
 
 		<div class="form-group" style="min-height: 300px;">
@@ -164,7 +165,7 @@
 		<div class="form-group">
 			<div class="col-md-6 col-xs-10">
 				<input ng-model="thisDish.name" class="form-control capitalized" type="text"
-					use-keyboard="US International" placeholder="Enter {{thisItem.type || 'Item'}} Name">
+					placeholder="Enter {{thisItem.type || 'Item'}} Name">
 			</div>
 
 			<div class="col-md-6 col-xs-12">
@@ -175,8 +176,9 @@
 				<div class="col-md-5 col-xs-5" style="display: inline-flex">
 					<button class="form-control round-button"
 						ng-click="thisDish.amount = thisDish.amount - 1">-</button>
-					<input type="number" use-keyboard="Numbers" min="0" ng-model="thisDish.amount"
+					<input type="number" min="0" ng-model="thisDish.amount"
 						class="form-control group-label" style="width: 50px; margin: 0 5px;" placeholder="0">
+						<!-- use-keyboard="Numbers"-->
 					<button class="form-control round-button"
 						ng-click="thisDish.amount = thisDish.amount + 1">+</button>
 				</div>
