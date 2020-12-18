@@ -272,6 +272,16 @@ textarea.form-control {
 	font-size: 18px;
 }
 
+.fixed-add-btn {
+	bottom: 50%;
+	height: 50px;
+	min-width: 50px;
+	position: absolute;
+	right: 45%;
+	width: 50px;
+	font-size: 18px;
+}
+
 .title.title-filled {
     color: rgb(255,82,82);
 }

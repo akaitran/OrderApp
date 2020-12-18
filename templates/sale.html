@@ -146,7 +146,11 @@
 	</div>
 </div>
 
-<div class="top-cover" id="top-cover" ng-click="closeCustom()"></div>
+<div class="top-cover" id="top-cover">
+	<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fixed-btn"
+		ng-click="closeCustom()" ng-cloak>ADD
+	</button>
+</div>
 
 <div class="bottom-sidebar" id="navigation-custom">
 	<div class="sidebar-wrapper">
@@ -332,7 +336,7 @@
 	</div>
 </div>
 
-<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fixed-btn"
+<button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fixed-add-btn"
 	ng-click="openDetail()" ng-cloak>
 	<span ng-bind="totalAmount()"></span>
 </button>
