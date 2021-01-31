@@ -15,9 +15,14 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 	$scope.thisItem = {
 		cateid: $scope.thisCate,
 		area: "kitchen",
-		sizes: [],
+		sizes: [{
+			name: "Standard",
+			price: 0
+		}],
 		ingredients: [],
-		options: []
+		options: [{
+			name: "No Option"
+		}]
 	};
 
 	$scope.thisSize = [];
@@ -27,9 +32,14 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 		$scope.thisItem = {
 			cateid: $scope.thisCate,
 			area: "kitchen",
-			sizes: [],
+			sizes: [{
+				name: "Standard",
+				price: 0
+			}],
 			ingredients: [],
-			options: []
+			options: [{
+				name: "No Option"
+			}]
 		};
 		$scope.context = { "submit": "create", "title": "new" };
 
@@ -146,9 +156,14 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 		$scope.thisItem = {};
 		$scope.thisItem.cateid = $scope.thisCate;
 		$scope.thisItem.area = "kitchen";
-		$scope.thisItem.sizes = [];
+		$scope.thisItem.sizes = [{
+			name: "Standard",
+			price: 0
+		}];
 		$scope.thisItem.ingredients = [];
-		$scope.thisItem.options = [];
+		$scope.thisItem.options = [{
+			name: "No Option"
+		}];
 	}
 
 	$scope.copyItem = function () {
