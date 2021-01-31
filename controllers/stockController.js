@@ -21,7 +21,7 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 	};
 
 	$scope.thisSize = [];
-	$scope.session = "lunch";
+	$scope.thisSession = "lunch";
 
 	$scope.loadData = function () {
 		$scope.thisItem = {
@@ -96,6 +96,14 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 
 		var dragItem = document.querySelector("#tabItem" + index);
 		dragItem.style.border = "1px solid #1DC7EA";
+	}
+
+	$scope.hasDish = function (cateId) {
+		var dishesOfCate = $scope.dishList.filter(function(dish) {
+			return dish.cateid === cateId && dish.session === $scope.thisSession;
+		});
+
+		return dishesOfCate.length > 0 ? true : false;
 	}
 
 	$scope.selectCate = function (cateId) {

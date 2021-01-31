@@ -180,9 +180,10 @@
 			<div class="inner-addon right-addon">
 				<div class="row">
 					<div class="col-md-2">
-						<select ng-model="session" class="form-control">
+						<select ng-model="thisSession" class="form-control">
 							<option value="lunch">Lunch Menu</option>
 							<option value="dinner">Dinner Menu</option>
+							<option value="drink">Drink Menu</option>
 							<option value="takeaway">TA Menu</option>
 						</select>
 					</div>
@@ -198,11 +199,11 @@
 		<br />
 
 		<ul class="nav nav-tabs" style="display:inline-flex; overflow: auto; width: 100%">
-			<li class="active">
+			<li ng-if="hasDish(cateList[0].id)" class="active">
 				<a href="" data-toggle="tab" data-target="#menu" class="capitalized" ng-click="selectCate(cateList[0].id)"
 					ng-bind="cateList[0].name"></a>
 			</li>
-			<li ng-if="$index > 0" ng-repeat="cate in cateList track by $index">
+			<li ng-if="$index > 0 && hasDish(cate.id)" ng-repeat="cate in cateList track by $index">
 				<a href="" data-toggle="tab" data-target="#menu" class="capitalized" ng-click="selectCate(cate.id)" style="white-space: nowrap" ng-bind="cate.name"></a>
 			</li>
 			<li>
@@ -215,7 +216,7 @@
 					<div class="full-list-container">
 						<div class="card dish-single-item col-xs-4 col-md-2 mdl-shadow--2dp navbar-toggle"
 							ng-class="{'active': dish.id == thisDish.id}"
-							ng-repeat="dish in dishList | filter: search | filter: {session: session}| orderBy: name" ng-click="selectDish(dish.id)"
+							ng-repeat="dish in dishList | filter: search | filter: {session: thisSession}| orderBy: name" ng-click="selectDish(dish.id)"
 							data-toggle="collapse" data-target="#navigation-editor" ng-cloak>
 							<div class="header">
 								<h4 class="title capitalized" ng-bind="dish.name"></h4>
