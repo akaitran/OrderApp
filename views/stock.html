@@ -39,6 +39,16 @@
 			</div>
 
 			<div class="col-md-12" ng-if="thisItem.type === 'dish'">
+				<label>Menu Type</label>
+				<select class="capitalized form-control" ng-model="thisItem.session" required>
+					<option value="lunch">Lunch Menu</option>
+					<option value="dinner">Dinner Menu</option>
+					<option value="drink">Drink Menu</option>
+					<option value="takeaway">TA Menu</option>
+				</select>
+			</div>
+
+			<div class="col-md-12" ng-if="thisItem.type === 'dish'">
 				<label>Area</label>
 				<select class="capitalized form-control" ng-model="thisItem.area" required>
 					<option ng-repeat="area in areaList">{{area}}</option>
