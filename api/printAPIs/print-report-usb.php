@@ -76,7 +76,7 @@ try {
   $printer -> setTextSize(1,1);
   $printer -> setUnderline(Printer::UNDERLINE_NONE);
 
-  $tux = EscposImage::load("../../images/anhtuk.png", false);
+  $tux = EscposImage::load("../../assets/images/anhtuk.png", false);
   $printer->bitImage($tux);
 
   //$printer->text(strtoupper($business) . "\n");

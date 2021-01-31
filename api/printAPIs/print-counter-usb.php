@@ -55,7 +55,7 @@ try {
 
   $printer->setJustification(Printer::JUSTIFY_CENTER);
 
-  $tux = EscposImage::load("../../images/logo.png", false);
+  $tux = EscposImage::load("../../assets/images/logo.png", false);
   $printer->bitImage($tux);
 
   $printer->text("\n");
