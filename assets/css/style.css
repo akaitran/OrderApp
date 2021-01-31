@@ -356,7 +356,7 @@ p.main-title {
 
 /*  Start Screen  */
 .start-screen {
-	background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../assets/images/start-bg.jpg');
+	background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../images/start-bg.jpg');
     background-position: center;
 	background-size: cover;
     height: 100vh;
