@@ -157,7 +157,7 @@
 			</div>
 
 			<div class="col-md-6 col-xs-12">
-				<button class="btn capitalized" style="margin: 0 2px"
+				<button class="btn capitalized" style="margin: 0 2px" ng-if="size.name !== 'Standard'"
 					ng-class="{'btn-info btn-fill': size.selected == 1}" ng-repeat="size in thisDish.sizes"
 					ng-click="changeSize(size)">{{size.name}}
 				</button>
