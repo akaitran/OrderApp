@@ -98,7 +98,7 @@
 							<span ng-repeat="size in dish.sizes">
 								<a ng-if="size.amount > 0">({{size.amount}}{{size.name}})</a>
 							</span>
-							<a ng-if="dish.type === 'TA'">(TA)</a>
+							<a ng-if="dish.session === 'TA'">(TA)</a>
 							<a ng-if="dish.type === 'later'">(Later)</a>
 							<br />
 							<span ng-repeat="opt in dish.options">
