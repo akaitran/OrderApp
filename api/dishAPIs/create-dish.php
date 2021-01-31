@@ -16,7 +16,7 @@
 
         $query = "INSERT INTO dish VALUES
 
-                (DEFAULT, '$dish->name', '$dish->subname', '$dish->description', '$dish->cateid', '$dish->area', '$dish->sizes', '$dish->ingredients', '$dish->options', DEFAULT, '$dish->seperator')";
+                (DEFAULT, '$dish->name', '$dish->subname', '$dish->description', '$dish->cateid', '$dish->area', '$dish->session', '$dish->sizes', '$dish->ingredients', '$dish->options', DEFAULT, '$dish->seperator')";
 
         $result = mysqli_query($conn, $query);
 

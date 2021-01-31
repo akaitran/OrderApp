@@ -69,7 +69,7 @@
 	
 	<body ng-app="app" ng-controller="mainController">
         <div class="start-screen" ng-if="startApp == false">
-            <img class="image-responsive" src="images/logo.png" style="height: 80px; margin-top: 100px;">
+            <img class="image-responsive" src="assets/images/logo.png" style="height: 80px; margin-top: 100px;">
             <h1 style="color: white">Beplink</h1>
             <h2 style="color: white">Order System</h2>
             <input class="form-control" style="width: 240px; margin: 20px auto" type="text"

@@ -21,6 +21,7 @@ app.controller("stockController", function ($scope, $http, $routeParams) {
 	};
 
 	$scope.thisSize = [];
+	$scope.session = "lunch";
 
 	$scope.loadData = function () {
 		$scope.thisItem = {

@@ -177,11 +177,21 @@
 
 	<div class="card content-layout" ng-init="loadData()">
 		<div class="header">
-			<p class="title main-title">Menu Management</p>
-			<div class="inner-addon right-addon search-box">
-				<input class="form-control" type="text" ng-model="searchText"
-					placeholder="Search Dish">
-				<i class="glyphicon glyphicon-search"></i>
+			<div class="inner-addon right-addon">
+				<div class="row">
+					<div class="col-md-2">
+						<select ng-model="session" class="form-control">
+							<option value="lunch">Lunch Menu</option>
+							<option value="dinner">Dinner Menu</option>
+							<option value="takeaway">TA Menu</option>
+						</select>
+					</div>
+					<div class="col-md-10">
+						<input class="form-control" type="text" ng-model="searchText"
+						placeholder="Search Dish">
+						<i class="glyphicon glyphicon-search"></i>
+					</div>
+				</div>
 			</div>
 		</div>
 		<br />
@@ -205,7 +215,7 @@
 					<div class="full-list-container">
 						<div class="card dish-single-item col-xs-4 col-md-2 mdl-shadow--2dp navbar-toggle"
 							ng-class="{'active': dish.id == thisDish.id}"
-							ng-repeat="dish in dishList | filter: search | orderBy: name" ng-click="selectDish(dish.id)"
+							ng-repeat="dish in dishList | filter: search | filter: {session: session}| orderBy: name" ng-click="selectDish(dish.id)"
 							data-toggle="collapse" data-target="#navigation-editor" ng-cloak>
 							<div class="header">
 								<h4 class="title capitalized" ng-bind="dish.name"></h4>

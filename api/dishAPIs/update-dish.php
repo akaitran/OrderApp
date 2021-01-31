@@ -18,6 +18,7 @@
                     description = '$dish->description',
                     cateid = '$dish->cateid',
                     area = '$dish->area',
+                    session = '$dish->session',
                     sizes = '$dish->sizes',
                     ingredients = '$dish->ingredients',
                     options = '$dish->options',

@@ -286,14 +286,6 @@ textarea.form-control {
     color: rgb(255,82,82);
 }
 
-.search-box {
-	width: 100%;
-}
-
-.search-box .form-control {
-	margin-bottom: 0;
-}
-
 .cate-single-item {
 	background-color: #fff9da;
 	cursor: pointer;
@@ -345,7 +337,7 @@ textarea.form-control {
 }
 
 .right-addon .glyphicon {
-	right: 0px;
+	right: 20px;
 }
 
 /* add padding  */
