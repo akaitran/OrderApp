@@ -130,7 +130,7 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 
 	$scope.filterDishList = function(type) {
 		return $scope.dishList.filter(function(dish) {
-			return (dish.seperator == 1 && type === "dine in") || (dish.seperator == 0 && type === "TA");
+			return (dish.session === $scope.thisOrder.session);
 		});
 	}
 
@@ -178,8 +178,19 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 		}
 	}
 
+	$scope.hasDish = function (cateId) {
+		var dishesOfCate = $scope.dishList.filter(function(dish) {
+			return dish.cateid === cateId && dish.session === $scope.thisOrder.session;
+		});
+
+		return dishesOfCate.length > 0 ? true : false;
+	}
+
 	$scope.changeType = function (type) {
-		$scope.thisOrder.type = type;
+		if (type !== "takeaway") $scope.thisOrder.type = "dine in";
+		else $scope.thisOrder.type = type;
+		
+		$scope.thisOrder.session = type;
 	}
 
 	$scope.changeSize = function (size) {
@@ -467,6 +478,7 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 
 		$scope.thisOrder.staffname = localStorage.getItem("staffname");
 		$scope.thisOrder.type = "dine in";
+		$scope.thisOrder.session = "lunch";
 		$scope.thisOrder.total = 0;
 		$scope.thisOrder.addition = -1;
 		$scope.thisOrder.orderno = 0;

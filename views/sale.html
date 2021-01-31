@@ -38,18 +38,6 @@
 			</button>
 		</div>
 
-		<div class="col-md-6 col-xs-6" style="margin-bottom: 5px;">
-			<button class="btn capitalized col-md-12 col-xs-12" ng-class="{'btn-info btn-fill': thisOrder.type === 'dine in'}"
-				ng-click="changeType('dine in')">Dine-in
-			</button>
-		</div>
-
-		<div class="col-md-6 col-xs-6" ng-if="orderType.takeaway == 'on'" style="margin-bottom: 5px;">
-			<button class="btn capitalized col-md-12 col-xs-12" ng-class="{'btn-info btn-fill': thisOrder.type === 'TA'}"
-				ng-click="changeType('TA')">T.A
-			</button>
-		</div>
-
 		<div class="col-md-4 col-xs-4" ng-if="orderType.uber == 'on'" style="margin-bottom: 5px;">
 			<button class="btn capitalized col-md-12 col-xs-12" ng-class="{'btn-info btn-fill': thisOrder.type === 'uber'}"
 				ng-click="changeType('uber')">Uber
@@ -98,7 +86,7 @@
 							<span ng-repeat="size in dish.sizes">
 								<a ng-if="size.amount > 0">({{size.amount}}{{size.name}})</a>
 							</span>
-							<a ng-if="dish.type === 'TA'">(TA)</a>
+							<a ng-if="dish.type === 'takeaway'">(TA)</a>
 							<a ng-if="dish.type === 'later'">(Later)</a>
 							<br />
 							<span ng-repeat="opt in dish.options">
@@ -276,6 +264,21 @@
 					<input class="form-control" type="text" ng-model="searchText" placeholder="Search Dish">
 					<i class="glyphicon glyphicon-search"></i>
 				</div>
+				<button class="btn capitalized" ng-class="{'btn-info btn-fill': thisOrder.session === 'lunch'}"
+					ng-click="changeType('lunch')">Lunch
+				</button>
+
+				<button class="btn capitalized" ng-class="{'btn-info btn-fill': thisOrder.session === 'dinner'}"
+					ng-click="changeType('dinner')">Dinner
+				</button>
+
+				<button class="btn capitalized" ng-class="{'btn-info btn-fill': thisOrder.session === 'drink'}"
+					ng-click="changeType('drink')">Drink
+				</button>
+
+				<button class="btn capitalized" ng-class="{'btn-info btn-fill': thisOrder.session === 'takeaway'}"
+					ng-click="changeType('takeaway')">Take Away
+				</button>
 			</div>
 			<br />
 
@@ -291,11 +294,11 @@
 		</div>-->
 
 			<ul class="nav nav-tabs" id="tabContainer">
-				<li id="tabItem1" class="active" on-long-press="dragSelect(1)">
+				<li id="tabItem1" ng-if="hasDish(cateList[0].id)" class="active" on-long-press="dragSelect(1)">
 					<a data-toggle="tab" data-target="#menu" class="capitalized" ng-click="selectCate(cateList[0].id)"
 						ng-bind="cateList[0].name"></a>
 				</li>
-				<li ng-attr-id="{{'tabItem' + cate.indexno}}" ng-if="$index > 0"
+				<li ng-attr-id="{{'tabItem' + cate.indexno}}" ng-if="$index > 0 && hasDish(cate.id)"
 					ng-repeat="cate in cateList | orderBy: indexno: false">
 					<a data-toggle="tab" data-target="#menu" class="capitalized" style="white-space: nowrap"
 						ng-click="selectCate(cate.id)" ng-bind="cate.name"></a>
@@ -362,7 +365,7 @@
 							</button>
 							<h3 class="title capitalized" ng-if="order.type === 'dine in'">
 								{{order.orderno}}{{order.orderside[0]}}</h3>
-							<h3 class="title capitalized" ng-if="order.type === 'TA'">{{order.type}}</h3>
+							<h3 class="title capitalized" ng-if="order.type === 'takeaway'">{{order.type}}</h3>
 							<h3 class="title capitalized" ng-if="order.type === 'uber'">{{order.description}}</h3>
 							<h4 class="title capitalized" ng-if="order.type !== 'uber'">{{order.description}}</h4>
 						</div>
