@@ -421,7 +421,7 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 			$scope.firstOpt = 1;
 
 		$scope.thisDish.options.filter(function(opt, index) {
-			if (index == $scope.firstOpt)
+			if (index === $scope.firstOpt)
 				opt.selected = 1;
 			else
 				opt.selected = -1;
