@@ -187,10 +187,11 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 	}
 
 	$scope.changeType = function (type) {
-		if (type !== "takeaway") $scope.thisOrder.type = "dine in";
-		else $scope.thisOrder.type = type;
-		
-		$scope.thisOrder.session = type;
+		$scope.thisOrder.type = type;
+	}
+
+	$scope.changeSession = function (session) {
+		$scope.thisOrder.session = session;
 	}
 
 	$scope.changeSize = function (size) {
