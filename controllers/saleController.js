@@ -407,12 +407,21 @@ app.controller("saleController", function ($scope, $http, $routeParams) {
 			size.selected = -1;
 		});
 
-		$scope.thisDish.sizes[0]['selected'] = 1;
+		if ($scope.thisDish.sizes.length < 1) 
+			$scope.firstSize = 0;
+		else
+			$scope.firstSize = 1;
 
-		$scope.thisSize = $scope.thisDish.sizes[0];
+		$scope.thisDish.sizes[$scope.firstSize]['selected'] = 1;
+		$scope.thisSize = $scope.thisDish.sizes[$scope.firstSize];
+
+		if ($scope.thisDish.options.length < 1) 
+			$scope.firstOpt = 0;
+		else
+			$scope.firstOpt = 1;
 
 		$scope.thisDish.options.filter(function(opt, index) {
-			if (index == 0)
+			if (index == $scope.firstOpt)
 				opt.selected = 1;
 			else
 				opt.selected = -1;
